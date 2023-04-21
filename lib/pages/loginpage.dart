@@ -45,8 +45,7 @@ class _LoginPageState extends State<LoginPage> {
     setState(() {
       if (seconds < 0) {
         countdownTimer!.cancel();
-        isresend = false;
-        istimeout = false;
+
         isresend = true;
         istimeout = true;
       } else if (seconds < 31) {
