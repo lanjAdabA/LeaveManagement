@@ -2368,7 +2368,7 @@ class _HomePageState extends State<HomePage> {
                                                                 decoration:
                                                                     const InputDecoration(
                                                                   hintText:
-                                                                      " Search                🔍",
+                                                                      " Search       🔍",
                                                                   border:
                                                                       InputBorder
                                                                           .none,
