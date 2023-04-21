@@ -362,6 +362,7 @@ class _BranchPageState extends State<BranchPage> {
                                           child: Column(
                                             children: [
                                               TextFormField(
+                                                autofocus: true,
                                                 controller: namecontroller,
                                                 decoration:
                                                     const InputDecoration(

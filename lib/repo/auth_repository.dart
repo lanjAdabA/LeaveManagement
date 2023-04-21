@@ -104,7 +104,7 @@ class AuthRepository {
         authLoginListener.error();
       }
     } catch (e) {
-      log(e.toString());
+      EasyLoading.showToast("Branch name already exist");
     }
   }
 
@@ -132,7 +132,9 @@ class AuthRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("Successfully Update branch data");
         authLoginListener.loaded();
-      } else {}
+      } else {
+        authLoginListener.error();
+      }
     } catch (e) {
       authLoginListener.error();
       log(e.toString());
@@ -162,7 +164,7 @@ class AuthRepository {
         authLoginListener.error();
       }
     } catch (e) {
-      log(e.toString());
+      EasyLoading.showToast("Department name already exist");
     }
   }
 
@@ -188,7 +190,9 @@ class AuthRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("Successfully Update Department data");
         authLoginListener.loaded();
-      } else {}
+      } else {
+        authLoginListener.error();
+      }
     } catch (e) {
       authLoginListener.error();
       log(e.toString());
@@ -209,9 +213,11 @@ class AuthRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("Successfully Delete Deparment data");
         authLoginListener.loaded();
-      } else {}
+      } else {
+        authLoginListener.error();
+        // EasyLoading.showToast("Data not found");
+      }
     } catch (e) {
-      authLoginListener.error();
       log(e.toString());
     }
   }
@@ -240,8 +246,8 @@ class AuthRepository {
         authLoginListener.error();
       }
     } catch (e) {
-      authLoginListener.error();
-      log(e.toString());
+      //authLoginListener.error();
+      EasyLoading.showToast("Designation name already exist");
     }
   }
 
