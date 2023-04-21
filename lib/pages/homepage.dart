@@ -93,8 +93,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     readall();
+
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     datatablescrollcontroller.addListener(() {
@@ -1144,13 +1144,12 @@ class _HomePageState extends State<HomePage> {
                                                     onPressed: () async {
                                                       EasyLoading.show(
                                                           status: 'Adding..');
-                                                      if (_namefieldcontroller
+                                                      if (leavereasoncontroller
                                                               .text.isEmpty ||
-                                                          dropdownvalue11 ==
+                                                          leavetypedropdownid ==
                                                               null ||
-                                                          dropdownvalue22 ==
-                                                              null ||
-                                                          datetime.isEmpty) {
+                                                          startdate.isEmpty ||
+                                                          enddate.isEmpty) {
                                                         EasyLoading.dismiss();
                                                         context.router.pop();
                                                         CustomSnackBar(
@@ -1159,7 +1158,37 @@ class _HomePageState extends State<HomePage> {
                                                               'All Fields Are Mandatory',
                                                             ),
                                                             Colors.red);
-                                                      } else {}
+                                                      } else {
+                                                        context
+                                                            .read<
+                                                                CreateleaveCubit>()
+                                                            .createleave(
+                                                                empid: item
+                                                                    .employeeId,
+                                                                leavetypeid:
+                                                                    leavetypedropdownid!,
+                                                                startdate:
+                                                                    startdate,
+                                                                enddate:
+                                                                    enddate,
+                                                                reasonforleave:
+                                                                    leavereasoncontroller
+                                                                        .text,
+                                                                halfday:
+                                                                    isactive
+                                                                        ? 1
+                                                                        : 0,
+                                                                daysection:
+                                                                    selectedRadioTileforleave!);
+
+                                                        isactive = false;
+                                                        startdate = '';
+                                                        enddate = '';
+                                                        leavetypedropdownid =
+                                                            null;
+                                                        leavereasoncontroller
+                                                            .clear();
+                                                      }
                                                     },
                                                     child: const Text("ADD")),
                                               )
@@ -1247,6 +1276,9 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                       onChanged:
                                                           (String? newValue) {
+                                                        log(allleavetypestate
+                                                            .alleavetypeidwithname
+                                                            .toString());
                                                         setState(() {
                                                           leavetypedropdown =
                                                               newValue
@@ -1263,8 +1295,6 @@ class _HomePageState extends State<HomePage> {
                                                                     leavetypedropdown,
                                                                 orElse: () =>
                                                                     null);
-                                                        log(dropdownvalue44!
-                                                            .toString());
                                                       },
                                                     ),
                                                   ),
@@ -1399,6 +1429,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  String? dropdownvalue_designname;
+  int? dropdownvalue_designid;
+  int? dropdownvalue_departmentid;
+  String? dropdownvalue_departmentname;
+  String? dropdownvalue_rolename;
+  int? dropdownvalue_roleid;
+  String? dropdownvalue_branchname;
+  int? dropdownvalue_branchid;
+
   String? dropdownvalue1;
   int? dropdownvalue11;
   int? dropdownvalue22;
@@ -1514,18 +1553,21 @@ class _HomePageState extends State<HomePage> {
                             log('All Design :${alldesignstate.designidwithname}');
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
-                            if (allbranchState.branchidwithname.isEmpty) {
-                              context.read<GetallbranchCubit>().getallbranch();
-                            } else if (alldeptState.deptidwithname.isEmpty) {
-                              context.read<GetAlldeptCubit>().getalldept();
-                            } else if (alldesignstate
-                                .designidwithname.isEmpty) {
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            } else {
-                              context.read<GetallbranchCubit>().getallbranch();
-                              context.read<GetAlldeptCubit>().getalldept();
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            }
+                            // if (allbranchState.branchidwithname.isEmpty) {
+                            //   log('Branch is empty');
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            // } else if (alldeptState.deptidwithname.isEmpty) {
+                            //   log('Dept is empty');
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            // } else if (alldesignstate
+                            //     .designidwithname.isEmpty) {
+                            //   log('Designation is empty');
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // } else {
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // }
                             fetchdata(
                                 allemplist: getempoyeestate.allemployeelist,
                                 branchidwithname:
@@ -2419,7 +2461,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue1,
+                                                                  dropdownvalue_designname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2460,18 +2502,18 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue1 =
+                                                                  dropdownvalue_designname =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue11 = alldesignstate
+                                                                dropdownvalue_designid = alldesignstate
                                                                     .designidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             alldesignstate.designidwithname[k] ==
-                                                                            dropdownvalue1,
+                                                                            dropdownvalue_designname,
                                                                         orElse: () =>
                                                                             null);
 
@@ -2481,13 +2523,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                                 displayedDataCell
                                                                     .clear();
                                                               },
@@ -2531,7 +2573,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue2,
+                                                                  dropdownvalue_departmentname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2572,21 +2614,21 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue2 =
+                                                                  dropdownvalue_departmentname =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue22 = alldeptState
+                                                                dropdownvalue_departmentid = alldeptState
                                                                     .deptidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             alldeptState.deptidwithname[k] ==
-                                                                            dropdownvalue2,
+                                                                            dropdownvalue_departmentname,
                                                                         orElse: () =>
                                                                             null);
-                                                                log('DropDown Id :$dropdownvalue22');
+
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
@@ -2595,13 +2637,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                               },
                                                             ),
                                                           ),
@@ -2648,7 +2690,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue3,
+                                                                  dropdownvalue_rolename,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2689,14 +2731,14 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue3 =
+                                                                  dropdownvalue_rolename =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue33 =
+                                                                dropdownvalue_roleid =
                                                                     roleidwithname[
-                                                                        dropdownvalue3];
+                                                                        dropdownvalue_rolename];
 
                                                                 displayedDataCell
                                                                     .clear();
@@ -2706,14 +2748,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
-                                                                log("Role id : $dropdownvalue33");
+                                                                        dropdownvalue_branchid);
                                                               },
                                                             ),
                                                           ),
@@ -2755,7 +2796,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue4,
+                                                                  dropdownvalue_branchname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2796,17 +2837,17 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue4 =
+                                                                  dropdownvalue_branchname =
                                                                       newValue
                                                                           as String;
                                                                 });
-                                                                dropdownvalue44 = allbranchState
+                                                                dropdownvalue_branchid = allbranchState
                                                                     .branchidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             allbranchState.branchidwithname[k] ==
-                                                                            dropdownvalue4,
+                                                                            dropdownvalue_branchname,
                                                                         orElse: () =>
                                                                             null);
 
@@ -2818,13 +2859,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                                 log(dropdownvalue44!
                                                                     .toString());
                                                               },
