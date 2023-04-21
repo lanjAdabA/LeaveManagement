@@ -40,7 +40,7 @@ class SidebarPage extends StatelessWidget {
       home: Builder(
         builder: (context) {
           //! if screensize < 600 then sidebar will be hidden
-          final isSmallScreen = MediaQuery.of(context).size.width < 800;
+          final isSmallScreen = MediaQuery.of(context).size.width < 1200;
           return Scaffold(
             key: _key,
             appBar: isSmallScreen
@@ -521,7 +521,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                           child: Text(
                             "Globizs web solution Pvt. Ltd.",
                             style: TextStyle(
-                                color: Color.fromARGB(255, 126, 23, 26),
+                                color: Color.fromARGB(255, 211, 32, 39),
                                 fontSize: 56),
                           ),
                         )
