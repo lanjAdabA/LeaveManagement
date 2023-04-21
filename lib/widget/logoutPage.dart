@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leavemanagementadmin/Interceptor/storetoken.dart';
 import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/logic/Authflow/auth_flow_cubit.dart';
+import 'package:leavemanagementadmin/widget/filter.dart';
 
 class LogOutPage extends StatefulWidget {
   const LogOutPage({super.key});
@@ -47,7 +48,7 @@ class _LogOutPageState extends State<LogOutPage> {
                                 const Padding(
                                   padding: EdgeInsets.symmetric(vertical: 8.0),
                                   child: Text(
-                                    "Leave Management System",
+                                    "Leave Management System    ",
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w400),
@@ -86,7 +87,7 @@ class _LogOutPageState extends State<LogOutPage> {
                                     "Logout ?",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 18),
+                                        fontSize: 22),
                                   ),
                                   const SizedBox(
                                     height: 20,
@@ -99,45 +100,47 @@ class _LogOutPageState extends State<LogOutPage> {
                                             onTap: () {
                                               context.router.replaceNamed('/');
                                             },
-                                            child: Card(
-                                              elevation: 6,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                //set border radius more than 50% of height and width to make circle
+                                            child: OnHoverButton(
+                                              child: Card(
+                                                elevation: 6,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  //set border radius more than 50% of height and width to make circle
+                                                ),
+                                                child: CardWidget(
+                                                    gradient: const [
+                                                      Color.fromARGB(
+                                                          255, 219, 217, 217),
+                                                      Color.fromARGB(
+                                                          255, 246, 244, 244)
+                                                    ],
+                                                    width: 120,
+                                                    height: 32,
+                                                    borderRadius: 13,
+                                                    child: Center(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(
+                                                            Icons.cancel,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          Text(
+                                                            "Not now",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .grey),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
                                               ),
-                                              child: CardWidget(
-                                                  gradient: const [
-                                                    Color.fromARGB(
-                                                        255, 219, 217, 217),
-                                                    Color.fromARGB(
-                                                        255, 246, 244, 244)
-                                                  ],
-                                                  width: 120,
-                                                  height: 32,
-                                                  borderRadius: 13,
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: const [
-                                                        Icon(
-                                                          Icons.cancel,
-                                                          color: Colors.grey,
-                                                        ),
-                                                        Text(
-                                                          "Not now",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.grey),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
                                             ),
                                           ),
                                           InkWell(
@@ -148,46 +151,48 @@ class _LogOutPageState extends State<LogOutPage> {
                                                     .getloginstatus();
                                               });
                                             },
-                                            child: Card(
-                                              elevation: 10,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                //set border radius more than 50% of height and width to make circle
+                                            child: OnHoverButton(
+                                              child: Card(
+                                                elevation: 10,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  //set border radius more than 50% of height and width to make circle
+                                                ),
+                                                child: CardWidget(
+                                                    gradient: const [
+                                                      Color.fromARGB(
+                                                          255, 211, 32, 39),
+                                                      Color.fromARGB(
+                                                          255, 164, 92, 95)
+                                                    ],
+                                                    width: 120,
+                                                    height: 32,
+                                                    borderRadius: 13,
+                                                    child: Center(
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: const [
+                                                          Icon(
+                                                            Icons
+                                                                .check_circle_rounded,
+                                                            color: Colors.white,
+                                                          ),
+                                                          Text(
+                                                            "Confirm",
+                                                            style: TextStyle(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )),
                                               ),
-                                              child: CardWidget(
-                                                  gradient: const [
-                                                    Color.fromARGB(
-                                                        255, 211, 32, 39),
-                                                    Color.fromARGB(
-                                                        255, 164, 92, 95)
-                                                  ],
-                                                  width: 120,
-                                                  height: 32,
-                                                  borderRadius: 13,
-                                                  child: Center(
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: const [
-                                                        Icon(
-                                                          Icons
-                                                              .check_circle_rounded,
-                                                          color: Colors.white,
-                                                        ),
-                                                        Text(
-                                                          "Confirm",
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )),
                                             ),
                                           ),
                                         ],
