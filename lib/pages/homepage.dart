@@ -1399,6 +1399,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  String? dropdownvalue_designname;
+  int? dropdownvalue_designid;
+  int? dropdownvalue_departmentid;
+  String? dropdownvalue_departmentname;
+  String? dropdownvalue_rolename;
+  int? dropdownvalue_roleid;
+  String? dropdownvalue_branchname;
+  int? dropdownvalue_branchid;
+
   String? dropdownvalue1;
   int? dropdownvalue11;
   int? dropdownvalue22;
@@ -2419,7 +2428,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue1,
+                                                                  dropdownvalue_designname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2460,18 +2469,18 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue1 =
+                                                                  dropdownvalue_designname =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue11 = alldesignstate
+                                                                dropdownvalue_designid = alldesignstate
                                                                     .designidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             alldesignstate.designidwithname[k] ==
-                                                                            dropdownvalue1,
+                                                                            dropdownvalue_designname,
                                                                         orElse: () =>
                                                                             null);
 
@@ -2481,13 +2490,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                                 displayedDataCell
                                                                     .clear();
                                                               },
@@ -2531,7 +2540,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue2,
+                                                                  dropdownvalue_departmentname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2572,21 +2581,21 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue2 =
+                                                                  dropdownvalue_departmentname =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue22 = alldeptState
+                                                                dropdownvalue_departmentid = alldeptState
                                                                     .deptidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             alldeptState.deptidwithname[k] ==
-                                                                            dropdownvalue2,
+                                                                            dropdownvalue_departmentname,
                                                                         orElse: () =>
                                                                             null);
-                                                                log('DropDown Id :$dropdownvalue22');
+
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
@@ -2595,13 +2604,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                               },
                                                             ),
                                                           ),
@@ -2648,7 +2657,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue3,
+                                                                  dropdownvalue_rolename,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2689,14 +2698,14 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue3 =
+                                                                  dropdownvalue_rolename =
                                                                       newValue
                                                                           as String;
                                                                 });
 
-                                                                dropdownvalue33 =
+                                                                dropdownvalue_roleid =
                                                                     roleidwithname[
-                                                                        dropdownvalue3];
+                                                                        dropdownvalue_rolename];
 
                                                                 displayedDataCell
                                                                     .clear();
@@ -2706,14 +2715,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
-                                                                log("Role id : $dropdownvalue33");
+                                                                        dropdownvalue_branchid);
                                                               },
                                                             ),
                                                           ),
@@ -2755,7 +2763,7 @@ class _HomePageState extends State<HomePage> {
                                                                 DropdownSearch<
                                                                     String>(
                                                               selectedItem:
-                                                                  dropdownvalue4,
+                                                                  dropdownvalue_branchname,
                                                               popupProps:
                                                                   PopupProps
                                                                       .menu(
@@ -2796,17 +2804,17 @@ class _HomePageState extends State<HomePage> {
                                                               onChanged: (String?
                                                                   newValue) {
                                                                 setState(() {
-                                                                  dropdownvalue4 =
+                                                                  dropdownvalue_branchname =
                                                                       newValue
                                                                           as String;
                                                                 });
-                                                                dropdownvalue44 = allbranchState
+                                                                dropdownvalue_branchid = allbranchState
                                                                     .branchidwithname
                                                                     .keys
                                                                     .firstWhere(
                                                                         (k) =>
                                                                             allbranchState.branchidwithname[k] ==
-                                                                            dropdownvalue4,
+                                                                            dropdownvalue_branchname,
                                                                         orElse: () =>
                                                                             null);
 
@@ -2818,13 +2826,13 @@ class _HomePageState extends State<HomePage> {
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
-                                                                        dropdownvalue11,
+                                                                        dropdownvalue_designid,
                                                                     deptid:
-                                                                        dropdownvalue22,
+                                                                        dropdownvalue_departmentid,
                                                                     rolename:
-                                                                        dropdownvalue33,
+                                                                        dropdownvalue_roleid,
                                                                     branchid:
-                                                                        dropdownvalue44);
+                                                                        dropdownvalue_branchid);
                                                                 log(dropdownvalue44!
                                                                     .toString());
                                                               },
