@@ -3,7 +3,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:geolocator/geolocator.dart';
 
 import 'package:intl/intl.dart';
 import 'package:leavemanagementadmin/constant.dart';
@@ -19,7 +18,6 @@ import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_cubit.dar
 import 'package:leavemanagementadmin/logic/role/cubit/get_role_cubit.dart';
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
@@ -42,7 +40,7 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
-
+  DateTime? initialdate = DateTime(2023);
   Widget _dataofbirth(String dob, String labeltext) {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -300,8 +298,6 @@ class _HomePageState extends State<HomePage> {
                                                                       null;
                                                                   dropdownvalue2 =
                                                                       null;
-                                                                  _position =
-                                                                      null;
                                                                 });
                                                               },
                                                               child: const Text(
@@ -418,7 +414,7 @@ class _HomePageState extends State<HomePage> {
                                                       child: Form(
                                                         child: SizedBox(
                                                           width: 300,
-                                                          height: 670,
+                                                          height: 600,
                                                           child: Column(
                                                             children: [
                                                               TextFormField(
@@ -626,12 +622,6 @@ class _HomePageState extends State<HomePage> {
                                                                         'Phone Number',
                                                                   )),
 
-                                                              const SizedBox(
-                                                                height: 5,
-                                                              ),
-                                                              _dataofbirth(
-                                                                  datetime2,
-                                                                  'Date of Joining'),
                                                               const SizedBox(
                                                                 height: 5,
                                                               ),
@@ -1141,7 +1131,6 @@ class _HomePageState extends State<HomePage> {
 
                                                     dropdownvalue1 = null;
                                                     dropdownvalue2 = null;
-                                                    _position = null;
                                                   });
                                                 },
                                                 child: const Text(
@@ -1166,9 +1155,7 @@ class _HomePageState extends State<HomePage> {
                                                             null ||
                                                         dropdownvalue22 ==
                                                             null ||
-                                                        datetime.isEmpty ||
-                                                        profileimage.isEmpty ||
-                                                        finallocation == null) {
+                                                        datetime.isEmpty) {
                                                       EasyLoading.dismiss();
                                                       context.router.pop();
                                                       CustomSnackBar(
@@ -1450,93 +1437,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  int del_statuscode = 0;
-  int update_statuscode = 0;
-  int create_statuscode = 0;
-
-  String? latitude;
-  String? longitude;
-  String? finallocation;
-
-  String profileimage = '';
-
-  Position? _position;
-
-  bool clicked = false;
-  Container conta = Container(
-    child: const Text(
-      'No Location Data',
-    ),
-  );
-
-  getdel_status() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      del_statuscode = prefs.getInt('emp_deletecode')!;
-    });
-    if (del_statuscode == 204) {
-      CustomSnackBar(context, const Text('Deleted Successfully'), Colors.green);
-    } else {
-      CustomSnackBar(context, const Text('Error'), Colors.red);
-    }
-  }
-
-  getupdate_status() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      update_statuscode = prefs.getInt('emp_updatecode')!;
-    });
-    if (update_statuscode == 201 || update_statuscode == 200) {
-      CustomSnackBar(
-          context, const Text('Updated Employee Successfully'), Colors.green);
-    } else {
-      CustomSnackBar(context, const Text('Error'), Colors.red);
-    }
-  }
-
-  getcreate_status() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      create_statuscode = prefs.getInt('emp_createcode')!;
-      log(create_statuscode.toString());
-    });
-    if (create_statuscode == 201 || create_statuscode == 200) {
-      CustomSnackBar(
-          context, const Text('Added Employee Successfully'), Colors.green);
-    } else {
-      CustomSnackBar(context, const Text('Error'), Colors.red);
-    }
-  }
-
-  final GlobalKey<FormFieldState> _keydep = GlobalKey();
-  final GlobalKey<FormFieldState> _keydes = GlobalKey();
-
-  String finaltoken = '';
-  DateTime? initialdate = DateTime(2023);
-  Future getdata() async {
-    final prefs = await SharedPreferences.getInstance();
-    String tokken = prefs.getString('tokken')!;
-
-    setState(() {
-      finaltoken = tokken;
-    });
-
-    log(all_dep.toString());
-    log(all_des.toString());
-  }
-
-  Future getdata2() async {
-    final prefs = await SharedPreferences.getInstance();
-    String tokken = prefs.getString('tokken')!;
-
-    setState(() {
-      finaltoken = tokken;
-    });
-
-    log(all_dep.toString());
-    log(all_des.toString());
-  }
-
   List<DataCell> displayedDataCell = [];
   bool isempty = false;
   int index = 1;
@@ -1770,8 +1670,6 @@ class _HomePageState extends State<HomePage> {
                                                                             dropdownvalue1 =
                                                                                 null;
                                                                             dropdownvalue2 =
-                                                                                null;
-                                                                            _position =
                                                                                 null;
                                                                           });
                                                                         },
