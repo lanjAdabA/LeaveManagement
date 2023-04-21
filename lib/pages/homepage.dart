@@ -97,6 +97,7 @@ class _HomePageState extends State<HomePage> {
 
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
+    selectedRadioTileforgender = 1;
     datatablescrollcontroller.addListener(() {
       if (datatablescrollcontroller.position.pixels ==
           datatablescrollcontroller.position.maxScrollExtent) {
@@ -110,10 +111,10 @@ class _HomePageState extends State<HomePage> {
           context.read<GetemployeelistCubit>().getemployeelist(
               datalimit: datalimit,
               ismoredata: true,
-              branchid: dropdownvalue44,
-              deptid: dropdownvalue22,
-              desigid: dropdownvalue11,
-              rolename: dropdownvalue33);
+              branchid: dropdownvalue_branchid,
+              deptid: dropdownvalue_departmentid,
+              desigid: dropdownvalue_designid,
+              rolename: dropdownvalue_roleid);
 
           log('reach buttom');
         }
@@ -124,6 +125,7 @@ class _HomePageState extends State<HomePage> {
   int? _selectedRadioTile;
 
   int? selectedRadioTileforleave;
+  int? selectedRadioTileforgender;
 
   void readall() {
     log('reading cubit.......');
@@ -1188,6 +1190,7 @@ class _HomePageState extends State<HomePage> {
                                                             null;
                                                         leavereasoncontroller
                                                             .clear();
+                                                        context.router.pop();
                                                       }
                                                     },
                                                     child: const Text("ADD")),
@@ -1745,7 +1748,7 @@ class _HomePageState extends State<HomePage> {
                                                                                   ),
                                                                                   Colors.red);
                                                                             } else {
-                                                                              context.read<CreateEmployeeCubit>().createemployee(empname: _namefieldcontroller.text, empusername: usernamecontroller.text, email: emailcontroller.text, empcode: int.parse(empcode.text), phonenumber: numbercontroller.text, deptid: dropdownvalue22!, designid: dropdownvalue11!, branchid: dropdownvalue44!, roleid: dropdownvalue33!, dateofjoining: datetime, emptype: _selectedRadioTile.toString());
+                                                                              context.read<CreateEmployeeCubit>().createemployee(empname: _namefieldcontroller.text, empusername: usernamecontroller.text, email: emailcontroller.text, empcode: int.parse(empcode.text), phonenumber: numbercontroller.text, deptid: dropdownvalue22!, designid: dropdownvalue11!, branchid: dropdownvalue44!, roleid: dropdownvalue33!, dateofjoining: datetime, emptype: _selectedRadioTile.toString(), gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
 
                                                                               EasyLoading.dismiss();
                                                                               context.router.pop();
@@ -1789,7 +1792,7 @@ class _HomePageState extends State<HomePage> {
                                                                   child:
                                                                       SizedBox(
                                                                     width: 300,
-                                                                    height: 652,
+                                                                    height: 725,
                                                                     child:
                                                                         Column(
                                                                       children: [
@@ -1870,7 +1873,7 @@ class _HomePageState extends State<HomePage> {
                                                                             decoration:
                                                                                 const InputDecoration(
                                                                               hintStyle: TextStyle(fontSize: 15, color: Color.fromARGB(255, 212, 211, 211)),
-                                                                              hintText: 'Name',
+                                                                              hintText: 'Employee Name',
                                                                             )),
                                                                         const SizedBox(
                                                                           height:
@@ -1962,6 +1965,53 @@ class _HomePageState extends State<HomePage> {
                                                                         const SizedBox(
                                                                           height:
                                                                               5,
+                                                                        ),
+                                                                        const Align(
+                                                                          alignment:
+                                                                              Alignment.centerLeft,
+                                                                          child:
+                                                                              Text('Gender :'),
+                                                                        ),
+                                                                        const SizedBox(
+                                                                          height:
+                                                                              5,
+                                                                        ),
+                                                                        Row(
+                                                                          children: [
+                                                                            Expanded(
+                                                                              child: RadioListTile(
+                                                                                contentPadding: EdgeInsets.zero,
+                                                                                title: const Text('Male'),
+                                                                                value: 1,
+                                                                                groupValue: selectedRadioTileforgender,
+                                                                                onChanged: (val) {
+                                                                                  print('Selected value: $val');
+                                                                                  log(val.toString());
+                                                                                  setState(() {
+                                                                                    selectedRadioTileforgender = val;
+                                                                                  });
+                                                                                },
+                                                                                activeColor: Colors.green,
+                                                                                selected: selectedRadioTileforgender == 1,
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: RadioListTile(
+                                                                                contentPadding: EdgeInsets.zero,
+                                                                                title: const Text('Female'),
+                                                                                value: 2,
+                                                                                groupValue: selectedRadioTileforgender,
+                                                                                onChanged: (val) {
+                                                                                  print('Selected value: $val');
+                                                                                  setState(() {
+                                                                                    selectedRadioTileforgender = val;
+                                                                                  });
+                                                                                },
+                                                                                activeColor: Colors.green,
+                                                                                selected: selectedRadioTileforgender == 2,
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                         _dataofbirth(
                                                                             datetime2,

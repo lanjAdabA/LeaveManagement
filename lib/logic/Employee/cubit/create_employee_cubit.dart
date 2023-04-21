@@ -15,6 +15,7 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeStatus>
     required String empname,
     required String empusername,
     required String email,
+    required String gender,
     required int empcode,
     required String phonenumber,
     required int deptid,
@@ -37,7 +38,8 @@ class CreateEmployeeCubit extends Cubit<CreateEmployeeStatus>
         roleid: roleid,
         dateofjoining: dateofjoining,
         emptype: emptype,
-        authLoginListener: this);
+        authLoginListener: this,
+        gender: gender);
     //log("IS_Active : $isactive");
   }
 
