@@ -355,12 +355,12 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
 }
 
 bool isselectedsetting = false;
-bool isselected0 = true;
-bool isselected1 = false;
-bool isselected3 = false;
-bool isselected4 = false;
-bool isselected5 = false;
-bool isselected6 = false;
+bool? isselected0;
+bool? isselected1;
+bool? isselected3;
+bool? isselected4;
+bool? isselected5;
+bool? isselected6;
 
 class _ScreensExample extends StatefulWidget {
   const _ScreensExample({
@@ -379,6 +379,13 @@ class _ScreensExampleState extends State<_ScreensExample> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    isselectedsetting = false;
+    isselected0 = true;
+    isselected1 = false;
+    isselected3 = false;
+    isselected4 = false;
+    isselected5 = false;
+    isselected6 = false;
     widget.controller.addListener(() {
       log(widget.controller.selectedIndex.toString());
       switch (widget.controller.selectedIndex) {
@@ -411,12 +418,12 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselectedsetting = !isselectedsetting;
-              isselected0 = isselected0 ? true : false;
-              isselected1 = isselected1 ? true : false;
-              isselected3 = isselected3 ? true : false;
-              isselected4 = isselected4 ? true : false;
-              isselected5 = isselected5 ? true : false;
-              isselected6 = isselected6 ? true : false;
+              isselected0 = isselected0! ? true : false;
+              isselected1 = isselected1! ? true : false;
+              isselected3 = isselected3! ? true : false;
+              isselected4 = isselected4! ? true : false;
+              isselected5 = isselected5! ? true : false;
+              isselected6 = isselected6! ? true : false;
             },
           );
           break;
@@ -506,7 +513,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
             return const HomePage();
 
           case 2:
-            return isselected0
+            return isselected0!
                 ? FittedBox(
                     fit: BoxFit.fill,
                     child: Column(
@@ -527,17 +534,17 @@ class _ScreensExampleState extends State<_ScreensExample> {
                         )
                       ],
                     ))
-                : isselected1
+                : isselected1!
                     ? const HomePage()
-                    : isselected3
+                    : isselected3!
                         ? isselectedsetting
                             ? const LogOutPage()
                             : const BranchPage()
-                        : isselected4
+                        : isselected4!
                             ? const DepartmentPage()
-                            : isselected5
+                            : isselected5!
                                 ? const DesignationPage()
-                                : isselected6
+                                : isselected6!
                                     ? isselectedsetting
                                         ? const LogOutPage()
                                         : const LogOutPage()
