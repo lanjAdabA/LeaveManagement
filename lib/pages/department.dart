@@ -319,18 +319,19 @@ class _DepartmentPageState extends State<DepartmentPage> {
                       case PostDeptStatus.initial:
                         break;
                       case PostDeptStatus.loading:
-                        EasyLoading.show(status: 'Addiing Branch..');
+                        EasyLoading.show(status: 'Addiing Department..');
                         break;
+
+                      case PostDeptStatus.error:
+                        EasyLoading.showError('Already exist');
+                        break;
+
                       case PostDeptStatus.loaded:
                         EasyLoading.showToast('Added Successfully')
                             .whenComplete(() {
                           displayedDataCell.clear();
                           context.read<GetAlldeptCubit>().getalldept();
                         });
-
-                        break;
-                      case PostDeptStatus.error:
-                        EasyLoading.showError('Error');
                         break;
                     }
                   },
@@ -598,6 +599,9 @@ class _DepartmentPageState extends State<DepartmentPage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 50,
+                        )
                       ]),
                     );
                   },

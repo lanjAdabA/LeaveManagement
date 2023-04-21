@@ -50,15 +50,8 @@ class SidebarPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         SizedBox(
-                            height: 30,
-                            child: Image.asset("assets/images/Globizs_DS.png")),
-                        // Text(
-                        //   "Leave Management",
-                        //   style: TextStyle(
-                        //       color: Colors.red[700],
-                        //       fontSize: 28,
-                        //       fontWeight: FontWeight.w700),
-                        // )
+                            height: 32,
+                            child: Image.asset("assets/images/GlobizsLM.png")),
                       ],
                     ),
                     //  const Text(
