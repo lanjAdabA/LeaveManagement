@@ -166,9 +166,9 @@ class _HomePageState extends State<HomePage> {
           ),
         );
         displayedDataCell.add(
-          const DataCell(
+          DataCell(
             Center(
-              child: Text('Active'),
+              child: Text(item.employeeIsActive == "1" ? 'Active' : "Inactive"),
             ),
           ),
         );

@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: _appRouter.config(),
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Globizs Leave Management',
         theme: ThemeData(primarySwatch: Colors.red, fontFamily: 'KulimPark'),
         builder: EasyLoading.init(),
       ),

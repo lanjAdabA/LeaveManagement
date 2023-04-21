@@ -23,7 +23,7 @@ class SidebarPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SidebarX Example',
+      title: 'Globizs Leave Management',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: primaryColor,
