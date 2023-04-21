@@ -93,8 +93,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
     readall();
+
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     datatablescrollcontroller.addListener(() {
@@ -1144,13 +1144,12 @@ class _HomePageState extends State<HomePage> {
                                                     onPressed: () async {
                                                       EasyLoading.show(
                                                           status: 'Adding..');
-                                                      if (_namefieldcontroller
+                                                      if (leavereasoncontroller
                                                               .text.isEmpty ||
-                                                          dropdownvalue11 ==
+                                                          leavetypedropdownid ==
                                                               null ||
-                                                          dropdownvalue22 ==
-                                                              null ||
-                                                          datetime.isEmpty) {
+                                                          startdate.isEmpty ||
+                                                          enddate.isEmpty) {
                                                         EasyLoading.dismiss();
                                                         context.router.pop();
                                                         CustomSnackBar(
@@ -1159,7 +1158,37 @@ class _HomePageState extends State<HomePage> {
                                                               'All Fields Are Mandatory',
                                                             ),
                                                             Colors.red);
-                                                      } else {}
+                                                      } else {
+                                                        context
+                                                            .read<
+                                                                CreateleaveCubit>()
+                                                            .createleave(
+                                                                empid: item
+                                                                    .employeeId,
+                                                                leavetypeid:
+                                                                    leavetypedropdownid!,
+                                                                startdate:
+                                                                    startdate,
+                                                                enddate:
+                                                                    enddate,
+                                                                reasonforleave:
+                                                                    leavereasoncontroller
+                                                                        .text,
+                                                                halfday:
+                                                                    isactive
+                                                                        ? 1
+                                                                        : 0,
+                                                                daysection:
+                                                                    selectedRadioTileforleave!);
+
+                                                        isactive = false;
+                                                        startdate = '';
+                                                        enddate = '';
+                                                        leavetypedropdownid =
+                                                            null;
+                                                        leavereasoncontroller
+                                                            .clear();
+                                                      }
                                                     },
                                                     child: const Text("ADD")),
                                               )
@@ -1247,6 +1276,9 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                       onChanged:
                                                           (String? newValue) {
+                                                        log(allleavetypestate
+                                                            .alleavetypeidwithname
+                                                            .toString());
                                                         setState(() {
                                                           leavetypedropdown =
                                                               newValue
@@ -1263,8 +1295,6 @@ class _HomePageState extends State<HomePage> {
                                                                     leavetypedropdown,
                                                                 orElse: () =>
                                                                     null);
-                                                        log(dropdownvalue44!
-                                                            .toString());
                                                       },
                                                     ),
                                                   ),
@@ -1523,18 +1553,21 @@ class _HomePageState extends State<HomePage> {
                             log('All Design :${alldesignstate.designidwithname}');
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
-                            if (allbranchState.branchidwithname.isEmpty) {
-                              context.read<GetallbranchCubit>().getallbranch();
-                            } else if (alldeptState.deptidwithname.isEmpty) {
-                              context.read<GetAlldeptCubit>().getalldept();
-                            } else if (alldesignstate
-                                .designidwithname.isEmpty) {
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            } else {
-                              context.read<GetallbranchCubit>().getallbranch();
-                              context.read<GetAlldeptCubit>().getalldept();
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            }
+                            // if (allbranchState.branchidwithname.isEmpty) {
+                            //   log('Branch is empty');
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            // } else if (alldeptState.deptidwithname.isEmpty) {
+                            //   log('Dept is empty');
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            // } else if (alldesignstate
+                            //     .designidwithname.isEmpty) {
+                            //   log('Designation is empty');
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // } else {
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // }
                             fetchdata(
                                 allemplist: getempoyeestate.allemployeelist,
                                 branchidwithname:
