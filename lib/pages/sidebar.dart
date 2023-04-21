@@ -46,7 +46,27 @@ class SidebarPage extends StatelessWidget {
             appBar: isSmallScreen
                 ? AppBar(
                     backgroundColor: canvasColor,
-                    title: Text(_getTitleByIndex(_controller.selectedIndex)),
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        SizedBox(
+                            height: 30,
+                            child: Image.asset("assets/images/Globizs_DS.png")),
+                        // Text(
+                        //   "Leave Management",
+                        //   style: TextStyle(
+                        //       color: Colors.red[700],
+                        //       fontSize: 28,
+                        //       fontWeight: FontWeight.w700),
+                        // )
+                      ],
+                    ),
+                    //  const Text(
+                    //   "Globizs Leave Management",
+                    //   style: TextStyle(
+                    //     color: Color.fromARGB(255, 211, 32, 39),
+                    //   ),
+                    // ),
                     leading: IconButton(
                       onPressed: () {
                         // if (!Platform.isAndroid && !Platform.isIOS) {
@@ -501,7 +521,8 @@ class _ScreensExampleState extends State<_ScreensExample> {
                           child: Text(
                             "Globizs web solution Pvt. Ltd.",
                             style: TextStyle(
-                                color: Colors.redAccent, fontSize: 56),
+                                color: Color.fromARGB(255, 126, 23, 26),
+                                fontSize: 56),
                           ),
                         )
                       ],
