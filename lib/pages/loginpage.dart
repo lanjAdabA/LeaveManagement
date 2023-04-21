@@ -140,52 +140,56 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Expanded(
                           flex: 1,
-                          child: Container(
-                            color: Colors.grey[100],
-                            height: height / 3.8,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 40.0),
-                              child: SizedBox(
-                                // color: Colors.red,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        height: 90,
-                                        child: Image.asset(
-                                            "assets/images/G-png-only.png")),
-                                    Padding(
-                                      padding: width <= 600
-                                          ? const EdgeInsets.symmetric(
-                                              vertical: 2.0)
-                                          : const EdgeInsets.symmetric(
-                                              vertical: 8.0),
-                                      child: width <= 1000
-                                          ? const Text(
-                                              "Leave Management System",
+                          child: FittedBox(
+                            child: Container(
+                              color: Colors.grey[100],
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 40.0),
+                                child: SizedBox(
+                                  // color: Colors.red,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                          height: 90,
+                                          child: Image.asset(
+                                              "assets/images/G-png-only.png")),
+                                      Padding(
+                                        padding: width <= 600
+                                            ? const EdgeInsets.symmetric(
+                                                vertical: 2.0)
+                                            : const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                        child: width <= 1000
+                                            ? const Text(
+                                                "Leave Management System    ",
+                                                style: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              )
+                                            : const Text(
+                                                "Leave Management System    ",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w400),
+                                              ),
+                                      ),
+                                      width <= 1000
+                                          ? const Text("Admin Panel",
                                               style: TextStyle(
                                                   fontSize: 15,
-                                                  fontWeight: FontWeight.w400),
-                                            )
+                                                  fontWeight: FontWeight.bold))
                                           : const Text(
-                                              "Leave Management System",
+                                              "Admin Panel",
                                               style: TextStyle(
                                                   fontSize: 18,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
-                                    ),
-                                    width <= 1000
-                                        ? const Text("Admin Panel",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold))
-                                        : const Text(
-                                            "Admin Panel",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          )
-                                  ],
+                                                  fontWeight: FontWeight.bold),
+                                            )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
