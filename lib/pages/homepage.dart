@@ -94,7 +94,17 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    readall();
+    context.read<GetallbranchCubit>().getallbranch();
+    context.read<GetAlldeptCubit>().getalldept();
+    context.read<GetAlldesignCubit>().getalldesign();
+    context.read<GetRoleCubit>().getallrole();
+    context
+        .read<GetemployeelistCubit>()
+        .getemployeelist(datalimit: datalimit, ismoredata: true);
+    context.read<GetallleavetypeCubit>().getallleavetype();
+
+    // readall();
+
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     datatablescrollcontroller.addListener(() {
@@ -127,16 +137,6 @@ class _HomePageState extends State<HomePage> {
 
   void readall() {
     log('reading cubit.......');
-    context.read<GetallbranchCubit>().getallbranch();
-    context.read<GetAlldeptCubit>().getalldept();
-    context.read<GetAlldesignCubit>().getalldesign();
-    context.read<GetRoleCubit>().getallrole();
-
-    context.read<GetallleavetypeCubit>().getallleavetype();
-
-    context
-        .read<GetemployeelistCubit>()
-        .getemployeelist(datalimit: datalimit, ismoredata: true);
   }
 
   void fetchdata(
@@ -147,11 +147,11 @@ class _HomePageState extends State<HomePage> {
     log('Not empty');
 
     for (var item in allemplist) {
-      log("All emplist : $allemplist");
+      // log("All emplist : $allemplist");
       if (branchidwithname.isNotEmpty &&
           deptnamewithid.isNotEmpty &&
           designidwithname.isNotEmpty) {
-        log("Display datacell $displayedDataCell");
+        //log("Display datacell $displayedDataCell");
 
         displayedDataCell.add(
           DataCell(
@@ -1523,18 +1523,18 @@ class _HomePageState extends State<HomePage> {
                             log('All Design :${alldesignstate.designidwithname}');
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
-                            if (allbranchState.branchidwithname.isEmpty) {
-                              context.read<GetallbranchCubit>().getallbranch();
-                            } else if (alldeptState.deptidwithname.isEmpty) {
-                              context.read<GetAlldeptCubit>().getalldept();
-                            } else if (alldesignstate
-                                .designidwithname.isEmpty) {
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            } else {
-                              context.read<GetallbranchCubit>().getallbranch();
-                              context.read<GetAlldeptCubit>().getalldept();
-                              context.read<GetAlldesignCubit>().getalldesign();
-                            }
+                            // if (allbranchState.branchidwithname.isEmpty) {
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            // } else if (alldeptState.deptidwithname.isEmpty) {
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            // } else if (alldesignstate
+                            //     .designidwithname.isEmpty) {
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // } else {
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            //   context.read<GetAlldesignCubit>().getalldesign();
+                            // }
                             fetchdata(
                                 allemplist: getempoyeestate.allemployeelist,
                                 branchidwithname:
