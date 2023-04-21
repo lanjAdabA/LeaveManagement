@@ -186,74 +186,74 @@ class _BranchPageState extends State<BranchPage> {
                   );
                 },
                 child: const OnHoverButton2(child: Icon(Icons.edit))),
-            TextButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return StatefulBuilder(
-                      builder: (context, setState) {
-                        return AlertDialog(
-                          actions: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.grey[300],
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text(
-                                      "CANCEL",
-                                      style: TextStyle(color: Colors.blueGrey),
-                                    )),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                    onTap: () {
-                                      context
-                                          .read<DeleteBranchCubit>()
-                                          .deletebranch(item.id);
-                                      Navigator.pop(context);
-                                    },
-                                    child: Material(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(13),
-                                      ),
-                                      elevation: 15,
-                                      child: const CardWidget(
-                                          color: Colors.green,
-                                          width: 70,
-                                          height: 30,
-                                          borderRadius: 5,
-                                          child: Center(
-                                            child: Text(
-                                              'Ok',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          )),
-                                    )),
-                              ],
-                            )
-                          ],
-                          title: const Text("Are you sure to delete"),
-                        );
-                      },
-                    );
-                  },
-                );
-              },
-              child: const OnHoverButton2(
-                child: Icon(
-                  Icons.delete,
-                  size: 19,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   onPressed: () {
+            //     showDialog(
+            //       context: context,
+            //       builder: (context) {
+            //         return StatefulBuilder(
+            //           builder: (context, setState) {
+            //             return AlertDialog(
+            //               actions: [
+            //                 Row(
+            //                   mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //                   children: [
+            //                     ElevatedButton(
+            //                         style: ElevatedButton.styleFrom(
+            //                           backgroundColor: Colors.grey[300],
+            //                         ),
+            //                         onPressed: () {
+            //                           Navigator.pop(context);
+            //                         },
+            //                         child: const Text(
+            //                           "CANCEL",
+            //                           style: TextStyle(color: Colors.blueGrey),
+            //                         )),
+            //                     const SizedBox(
+            //                       width: 10,
+            //                     ),
+            //                     InkWell(
+            //                         onTap: () {
+            //                           context
+            //                               .read<DeleteBranchCubit>()
+            //                               .deletebranch(item.id);
+            //                           Navigator.pop(context);
+            //                         },
+            //                         child: Material(
+            //                           shape: RoundedRectangleBorder(
+            //                             borderRadius: BorderRadius.circular(13),
+            //                           ),
+            //                           elevation: 15,
+            //                           child: const CardWidget(
+            //                               color: Colors.green,
+            //                               width: 70,
+            //                               height: 30,
+            //                               borderRadius: 5,
+            //                               child: Center(
+            //                                 child: Text(
+            //                                   'Ok',
+            //                                   style: TextStyle(
+            //                                       color: Colors.white),
+            //                                 ),
+            //                               )),
+            //                         )),
+            //                   ],
+            //                 )
+            //               ],
+            //               title: const Text("Are you sure to delete"),
+            //             );
+            //           },
+            //         );
+            //       },
+            //     );
+            //   },
+            //   child: const OnHoverButton2(
+            //     child: Icon(
+            //       Icons.delete,
+            //       size: 19,
+            //     ),
+            //   ),
+            // ),
           ],
         )),
       );
@@ -556,6 +556,9 @@ class _BranchPageState extends State<BranchPage> {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 50,
+                    )
                   ]),
                 );
               },

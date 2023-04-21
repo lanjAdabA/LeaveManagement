@@ -598,6 +598,9 @@ class _DepartmentPageState extends State<DepartmentPage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 50,
+                        )
                       ]),
                     );
                   },

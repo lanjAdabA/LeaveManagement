@@ -607,6 +607,9 @@ class _BranchPageState extends State<DesignationPage> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 50,
+                        )
                       ]),
                     );
                   },
