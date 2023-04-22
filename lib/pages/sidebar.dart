@@ -150,6 +150,91 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
     _items = _generateItems;
   }
 
+  List<SidebarXItem> get reportsubitems {
+    log('sub items$isexpanded');
+    return [
+      SidebarXItem(
+        iconWidget: Padding(
+          padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
+          child: const Icon(
+            FontAwesomeIcons.codeBranch,
+            // color: Color.fromARGB(255, 164, 92, 95),
+            size: 15,
+          ),
+        ),
+        label: 'Leave Report',
+      ),
+      SidebarXItem(
+        icon: Icons.settings,
+        label: 'Setting                🔻',
+        onTap: () {
+          if (_items.length > 4) {
+            setState(() {
+              isclicked = true;
+            });
+            log(isclicked.toString());
+            int i;
+            for (i = 1; i < 4; i++) {
+              _items.removeAt(_items.length - 2);
+            }
+          } else {
+            widget._controller.addListener(() {
+              setState(() {
+                isclicked = false;
+                isexpanded = widget._controller.extended;
+              });
+              log(isclicked.toString());
+            });
+            _items.removeAt(3);
+            _items.addAll(settingsubitems);
+          }
+
+          log(_items.length.toString());
+        },
+      ),
+      SidebarXItem(
+        iconWidget: Padding(
+          padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
+          child: const Icon(
+            FontAwesomeIcons.codeBranch,
+            // color: Color.fromARGB(255, 164, 92, 95),
+            size: 15,
+          ),
+        ),
+        label: 'Branch',
+      ),
+      SidebarXItem(
+        iconWidget: Padding(
+          padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
+          child: const Icon(
+            FontAwesomeIcons.buildingUser,
+            // color: Color.fromARGB(255, 164, 92, 95),
+            size: 15,
+          ),
+        ),
+        label: 'Department',
+      ),
+      SidebarXItem(
+        iconWidget: Padding(
+          padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
+          child: const Icon(
+            FontAwesomeIcons.addressCard,
+            // color: Color.fromARGB(255, 164, 92, 95),
+            size: 15,
+          ),
+        ),
+        label: 'Designation',
+      ),
+      SidebarXItem(
+        icon: Icons.logout_rounded,
+        label: 'Log out',
+        onTap: () {
+          log('log out');
+        },
+      ),
+    ];
+  }
+
   List<SidebarXItem> get settingsubitems {
     log('sub items$isexpanded');
     return [
@@ -213,15 +298,55 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
       ),
       SidebarXItem(
         icon: Icons.settings,
-        label: 'Setting                🔻',
+        label: 'Report                🔻',
         onTap: () {
-          if (_items.length > 4) {
+          if (_items.length == 5) {
+            widget._controller.addListener(() {
+              setState(() {
+                isclicked = false;
+                isexpanded = widget._controller.extended;
+              });
+              log(isclicked.toString());
+            });
+
+            _items.removeAt(3);
+            _items.removeAt(4);
+            _items.addAll(reportsubitems);
+
             setState(() {
               isclicked = true;
             });
             log(isclicked.toString());
             int i;
-            for (i = 1; i < 4; i++) {
+            for (i = 1; i < 6; i++) {
+              _items.removeAt(_items.length - 2);
+            }
+          } else {
+            widget._controller.addListener(() {
+              setState(() {
+                isclicked = false;
+                isexpanded = widget._controller.extended;
+              });
+              log(isclicked.toString());
+            });
+            _items.removeAt(3);
+            _items.addAll(settingsubitems);
+          }
+
+          log(_items.length.toString());
+        },
+      ),
+      SidebarXItem(
+        icon: Icons.settings,
+        label: 'Setting                🔻',
+        onTap: () {
+          if (_items.length > 6) {
+            setState(() {
+              isclicked = true;
+            });
+            log(isclicked.toString());
+            int i;
+            for (i = 1; i < 6; i++) {
               _items.removeAt(_items.length - 2);
             }
           } else {
@@ -348,12 +473,15 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
 }
 
 bool isselectedsetting = false;
+bool issectedreport = false;
+
 bool? isselected0;
 bool? isselected1;
 bool? isselected3;
-bool? isselected4;
 bool? isselected5;
 bool? isselected6;
+bool? isselected7;
+bool? isselected8;
 
 class _ScreensExample extends StatefulWidget {
   const _ScreensExample({
@@ -376,9 +504,10 @@ class _ScreensExampleState extends State<_ScreensExample> {
     isselected0 = true;
     isselected1 = false;
     isselected3 = false;
-    isselected4 = false;
     isselected5 = false;
     isselected6 = false;
+    isselected7 = false;
+    isselected8 = false;
     widget.controller.addListener(() {
       log(widget.controller.selectedIndex.toString());
       switch (widget.controller.selectedIndex) {
@@ -388,9 +517,10 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected0 = true;
               isselected1 = false;
               isselected3 = false;
-              isselected4 = false;
               isselected5 = false;
               isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
             },
           );
           break;
@@ -398,25 +528,26 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselected0 = false;
-
-              isselected1 = true;
               isselected3 = false;
-              isselected4 = false;
+              isselected1 = true;
               isselected5 = false;
               isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
             },
           );
           break;
         case 2:
           setState(
             () {
-              isselectedsetting = !isselectedsetting;
+              issectedreport = !issectedreport;
               isselected0 = isselected0! ? true : false;
               isselected1 = isselected1! ? true : false;
               isselected3 = isselected3! ? true : false;
-              isselected4 = isselected4! ? true : false;
               isselected5 = isselected5! ? true : false;
               isselected6 = isselected6! ? true : false;
+              isselected7 = isselected7! ? true : false;
+              isselected8 = isselected8! ? true : false;
             },
           );
           break;
@@ -426,21 +557,24 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected0 = false;
               isselected1 = false;
               isselected3 = true;
-              isselected4 = false;
               isselected5 = false;
               isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
             },
           );
           break;
         case 4:
           setState(
             () {
-              isselected0 = false;
-              isselected1 = false;
-              isselected3 = false;
-              isselected4 = true;
-              isselected5 = false;
-              isselected6 = false;
+              isselectedsetting = !isselectedsetting;
+              isselected0 = isselected0! ? true : false;
+              isselected3 = isselected3! ? true : false;
+              isselected1 = isselected1! ? true : false;
+              isselected5 = isselected5! ? true : false;
+              isselected6 = isselected6! ? true : false;
+              isselected7 = isselected7! ? true : false;
+              isselected8 = isselected8! ? true : false;
             },
           );
           break;
@@ -448,11 +582,13 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselected0 = false;
+
               isselected1 = false;
               isselected3 = false;
-              isselected4 = false;
               isselected5 = true;
               isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
             },
           );
           break;
@@ -462,9 +598,36 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected0 = false;
               isselected1 = false;
               isselected3 = false;
-              isselected4 = false;
               isselected5 = false;
               isselected6 = true;
+              isselected7 = false;
+              isselected8 = false;
+            },
+          );
+          break;
+        case 7:
+          setState(
+            () {
+              isselected0 = false;
+              isselected1 = false;
+              isselected3 = false;
+              isselected5 = false;
+              isselected6 = false;
+              isselected7 = true;
+              isselected8 = false;
+            },
+          );
+          break;
+        case 8:
+          setState(
+            () {
+              isselected0 = false;
+              isselected1 = false;
+              isselected3 = false;
+              isselected5 = false;
+              isselected6 = false;
+              isselected7 = false;
+              isselected8 = true;
             },
           );
           break;
@@ -480,8 +643,6 @@ class _ScreensExampleState extends State<_ScreensExample> {
     return AnimatedBuilder(
       animation: widget.controller,
       builder: (context, child) {
-        final pageTitle = _getTitleByIndex(widget.controller.selectedIndex);
-
         switch (widget.controller.selectedIndex) {
           case 0:
             return FittedBox(
@@ -529,56 +690,132 @@ class _ScreensExampleState extends State<_ScreensExample> {
                     ))
                 : isselected1!
                     ? const HomePage()
-                    : isselected3!
+                    : isselected5!
                         ? isselectedsetting
                             ? const LogOutPage()
                             : const BranchPage()
-                        : isselected4!
+                        : isselected6!
                             ? const DepartmentPage()
-                            : isselected5!
+                            : isselected7!
                                 ? const DesignationPage()
-                                : isselected6!
+                                : isselected8!
                                     ? isselectedsetting
                                         ? const LogOutPage()
                                         : const LogOutPage()
                                     : const HomePage();
+
           case 3:
-            return isselectedsetting ? const BranchPage() : const LogOutPage();
+            return issectedreport
+                ? const Text('Report Page')
+                : isselected0!
+                    ? FittedBox(
+                        fit: BoxFit.fill,
+                        child: Column(
+                          children: const [
+                            Text(
+                              "Welcome",
+                              style: TextStyle(
+                                  fontSize: 42, fontWeight: FontWeight.bold),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "Globizs web solution Pvt. Ltd.",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 211, 32, 39),
+                                    fontSize: 56),
+                              ),
+                            )
+                          ],
+                        ))
+                    : isselected1!
+                        ? const HomePage()
+                        : isselected5!
+                            ? isselectedsetting
+                                ? const LogOutPage()
+                                : const BranchPage()
+                            : isselected6!
+                                ? const DepartmentPage()
+                                : isselected7!
+                                    ? const DesignationPage()
+                                    : isselected8!
+                                        ? isselectedsetting
+                                            ? const LogOutPage()
+                                            : const LogOutPage()
+                                        : const HomePage();
           case 4:
-            return const DepartmentPage();
+            return issectedreport
+                ? isselected0!
+                    ? FittedBox(
+                        fit: BoxFit.fill,
+                        child: Column(
+                          children: const [
+                            Text(
+                              "Welcome",
+                              style: TextStyle(
+                                  fontSize: 42, fontWeight: FontWeight.bold),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                "Globizs web solution Pvt. Ltd.",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 211, 32, 39),
+                                    fontSize: 56),
+                              ),
+                            )
+                          ],
+                        ))
+                    : isselected1!
+                        ? const HomePage()
+                        : isselected5!
+                            ? isselectedsetting
+                                ? const LogOutPage()
+                                : const BranchPage()
+                            : isselected6!
+                                ? const DepartmentPage()
+                                : isselected7!
+                                    ? const DesignationPage()
+                                    : isselected8!
+                                        ? isselectedsetting
+                                            ? const LogOutPage()
+                                            : const LogOutPage()
+                                        : const HomePage()
+                : const BranchPage();
+
           case 5:
-            return const DesignationPage();
+            return issectedreport
+                ? isselectedsetting
+                    ? const BranchPage()
+                    : const LogOutPage()
+                : const LogOutPage();
           case 6:
-            return const LogOutPage();
+            return issectedreport
+                ? isselectedsetting
+                    ? const DepartmentPage()
+                    : const LogOutPage()
+                : const LogOutPage();
+
+          case 7:
+            return issectedreport
+                ? isselectedsetting
+                    ? const DesignationPage()
+                    : const LogOutPage()
+                : const LogOutPage();
+          case 8:
+            return issectedreport
+                ? isselectedsetting
+                    ? const LogOutPage()
+                    : const LogOutPage()
+                : const LogOutPage();
           default:
             return Text(
-              pageTitle,
+              '',
               style: theme.textTheme.headlineSmall,
             );
         }
       },
     );
-  }
-}
-
-String _getTitleByIndex(int index) {
-  switch (index) {
-    case 0:
-      return 'Dashboard';
-    case 1:
-      return 'User';
-    case 2:
-      return 'Balance';
-    case 3:
-      return 'Reports';
-    case 4:
-      return 'Custom iconWidget';
-    case 5:
-      return 'Profile';
-    case 6:
-      return 'Settings';
-    default:
-      return 'Not found page';
   }
 }
 

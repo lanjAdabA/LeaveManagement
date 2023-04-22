@@ -5,21 +5,23 @@ import 'package:leavemanagementadmin/router/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   final List<AutoRoute> routes = [
-    AutoRoute(path: '/', page: AuthFlowRoute.page, children: [
-      AutoRoute(
-        page: SidebarRoute.page,
-      ),
-      AutoRoute(
-        page: LoginRoute.page,
-      ),
-    ]),
-    AutoRoute(
-      path: '/sidebar',
-      page: SidebarRoute.page,
-    ),
-    AutoRoute(
-      path: '/login',
-      page: LoginRoute.page,
-    ),
+    AutoRoute(page: NewRoute.page, path: '/'),
+
+    // AutoRoute(path: '/', page: AuthFlowRoute.page, children: [
+    //   AutoRoute(
+    //     page: SidebarRoute.page,
+    //   ),
+    //   AutoRoute(
+    //     page: LoginRoute.page,
+    //   ),
+    // ]),
+    // AutoRoute(
+    //   path: '/sidebar',
+    //   page: SidebarRoute.page,
+    // ),
+    // AutoRoute(
+    //   path: '/login',
+    //   page: LoginRoute.page,
+    // ),
   ];
 }

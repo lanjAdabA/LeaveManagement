@@ -1286,18 +1286,14 @@ class _HomePageState extends State<HomePage> {
                                               height: 460,
                                               child: Column(
                                                 children: [
-                                                  TextFormField(
-                                                      keyboardType:
-                                                          TextInputType.number,
-                                                      controller:
-                                                          leaveappliedforcontroller,
-                                                      decoration:
-                                                          const InputDecoration(
-                                                        hintText:
-                                                            'Leave Applied For :',
-                                                      )),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.centerLeft,
+                                                    child: Text(
+                                                        'Leave Applied For : ${item.employeeName}'),
+                                                  ),
                                                   const SizedBox(
-                                                    height: 5,
+                                                    height: 10,
                                                   ),
                                                   Container(
                                                     padding: const EdgeInsets
@@ -1406,138 +1402,138 @@ class _HomePageState extends State<HomePage> {
                                                         MediaQuery.of(context)
                                                             .size
                                                             .width,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        israngeselected
-                                                            ? Row(
-                                                                children: [
-                                                                  enddatefinal
-                                                                          .isEmpty
-                                                                      ? Padding(
-                                                                          padding:
-                                                                              const EdgeInsets.only(left: 5),
-                                                                          child:
-                                                                              Text(
-                                                                            startdatefinal,
-                                                                            style:
-                                                                                const TextStyle(fontSize: 13),
-                                                                          ),
-                                                                        )
-                                                                      : Row(
-                                                                          children: [
-                                                                            const SizedBox(
-                                                                              width: 5,
-                                                                            ),
-                                                                            const Text(
-                                                                              'From : ',
-                                                                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                                                                            ),
-                                                                            Text(
-                                                                              startdatefinal,
-                                                                              style: const TextStyle(fontSize: 13),
-                                                                            ),
-                                                                            const SizedBox(
-                                                                              width: 10,
-                                                                            ),
-                                                                            const Text(
-                                                                              "To : ",
-                                                                              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                                                                            ),
-                                                                            Text(
-                                                                              enddatefinal,
-                                                                              style: const TextStyle(fontSize: 13),
-                                                                            )
-                                                                          ],
-                                                                        )
-                                                                ],
-                                                              )
-                                                            : const SizedBox(),
-                                                        InkWell(
-                                                          onTap: () {
-                                                            showCalendarDatePicker2Dialog(
-                                                              config:
-                                                                  CalendarDatePicker2WithActionButtonsConfig(
-                                                                firstDayOfWeek:
-                                                                    1,
-                                                                calendarType:
-                                                                    CalendarDatePicker2Type
-                                                                        .range,
-                                                                selectedDayTextStyle: const TextStyle(
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        showCalendarDatePicker2Dialog(
+                                                          config:
+                                                              CalendarDatePicker2WithActionButtonsConfig(
+                                                            firstDayOfWeek: 1,
+                                                            calendarType:
+                                                                CalendarDatePicker2Type
+                                                                    .range,
+                                                            selectedDayTextStyle:
+                                                                const TextStyle(
                                                                     color: Colors
                                                                         .white,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700),
-                                                                selectedDayHighlightColor:
-                                                                    Colors.purple[
-                                                                        800],
-                                                                centerAlignModePicker:
-                                                                    true,
-                                                                customModePickerIcon:
-                                                                    const SizedBox(),
-                                                              ),
-                                                              context:
-                                                                  (context),
-                                                              dialogSize:
-                                                                  const Size(
-                                                                      325, 400),
-                                                            ).then((value) {
-                                                              if (value!
-                                                                      .length ==
-                                                                  1) {
-                                                                setState(
-                                                                  () {
-                                                                    israngeselected =
-                                                                        true;
-                                                                    startdatefinal = DateFormat(
+                                                            selectedDayHighlightColor:
+                                                                Colors.purple[
+                                                                    800],
+                                                            centerAlignModePicker:
+                                                                true,
+                                                            customModePickerIcon:
+                                                                const SizedBox(),
+                                                          ),
+                                                          context: (context),
+                                                          dialogSize:
+                                                              const Size(
+                                                                  325, 400),
+                                                        ).then((value) {
+                                                          if (value!.length ==
+                                                              1) {
+                                                            setState(
+                                                              () {
+                                                                israngeselected =
+                                                                    true;
+                                                                startdatefinal =
+                                                                    DateFormat(
                                                                             'MMMM d, yyyy')
                                                                         .format(
                                                                             value[0]!);
-                                                                    startdate =
-                                                                        "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                                                                  },
-                                                                );
-                                                              } else if (value
-                                                                      .length ==
-                                                                  2) {
-                                                                setState(
-                                                                  () {
-                                                                    israngeselected =
-                                                                        true;
-                                                                    startdate =
-                                                                        "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                                                                    startdatefinal = DateFormat(
+                                                                startdate =
+                                                                    "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                              },
+                                                            );
+                                                          } else if (value
+                                                                  .length ==
+                                                              2) {
+                                                            setState(
+                                                              () {
+                                                                israngeselected =
+                                                                    true;
+                                                                startdate =
+                                                                    "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                                startdatefinal =
+                                                                    DateFormat(
                                                                             'MMMM d, yyyy')
                                                                         .format(
                                                                             value[0]!);
-                                                                    enddate =
-                                                                        "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
-                                                                    enddatefinal = DateFormat(
+                                                                enddate =
+                                                                    "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
+                                                                enddatefinal =
+                                                                    DateFormat(
                                                                             'MMMM d, yyyy')
                                                                         .format(
                                                                             value[1]!);
-                                                                  },
-                                                                );
-                                                              }
+                                                              },
+                                                            );
+                                                          }
 
-                                                              log(israngeselected
-                                                                  .toString());
-                                                              log('Start Date :$startdate');
-                                                              log('End Date $enddate');
-                                                            });
-                                                          },
-                                                          child: const Padding(
+                                                          log(israngeselected
+                                                              .toString());
+                                                          log('Start Date :$startdate');
+                                                          log('End Date $enddate');
+                                                        });
+                                                      },
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          israngeselected
+                                                              ? Row(
+                                                                  children: [
+                                                                    enddatefinal
+                                                                            .isEmpty
+                                                                        ? Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 5),
+                                                                            child:
+                                                                                Text(
+                                                                              startdatefinal,
+                                                                              style: const TextStyle(fontSize: 13),
+                                                                            ),
+                                                                          )
+                                                                        : Row(
+                                                                            children: [
+                                                                              const SizedBox(
+                                                                                width: 5,
+                                                                              ),
+                                                                              const Text(
+                                                                                'From : ',
+                                                                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              Text(
+                                                                                startdatefinal,
+                                                                                style: const TextStyle(fontSize: 13),
+                                                                              ),
+                                                                              const SizedBox(
+                                                                                width: 10,
+                                                                              ),
+                                                                              const Text(
+                                                                                "To : ",
+                                                                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                                                                              ),
+                                                                              Text(
+                                                                                enddatefinal,
+                                                                                style: const TextStyle(fontSize: 13),
+                                                                              )
+                                                                            ],
+                                                                          )
+                                                                  ],
+                                                                )
+                                                              : const SizedBox(),
+                                                          const Padding(
                                                             padding:
                                                                 EdgeInsets.only(
                                                                     right: 5),
                                                             child: Icon(Icons
                                                                 .calendar_month),
                                                           ),
-                                                        ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                   const SizedBox(
