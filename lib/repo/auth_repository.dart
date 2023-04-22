@@ -350,6 +350,7 @@ class AuthRepository {
     required int roleid,
     required String dateofjoining,
     required String emptype,
+    required String gender,
 
     // required String isactive,
     required AuthLoginListioner authLoginListener,
@@ -367,7 +368,8 @@ class AuthRepository {
         "date_of_joining": dateofjoining,
         "phone": phonenumber,
         "emp_type": emptype,
-        "role": roleid
+        "role": roleid,
+        "gender": gender
       });
 
       if (response.statusCode == 200 || response.statusCode == 201) {
