@@ -14,6 +14,10 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+
+    final List allEmpNameList;
+    final Map<String, dynamic> empNameWithId;
+
     return SizedBox(
       height: height / 2,
       child: AlertDialog(
