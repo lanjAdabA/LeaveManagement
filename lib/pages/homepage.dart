@@ -2616,6 +2616,24 @@ class _HomePageState extends State<HomePage> {
                                                                         branchid:
                                                                             dropdownvalue44);
                                                                   }
+                                                                  if (value
+                                                                      .isEmpty) {
+                                                                    context.read<GetemployeelistCubit>().getemployeelist(
+                                                                        name:
+                                                                            value,
+                                                                        datalimit:
+                                                                            datalimit,
+                                                                        ismoredata:
+                                                                            true,
+                                                                        desigid:
+                                                                            dropdownvalue11,
+                                                                        deptid:
+                                                                            dropdownvalue22,
+                                                                        rolename:
+                                                                            dropdownvalue33,
+                                                                        branchid:
+                                                                            dropdownvalue44);
+                                                                  }
                                                                 },
                                                                 decoration:
                                                                     const InputDecoration(
