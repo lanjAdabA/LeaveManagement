@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leavemanagementadmin/logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
 
 import 'package:leavemanagementadmin/logic/Authflow/auth_flow_cubit.dart';
 import 'package:leavemanagementadmin/logic/Employee/cubit/check_empcode_cubit.dart';
@@ -91,6 +92,9 @@ class MultiproviderWrapper extends StatelessWidget {
       BlocProvider(create: (context) => GetallleavetypeCubit()),
       BlocProvider(
           create: (context) => CreateleaveCubit(CreateLeaveStatus.initial)),
+      BlocProvider(
+          create: (context) =>
+              AddLeaveBalanceCubit(AddLeaveBalanceStatus.initial)),
     ], child: child);
   }
 }
