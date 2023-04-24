@@ -269,7 +269,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   int? dropdownvalue_designid;
   int? dropdownvalue_departmentid;
   String? dropdownvalue_departmentname;
-  String? dropdownvalue_rolename;
+  String? dropdownLeavetypeName;
   int? dropdownvalue_roleid;
   String? dropdownvalue_branchname;
   int? dropdownvalue_branchid;
@@ -1180,7 +1180,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                     DropdownSearch<
                                                                         String>(
                                                                   selectedItem:
-                                                                      dropdownvalue_rolename,
+                                                                      dropdownLeavetypeName,
                                                                   popupProps:
                                                                       PopupProps
                                                                           .menu(
@@ -1199,8 +1199,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                     showSelectedItems:
                                                                         true,
                                                                   ),
-                                                                  items:
-                                                                      allrolename,
+                                                                  items: allLeaveTypeState
+                                                                      .allleavetypenamelistcopy,
                                                                   dropdownDecoratorProps:
                                                                       const DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:
@@ -1234,14 +1234,14 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           newValue) {
                                                                     setState(
                                                                         () {
-                                                                      dropdownvalue_rolename =
+                                                                      dropdownLeavetypeName =
                                                                           newValue
                                                                               as String;
                                                                     });
 
                                                                     dropdownvalue_roleid =
                                                                         roleidwithname[
-                                                                            dropdownvalue_rolename];
+                                                                            dropdownLeavetypeName];
 
                                                                     displayedDataCell
                                                                         .clear();
