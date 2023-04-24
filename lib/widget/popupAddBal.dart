@@ -4,7 +4,10 @@ import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class AddBalPopUp extends StatefulWidget {
-  const AddBalPopUp({super.key});
+  final List<String> allEmpNameList;
+  final Map<dynamic, dynamic> empNameWithId;
+  const AddBalPopUp(
+      {super.key, required this.allEmpNameList, required this.empNameWithId});
 
   @override
   State<AddBalPopUp> createState() => _AddBalPopUpState();
@@ -14,9 +17,6 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-
-    final List allEmpNameList;
-    final Map<String, dynamic> empNameWithId;
 
     return SizedBox(
       height: height / 2,
@@ -94,12 +94,12 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.expand(height: height / 5),
+                        constraints:
+                            BoxConstraints.expand(height: height / 2.5),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),
-                      // items:
-                      // alldesignstate.alldesignationnamelist,
+                      items: widget.allEmpNameList,
                       dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -135,7 +135,7 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.expand(height: height / 5),
+                        constraints: BoxConstraints.expand(height: height / 4),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),

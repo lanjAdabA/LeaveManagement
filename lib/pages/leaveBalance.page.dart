@@ -46,6 +46,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   _buildDefaultMultiDatePickerWithValue() async {}
 
   bool? ismoreloading;
+  List<String> allEmp = [];
+  Map<dynamic, dynamic> empNameWithId = {};
   int datalimit = 15;
   ScrollController datatablescrollcontroller = ScrollController();
   @override
@@ -389,6 +391,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                             log('All Design :${alldesignstate.designidwithname}');
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
+                            allEmp = getempoyeestate.allempnamelist;
+                            empNameWithId = getempoyeestate.emptidwithname;
 
                             fetchdata(
                                 allemplist: getempoyeestate.allemployeelist,
@@ -514,7 +518,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           void
                                                                               Function())
                                                                       setState) {
-                                                            return const AddBalPopUp();
+                                                            return AddBalPopUp(
+                                                              allEmpNameList:
+                                                                  allEmp,
+                                                              empNameWithId:
+                                                                  empNameWithId,
+                                                            );
                                                           });
                                                         },
                                                       );
