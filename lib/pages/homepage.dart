@@ -43,6 +43,8 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
+
+  TextEditingController empsearchcontroller = TextEditingController();
   DateTime? datenow = DateTime.now();
   Widget _dataofbirth(String dob, String labeltext) {
     return Column(
@@ -2589,6 +2591,8 @@ class _HomePageState extends State<HomePage> {
                                                                       color: Colors
                                                                           .grey)),
                                                               child: TextField(
+                                                                controller:
+                                                                    empsearchcontroller,
                                                                 onChanged:
                                                                     (value) {
                                                                   displayedDataCell
