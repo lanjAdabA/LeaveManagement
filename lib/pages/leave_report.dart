@@ -8,11 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:leavemanagementadmin/constant.dart';
-import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 @RoutePage()
 class LeaveReportPage extends StatefulWidget {
-  LeaveReportPage({super.key});
+  const LeaveReportPage({super.key});
 
   @override
   State<LeaveReportPage> createState() => _LeaveReportPageState();
@@ -245,7 +244,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                       ),
                     ],
                   ),
-                  rows: <DataRow>[
+                  rows: const <DataRow>[
                     // for (int i = 0;
                     //     i < displayedDataCell.length;
                     //     i += 4)
@@ -285,7 +284,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                     ),
                     DataColumn(
                       label: Text(
-                        'Up',
+                        'UP',
                       ),
                     ),
                     DataColumn(
