@@ -671,7 +671,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselected0 = false;
-
+              issectedreport = false;
               isselected1 = false;
               isselected2 = false;
               isselected6 = true;
@@ -684,6 +684,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
         case 7:
           setState(
             () {
+              issectedreport = false;
               isselected0 = false;
               isselected1 = false;
               isselected2 = false;
@@ -697,6 +698,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
         case 8:
           setState(
             () {
+              issectedreport = false;
               isselected0 = false;
               isselected1 = false;
               isselected2 = false;
@@ -710,6 +712,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
         case 9:
           setState(
             () {
+              issectedreport = false;
               isselected0 = false;
               isselected1 = false;
               isselected2 = false;
@@ -794,7 +797,9 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                 : isselected7!
                                     ? const DepartmentPage()
                                     : isselected8!
-                                        ? const DesignationPage()
+                                        ? ischoosereport!
+                                            ? const LogOutPage()
+                                            : const DesignationPage()
                                         : isselected9!
                                             ? isselectedsetting!
                                                 ? const LogOutPage()
@@ -831,9 +836,13 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                 ? const LogOutPage()
                                 : const BranchPage()
                             : isselected7!
-                                ? const DepartmentPage()
+                                ? ischoosereport!
+                                    ? const DepartmentPage()
+                                    : const DesignationPage()
                                 : isselected8!
-                                    ? const DesignationPage()
+                                    ? ischoosereport!
+                                        ? const DesignationPage()
+                                        : const LogOutPage()
                                     : isselected9!
                                         ? isselectedsetting!
                                             ? const LogOutPage()
@@ -841,43 +850,48 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                         : const HomePage();
           case 5:
             return ischoosereport!
-                ? isselected0!
-                    ? FittedBox(
-                        fit: BoxFit.fill,
-                        child: Column(
-                          children: const [
-                            Text(
-                              "Welcome",
-                              style: TextStyle(
-                                  fontSize: 42, fontWeight: FontWeight.bold),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                "Globizs web solution Pvt. Ltd.",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 211, 32, 39),
-                                    fontSize: 56),
-                              ),
-                            )
-                          ],
-                        ))
-                    : isselected1!
-                        ? const HomePage()
-                        : isselected6!
-                            ? isselectedsetting!
-                                ? const BranchPage()
-                                : const LogOutPage()
-                            : isselected7!
-                                ? const DepartmentPage()
-                                : isselected8!
-                                    ? const DesignationPage()
-                                    : isselected9!
-                                        ? isselectedsetting!
-                                            ? const LogOutPage()
-                                            : const LogOutPage()
-                                        : const HomePage()
-                : const LogOutPage();
+                ? issectedreport!
+                    ? const LeaveReportPage()
+                    : isselected0!
+                        ? FittedBox(
+                            fit: BoxFit.fill,
+                            child: Column(
+                              children: const [
+                                Text(
+                                  "Welcome",
+                                  style: TextStyle(
+                                      fontSize: 42,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    "Globizs web solution Pvt. Ltd.",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 211, 32, 39),
+                                        fontSize: 56),
+                                  ),
+                                )
+                              ],
+                            ))
+                        : isselected1!
+                            ? const HomePage()
+                            : isselected6!
+                                ? isselectedsetting!
+                                    ? const BranchPage()
+                                    : const LogOutPage()
+                                : isselected7!
+                                    ? const DepartmentPage()
+                                    : isselected8!
+                                        ? const DesignationPage()
+                                        : isselected9!
+                                            ? isselectedsetting!
+                                                ? const LogOutPage()
+                                                : const LogOutPage()
+                                            : const HomePage()
+                : isselectedsetting!
+                    ? const BranchPage()
+                    : const LogOutPage();
 
           case 6:
             return ischoosereport!
@@ -888,7 +902,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
           case 7:
             return ischoosereport!
                 ? isselectedsetting!
-                    ? const BranchPage()
+                    ? const DepartmentPage()
                     : const LogOutPage()
                 : const DesignationPage();
 
