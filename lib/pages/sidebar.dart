@@ -656,7 +656,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
         case 5:
           setState(
             () {
-              isselectedsetting = !isselectedsetting!;
+              isselectedsetting = ischoosereport! ? !isselectedsetting! : false;
               isselected0 = isselected0! ? true : false;
               isselected2 = isselected2! ? true : false;
               isselected1 = isselected1! ? true : false;
