@@ -12,10 +12,9 @@ import 'package:auto_route/auto_route.dart' as _i7;
 import 'package:flutter/material.dart' as _i8;
 import 'package:leavemanagementadmin/Authflow/auth_flow.dart' as _i1;
 import 'package:leavemanagementadmin/pages/homepage.dart' as _i2;
-import 'package:leavemanagementadmin/pages/leaveBalance.page.dart' as _i4;
-import 'package:leavemanagementadmin/pages/loginpage.dart' as _i5;
-import 'package:leavemanagementadmin/pages/newpage.dart' as _i3;
-import 'package:leavemanagementadmin/pages/sidebar.dart' as _i6;
+import 'package:leavemanagementadmin/pages/loginpage.dart' as _i3;
+import 'package:leavemanagementadmin/pages/newpage.dart' as _i4;
+import 'package:leavemanagementadmin/pages/sidebar.dart' as _i5;
 
 abstract class $AppRouter extends _i7.RootStackRouter {
   $AppRouter([_i8.GlobalKey<_i8.NavigatorState>? navigatorKey])
@@ -35,20 +34,14 @@ abstract class $AppRouter extends _i7.RootStackRouter {
         child: const _i2.HomePage(),
       );
     },
-    NewRoute.name: (routeData) {
-      return _i7.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i3.NewPage(),
-      );
-    },
-    LeaveBalanceRoute.name: (routeData) {
-      return _i7.AutoRoutePage<dynamic>(
+    LoginRoute.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i4.LeaveBalancePage(),
       );
     },
-    LoginRoute.name: (routeData) {
-      return _i7.AutoRoutePage<dynamic>(
+    NewRoute.name: (routeData) {
+      return _i6.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i5.LoginPage(),
       );
@@ -59,6 +52,12 @@ abstract class $AppRouter extends _i7.RootStackRouter {
       return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.SidebarPage(key: args.key),
+      );
+    },
+    LeaveBalanceRoute.name: (routeData) {
+      return _i7.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.LeaveBalancePage(),
       );
     },
   };
@@ -89,41 +88,13 @@ class HomeRoute extends _i7.PageRouteInfo<void> {
 
   static const String name = 'HomeRoute';
 
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i3.NewPage]
-class NewRoute extends _i7.PageRouteInfo<void> {
-  const NewRoute({List<_i7.PageRouteInfo>? children})
-      : super(
-          NewRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'NewRoute';
-
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i4.LeaveBalancePage]
-class LeaveBalanceRoute extends _i7.PageRouteInfo<void> {
-  const LeaveBalanceRoute({List<_i7.PageRouteInfo>? children})
-      : super(
-          LeaveBalanceRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'LeaveBalanceRoute';
-
-  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i5.LoginPage]
-class LoginRoute extends _i7.PageRouteInfo<void> {
-  const LoginRoute({List<_i7.PageRouteInfo>? children})
+/// [_i3.LoginPage]
+class LoginRoute extends _i6.PageRouteInfo<void> {
+  const LoginRoute({List<_i6.PageRouteInfo>? children})
       : super(
           LoginRoute.name,
           initialChildren: children,
@@ -135,8 +106,22 @@ class LoginRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.SidebarPage]
-class SidebarRoute extends _i7.PageRouteInfo<SidebarRouteArgs> {
+/// [_i4.NewPage]
+class NewRoute extends _i6.PageRouteInfo<void> {
+  const NewRoute({List<_i6.PageRouteInfo>? children})
+      : super(
+          NewRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'NewRoute';
+
+  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.SidebarPage]
+class SidebarRoute extends _i6.PageRouteInfo<SidebarRouteArgs> {
   SidebarRoute({
     _i8.Key? key,
     List<_i7.PageRouteInfo>? children,
@@ -161,4 +146,18 @@ class SidebarRouteArgs {
   String toString() {
     return 'SidebarRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [_i6.LeaveBalancePage]
+class LeaveBalanceRoute extends _i7.PageRouteInfo<void> {
+  const LeaveBalanceRoute({List<_i7.PageRouteInfo>? children})
+      : super(
+          LeaveBalanceRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LeaveBalanceRoute';
+
+  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
 }

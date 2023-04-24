@@ -7,11 +7,13 @@ import 'package:leavemanagementadmin/pages/branch.dart';
 import 'package:leavemanagementadmin/pages/department.dart';
 import 'package:leavemanagementadmin/pages/designation.dart';
 import 'package:leavemanagementadmin/pages/homepage.dart';
+import 'package:leavemanagementadmin/pages/leave_report.dart';
 
 import 'package:leavemanagementadmin/widget/logoutPage.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 import '../constant/constant.dart';
+import 'leaveBalance.page.dart';
 
 @RoutePage()
 class SidebarPage extends StatelessWidget {
@@ -116,41 +118,42 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
     // TODO: implement initState
     super.initState();
     widget._controller.addListener(() {
-      if (_items.length > 4) {
-        setState(() {
-          isclicked = true;
-        });
-      } else {
-        setState(() {
-          isclicked = false;
-        });
-      }
-      setState(() {
-        isexpanded = widget._controller.extended;
-      });
-      if (isexpanded) {
-        if (_items.length > 4) {
-          log(isclicked.toString());
-          int i;
-          for (i = 1; i < 5; i++) {
-            _items.removeAt(_items.length - 1);
-          }
-          _items.addAll(settingsubitems);
-        }
-      } else {
-        if (_items.length > 4) {
-          int i;
-          for (i = 1; i < 5; i++) {
-            _items.removeAt(_items.length - 1);
-          }
-          _items.addAll(settingsubitems);
-        }
-      }
+      log('Item Length  :${_items.length}');
+      // if (_items.length > 6) {
+      //   setState(() {
+      //     isclicked = true;
+      //   });
+      // } else {
+      //   setState(() {
+      //     isclicked = false;
+      //   });
+      // }
+      // setState(() {
+      //   isexpanded = widget._controller.extended;
+      // });
+      // if (isexpanded) {
+      //   if (_items.length > 6) {
+      //     log(isclicked.toString());
+      //     int i;
+      //     for (i = 1; i < 5; i++) {
+      //       _items.removeAt(_items.length - 1);
+      //     }
+      //     _items.addAll(settingsubitems);
+      //   }
+      // } else {
+      //   if (_items.length > 6) {
+      //     int i;
+      //     for (i = 1; i < 5; i++) {
+      //       _items.removeAt(_items.length - 1);
+      //     }
+      //     _items.addAll(settingsubitems);
+      //   }
+      // }
     });
     _items = _generateItems;
   }
 
-  List<SidebarXItem> get reportsubitems {
+  List<SidebarXItem> get reportsubitems1 {
     log('sub items$isexpanded');
     return [
       SidebarXItem(
@@ -168,28 +171,74 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         icon: Icons.settings,
         label: 'Setting                🔻',
         onTap: () {
-          if (_items.length > 4) {
-            setState(() {
-              isclicked = true;
-            });
+          if (_items.length == 6) {
+            log('item 5 only..............');
             log(isclicked.toString());
-            int i;
-            for (i = 1; i < 4; i++) {
-              _items.removeAt(_items.length - 2);
-            }
-          } else {
-            widget._controller.addListener(() {
-              setState(() {
-                isclicked = false;
-                isexpanded = widget._controller.extended;
-              });
-              log(isclicked.toString());
-            });
-            _items.removeAt(3);
+            _items.removeAt(5);
+
             _items.addAll(settingsubitems);
+          } else if (_items.length == 7) {
+            log('True item number 6');
+            _items.removeAt(6);
+            _items.addAll(settingsubitems);
+          } else if (_items.length == 9) {
+            _items.removeRange(5, 8);
+          } else if (_items.length == 10) {
+            _items.removeRange(6, 9);
+          } else {
+            log('else part');
           }
 
-          log(_items.length.toString());
+          log('Item Length from settiing :${_items.length}');
+        },
+      ),
+      SidebarXItem(
+        icon: Icons.logout_rounded,
+        label: 'Log out',
+        onTap: () {
+          log('log out');
+        },
+      ),
+    ];
+  }
+
+  List<SidebarXItem> get reportsubitems2 {
+    log('sub items$isexpanded');
+    return [
+      SidebarXItem(
+        iconWidget: Padding(
+          padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
+          child: const Icon(
+            FontAwesomeIcons.codeBranch,
+            // color: Color.fromARGB(255, 164, 92, 95),
+            size: 15,
+          ),
+        ),
+        label: 'Leave Report',
+      ),
+      SidebarXItem(
+        icon: Icons.settings,
+        label: 'Setting                🔻',
+        onTap: () {
+          if (_items.length == 6) {
+            log('item 5 only..............');
+            log(isclicked.toString());
+            _items.removeAt(5);
+
+            _items.addAll(settingsubitems);
+          } else if (_items.length == 7) {
+            log('True item number 6');
+            _items.removeAt(6);
+            _items.addAll(settingsubitems);
+          } else if (_items.length == 9) {
+            _items.removeRange(5, 8);
+          } else if (_items.length == 10) {
+            _items.removeRange(6, 9);
+          } else {
+            log('else part');
+          }
+
+          log('Item Length from settiing :${_items.length}');
         },
       ),
       SidebarXItem(
@@ -296,72 +345,57 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         icon: Icons.account_box_rounded,
         label: 'Employee',
       ),
+      const SidebarXItem(
+        icon: Icons.account_balance,
+        label: 'Leave Balance',
+      ),
       SidebarXItem(
-        icon: Icons.settings,
+        icon: FontAwesomeIcons.book,
         label: 'Report                🔻',
         onTap: () {
-          if (_items.length == 5) {
-            widget._controller.addListener(() {
-              setState(() {
-                isclicked = false;
-                isexpanded = widget._controller.extended;
-              });
-              log(isclicked.toString());
-            });
-
-            _items.removeAt(3);
-            _items.removeAt(4);
-            _items.addAll(reportsubitems);
-
-            setState(() {
-              isclicked = true;
-            });
+          if (_items.length == 6) {
+            log('item 5 only..............');
             log(isclicked.toString());
-            int i;
-            for (i = 1; i < 6; i++) {
-              _items.removeAt(_items.length - 2);
-            }
-          } else {
-            widget._controller.addListener(() {
-              setState(() {
-                isclicked = false;
-                isexpanded = widget._controller.extended;
-              });
-              log(isclicked.toString());
-            });
-            _items.removeAt(3);
-            _items.addAll(settingsubitems);
+            _items.removeRange(4, 6);
+
+            _items.addAll(reportsubitems1);
+          } else if (_items.length == 7) {
+            log('item 6 only..............');
+
+            _items.removeAt(4);
+          } else if (_items.length == 9) {
+            _items.removeRange(4, 9);
+            _items.addAll(reportsubitems2);
+          } else if (_items.length == 10) {
+            _items.removeAt(4);
           }
 
-          log(_items.length.toString());
+          log('Item Length :${_items.length}');
         },
       ),
       SidebarXItem(
         icon: Icons.settings,
         label: 'Setting                🔻',
         onTap: () {
-          if (_items.length > 6) {
-            setState(() {
-              isclicked = true;
-            });
+          if (_items.length == 5) {
+            log('item 5 only..............');
             log(isclicked.toString());
-            int i;
-            for (i = 1; i < 6; i++) {
-              _items.removeAt(_items.length - 2);
-            }
-          } else {
-            widget._controller.addListener(() {
-              setState(() {
-                isclicked = false;
-                isexpanded = widget._controller.extended;
-              });
-              log(isclicked.toString());
-            });
-            _items.removeAt(3);
+            _items.removeAt(4);
+
             _items.addAll(settingsubitems);
+          } else if (_items.length == 6) {
+            log('True item number 6');
+            _items.removeAt(5);
+            _items.addAll(settingsubitems);
+          } else if (_items.length == 8) {
+            _items.removeRange(4, 7);
+          } else if (_items.length == 9) {
+            _items.removeRange(5, 8);
+          } else {
+            log('else part');
           }
 
-          log(_items.length.toString());
+          log('Item Length from settiing :${_items.length}');
         },
       ),
       SidebarXItem(
@@ -472,16 +506,19 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
   }
 }
 
-bool isselectedsetting = false;
-bool issectedreport = false;
+bool? isselectedsetting;
+bool? issectedreport;
+bool? ischoosereport;
 
 bool? isselected0;
 bool? isselected1;
-bool? isselected3;
-bool? isselected5;
+bool? isselected2;
+
+bool? isselected4;
 bool? isselected6;
 bool? isselected7;
 bool? isselected8;
+bool? isselected9;
 
 class _ScreensExample extends StatefulWidget {
   const _ScreensExample({
@@ -501,26 +538,29 @@ class _ScreensExampleState extends State<_ScreensExample> {
     // TODO: implement initState
     super.initState();
     isselectedsetting = false;
+    ischoosereport = false;
+    issectedreport = false;
     isselected0 = true;
     isselected1 = false;
-    isselected3 = false;
-    isselected5 = false;
+    isselected2 = false;
+    isselected4 = false;
     isselected6 = false;
     isselected7 = false;
     isselected8 = false;
+    isselected9 = false;
     widget.controller.addListener(() {
-      log(widget.controller.selectedIndex.toString());
+      log('Selected Index :${widget.controller.selectedIndex}');
       switch (widget.controller.selectedIndex) {
         case 0:
           setState(
             () {
               isselected0 = true;
               isselected1 = false;
-              isselected3 = false;
-              isselected5 = false;
+              isselected2 = false;
               isselected6 = false;
               isselected7 = false;
               isselected8 = false;
+              isselected9 = false;
             },
           );
           break;
@@ -528,67 +568,102 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselected0 = false;
-              isselected3 = false;
+              isselected2 = false;
               isselected1 = true;
-              isselected5 = false;
               isselected6 = false;
               isselected7 = false;
               isselected8 = false;
+              isselected9 = false;
             },
           );
           break;
         case 2:
           setState(
             () {
-              issectedreport = !issectedreport;
-              isselected0 = isselected0! ? true : false;
-              isselected1 = isselected1! ? true : false;
-              isselected3 = isselected3! ? true : false;
-              isselected5 = isselected5! ? true : false;
-              isselected6 = isselected6! ? true : false;
-              isselected7 = isselected7! ? true : false;
-              isselected8 = isselected8! ? true : false;
+              isselected0 = false;
+              isselected1 = false;
+              isselected2 = true;
+              isselected4 = false;
+              isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
+              isselected9 = false;
             },
           );
           break;
         case 3:
           setState(
             () {
-              isselected0 = false;
-              isselected1 = false;
-              isselected3 = true;
-              isselected5 = false;
-              isselected6 = false;
-              isselected7 = false;
-              isselected8 = false;
+              ischoosereport = !ischoosereport!;
+              isselected0 = isselected0! ? true : false;
+              isselected1 = isselected1! ? true : false;
+              isselected2 = isselected2! ? true : false;
+              isselected6 = isselected6! ? true : false;
+              isselected7 = isselected7! ? true : false;
+              isselected8 = isselected8! ? true : false;
+              isselected9 = isselected9! ? true : false;
             },
           );
           break;
         case 4:
           setState(
             () {
-              isselectedsetting = !isselectedsetting;
-              isselected0 = isselected0! ? true : false;
-              isselected3 = isselected3! ? true : false;
-              isselected1 = isselected1! ? true : false;
-              isselected5 = isselected5! ? true : false;
-              isselected6 = isselected6! ? true : false;
-              isselected7 = isselected7! ? true : false;
-              isselected8 = isselected8! ? true : false;
+              issectedreport = ischoosereport! ? !issectedreport! : false;
+              isselected0 = ischoosereport!
+                  ? false
+                  : isselected0!
+                      ? true
+                      : false;
+              isselected1 = ischoosereport!
+                  ? false
+                  : isselected1!
+                      ? true
+                      : false;
+              isselected2 = ischoosereport!
+                  ? false
+                  : isselected2!
+                      ? true
+                      : false;
+              isselected4 = ischoosereport!
+                  ? true
+                  : isselected4!
+                      ? true
+                      : false;
+              isselected6 = ischoosereport!
+                  ? false
+                  : isselected6!
+                      ? true
+                      : false;
+              isselected7 = ischoosereport!
+                  ? false
+                  : isselected7!
+                      ? true
+                      : false;
+              isselected8 = ischoosereport!
+                  ? false
+                  : isselected8!
+                      ? true
+                      : false;
+              isselected9 = ischoosereport!
+                  ? false
+                  : isselected9!
+                      ? true
+                      : false;
             },
           );
           break;
+
         case 5:
           setState(
             () {
-              isselected0 = false;
-
-              isselected1 = false;
-              isselected3 = false;
-              isselected5 = true;
-              isselected6 = false;
-              isselected7 = false;
-              isselected8 = false;
+              isselectedsetting = !isselectedsetting!;
+              isselected0 = isselected0! ? true : false;
+              isselected2 = isselected2! ? true : false;
+              isselected1 = isselected1! ? true : false;
+              isselected6 = isselected6! ? true : false;
+              isselected7 = isselected7! ? true : false;
+              isselected8 = isselected8! ? true : false;
+              isselected9 = isselected9! ? true : false;
             },
           );
           break;
@@ -596,12 +671,13 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselected0 = false;
+
               isselected1 = false;
-              isselected3 = false;
-              isselected5 = false;
+              isselected2 = false;
               isselected6 = true;
               isselected7 = false;
               isselected8 = false;
+              isselected9 = false;
             },
           );
           break;
@@ -610,11 +686,11 @@ class _ScreensExampleState extends State<_ScreensExample> {
             () {
               isselected0 = false;
               isselected1 = false;
-              isselected3 = false;
-              isselected5 = false;
+              isselected2 = false;
               isselected6 = false;
               isselected7 = true;
               isselected8 = false;
+              isselected9 = false;
             },
           );
           break;
@@ -623,11 +699,24 @@ class _ScreensExampleState extends State<_ScreensExample> {
             () {
               isselected0 = false;
               isselected1 = false;
-              isselected3 = false;
-              isselected5 = false;
+              isselected2 = false;
               isselected6 = false;
               isselected7 = false;
               isselected8 = true;
+              isselected9 = false;
+            },
+          );
+          break;
+        case 9:
+          setState(
+            () {
+              isselected0 = false;
+              isselected1 = false;
+              isselected2 = false;
+              isselected6 = false;
+              isselected7 = false;
+              isselected8 = false;
+              isselected9 = true;
             },
           );
           break;
@@ -667,46 +756,53 @@ class _ScreensExampleState extends State<_ScreensExample> {
             return const HomePage();
 
           case 2:
-            return isselected0!
-                ? FittedBox(
-                    fit: BoxFit.fill,
-                    child: Column(
-                      children: const [
-                        Text(
-                          "Welcome",
-                          style: TextStyle(
-                              fontSize: 42, fontWeight: FontWeight.bold),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(top: 8.0),
-                          child: Text(
-                            "Globizs web solution Pvt. Ltd.",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 211, 32, 39),
-                                fontSize: 56),
-                          ),
-                        )
-                      ],
-                    ))
-                : isselected1!
-                    ? const HomePage()
-                    : isselected5!
-                        ? isselectedsetting
-                            ? const LogOutPage()
-                            : const BranchPage()
-                        : isselected6!
-                            ? const DepartmentPage()
-                            : isselected7!
-                                ? const DesignationPage()
-                                : isselected8!
-                                    ? isselectedsetting
-                                        ? const LogOutPage()
-                                        : const LogOutPage()
-                                    : const HomePage();
+            return const LeaveBalancePage();
 
           case 3:
-            return issectedreport
-                ? const Text('Report Page')
+            return issectedreport!
+                ? const LeaveReportPage()
+                : isselected2!
+                    ? const LeaveBalancePage()
+                    : isselected0!
+                        ? FittedBox(
+                            fit: BoxFit.fill,
+                            child: Column(
+                              children: const [
+                                Text(
+                                  "Welcome",
+                                  style: TextStyle(
+                                      fontSize: 42,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    "Globizs web solution Pvt. Ltd.",
+                                    style: TextStyle(
+                                        color: Color.fromARGB(255, 211, 32, 39),
+                                        fontSize: 56),
+                                  ),
+                                )
+                              ],
+                            ))
+                        : isselected1!
+                            ? const HomePage()
+                            : isselected6!
+                                ? isselectedsetting!
+                                    ? const LogOutPage()
+                                    : const BranchPage()
+                                : isselected7!
+                                    ? const DepartmentPage()
+                                    : isselected8!
+                                        ? const DesignationPage()
+                                        : isselected9!
+                                            ? isselectedsetting!
+                                                ? const LogOutPage()
+                                                : const LogOutPage()
+                                            : const HomePage();
+          case 4:
+            return issectedreport!
+                ? const LeaveReportPage()
                 : isselected0!
                     ? FittedBox(
                         fit: BoxFit.fill,
@@ -730,21 +826,21 @@ class _ScreensExampleState extends State<_ScreensExample> {
                         ))
                     : isselected1!
                         ? const HomePage()
-                        : isselected5!
-                            ? isselectedsetting
+                        : isselected6!
+                            ? isselectedsetting!
                                 ? const LogOutPage()
                                 : const BranchPage()
-                            : isselected6!
+                            : isselected7!
                                 ? const DepartmentPage()
-                                : isselected7!
+                                : isselected8!
                                     ? const DesignationPage()
-                                    : isselected8!
-                                        ? isselectedsetting
+                                    : isselected9!
+                                        ? isselectedsetting!
                                             ? const LogOutPage()
                                             : const LogOutPage()
                                         : const HomePage();
-          case 4:
-            return issectedreport
+          case 5:
+            return ischoosereport!
                 ? isselected0!
                     ? FittedBox(
                         fit: BoxFit.fill,
@@ -768,43 +864,43 @@ class _ScreensExampleState extends State<_ScreensExample> {
                         ))
                     : isselected1!
                         ? const HomePage()
-                        : isselected5!
-                            ? isselectedsetting
-                                ? const LogOutPage()
-                                : const BranchPage()
-                            : isselected6!
+                        : isselected6!
+                            ? isselectedsetting!
+                                ? const BranchPage()
+                                : const LogOutPage()
+                            : isselected7!
                                 ? const DepartmentPage()
-                                : isselected7!
+                                : isselected8!
                                     ? const DesignationPage()
-                                    : isselected8!
-                                        ? isselectedsetting
+                                    : isselected9!
+                                        ? isselectedsetting!
                                             ? const LogOutPage()
                                             : const LogOutPage()
                                         : const HomePage()
-                : const BranchPage();
+                : const LogOutPage();
 
-          case 5:
-            return issectedreport
-                ? isselectedsetting
+          case 6:
+            return ischoosereport!
+                ? isselectedsetting!
                     ? const BranchPage()
                     : const LogOutPage()
-                : const LogOutPage();
-          case 6:
-            return issectedreport
-                ? isselectedsetting
-                    ? const DepartmentPage()
-                    : const LogOutPage()
-                : const LogOutPage();
-
+                : const DepartmentPage();
           case 7:
-            return issectedreport
-                ? isselectedsetting
+            return ischoosereport!
+                ? isselectedsetting!
+                    ? const BranchPage()
+                    : const LogOutPage()
+                : const DesignationPage();
+
+          case 8:
+            return ischoosereport!
+                ? isselectedsetting!
                     ? const DesignationPage()
                     : const LogOutPage()
                 : const LogOutPage();
-          case 8:
-            return issectedreport
-                ? isselectedsetting
+          case 9:
+            return issectedreport!
+                ? isselectedsetting!
                     ? const LogOutPage()
                     : const LogOutPage()
                 : const LogOutPage();
