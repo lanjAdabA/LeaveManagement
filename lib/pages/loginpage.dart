@@ -255,8 +255,14 @@ class _LoginPageState extends State<LoginPage> {
                                                                   .emaillogin(
                                                                       email: emailorphoncontroller
                                                                           .text)
-                                                                  .then((value) =>
-                                                                      startTimer());
+                                                                  .then(
+                                                                      (value) {
+                                                                startTimer();
+                                                                FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _passwordFocusNode);
+                                                              });
 
                                                               //send email to api
                                                             } else if (isValidPhoneNumber(
