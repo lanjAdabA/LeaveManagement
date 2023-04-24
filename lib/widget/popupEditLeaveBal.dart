@@ -128,6 +128,7 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                     height: 10,
                   ),
                   Container(
+                      height: 52,
                       padding: const EdgeInsets.symmetric(horizontal: 13),
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(255, 240, 237, 237),
@@ -178,26 +179,28 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                     height: 10,
                   ),
                   Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 13),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 240, 237, 237),
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 225, 222, 222))),
-                      child: const Text("Balance Credit : ")
-                      //  TextFormField(
-                      //     keyboardType: TextInputType.text,
-                      //     decoration: const InputDecoration(
-                      //       border: InputBorder.none,
-                      //       focusedBorder: InputBorder.none,
-                      //       enabledBorder: InputBorder.none,
-                      //       errorBorder: InputBorder.none,
-                      //       disabledBorder: InputBorder.none,
-                      //       hintStyle:
-                      //           TextStyle(fontSize: 15, color: Colors.grey),
-                      //       hintText: 'Balance Credit :',
-                      //     )),
-                      ),
+                    height: 52,
+                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 240, 237, 237),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 225, 222, 222))),
+                    child:
+                        //  const Text("Balance Credit : ")
+                        TextFormField(
+                            keyboardType: TextInputType.text,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              disabledBorder: InputBorder.none,
+                              hintStyle:
+                                  TextStyle(fontSize: 15, color: Colors.grey),
+                              hintText: 'Balance Credit :',
+                            )),
+                  ),
                 ],
               ),
             ),
