@@ -22,6 +22,8 @@ class GetemployeelistCubit extends Cubit<PostState> {
       int? branchid,
       int? rolename}) async {
     emit(PostLoadingState('Fetching Data..'));
+    List allemptidlist = [];
+    List<String> allempnamelist = [];
     try {
       if (ismoredata) {
         List<Employee>? emplist = await postRepository.getemployeeList(
@@ -31,8 +33,24 @@ class GetemployeelistCubit extends Cubit<PostState> {
             branchid: branchid,
             desigid: desigid,
             roleid: rolename);
+        for (var element in emplist!) {
+          allemptidlist.add(element.employeeId);
+          allempnamelist.add(element.employeeName);
+          // if (allbranchIdlist.contains(element.id)) {
+          //   log('Already Added');
+          // } else {
+          //   allbranchIdlist.add(element.id);
+          // }
+          // if (allbranchNamelist.contains(element.name)) {
+          //   log('name already addded');
+          // } else {
+          //   allbranchNamelist.add(element.name);
+          // }
+        }
+        var result = Map.fromIterables(allempnamelist, allemptidlist);
+        log('From Cubit for Department :$result');
 
-        if (emplist!.length < datalimit) {
+        if (emplist.length < datalimit) {
           log('item is lesss than $datalimit');
           ismoredata = false;
 
@@ -40,15 +58,27 @@ class GetemployeelistCubit extends Cubit<PostState> {
           log(emplist.toString());
           if (emplist.isEmpty) {
             emit(PostLoadedState(
-                allemployeelist: emplist, isloading: false, isempty: true));
+                allemployeelist: emplist,
+                isloading: false,
+                isempty: true,
+                allempnamelist: allempnamelist,
+                emptidwithname: result));
           } else {
             emit(PostLoadedState(
-                allemployeelist: emplist, isloading: false, isempty: false));
+                allemployeelist: emplist,
+                isloading: false,
+                isempty: false,
+                allempnamelist: allempnamelist,
+                emptidwithname: result));
           }
         } else {
           log(emplist.length.toString());
           emit(PostLoadedState(
-              allemployeelist: emplist, isloading: ismoredata, isempty: false));
+              allemployeelist: emplist,
+              isloading: ismoredata,
+              isempty: false,
+              allempnamelist: allempnamelist,
+              emptidwithname: result));
         }
       }
     } on DioError catch (ex) {
