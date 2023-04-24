@@ -645,7 +645,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0),
+                                                                  top: 6.0),
                                                           child: Text(
                                                             'Sl. no. ',
                                                           ),
@@ -659,7 +659,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0),
+                                                                  top: 6.0),
                                                           child: Text(
                                                             overflow:
                                                                 TextOverflow
@@ -670,10 +670,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         Padding(
                                                           padding:
                                                               const EdgeInsets
-                                                                  .only(top: 8),
+                                                                      .only(
+                                                                  top: 10),
                                                           child: OnHoverButton(
                                                             child: Container(
-                                                              height: 38,
+                                                              height: 36,
                                                               width: 300,
                                                               padding:
                                                                   const EdgeInsets
@@ -688,38 +689,46 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   border: Border.all(
                                                                       color: Colors
                                                                           .grey)),
-                                                              child: TextField(
-                                                                onChanged:
-                                                                    (value) {
-                                                                  displayedDataCell
-                                                                      .clear();
-                                                                  if (value
-                                                                          .length >=
-                                                                      3) {
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        name:
-                                                                            value,
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue11,
-                                                                        deptid:
-                                                                            dropdownvalue22,
-                                                                        rolename:
-                                                                            dropdownvalue33,
-                                                                        branchid:
-                                                                            dropdownvalue44);
-                                                                  }
-                                                                },
-                                                                decoration:
-                                                                    const InputDecoration(
-                                                                  hintText:
-                                                                      " Search       🔍",
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            8.0),
+                                                                child:
+                                                                    TextField(
+                                                                  onChanged:
+                                                                      (value) {
+                                                                    displayedDataCell
+                                                                        .clear();
+                                                                    if (value
+                                                                            .length >=
+                                                                        3) {
+                                                                      context.read<GetemployeelistCubit>().getemployeelist(
+                                                                          name:
+                                                                              value,
+                                                                          datalimit:
+                                                                              datalimit,
+                                                                          ismoredata:
+                                                                              true,
+                                                                          desigid:
+                                                                              dropdownvalue11,
+                                                                          deptid:
+                                                                              dropdownvalue22,
+                                                                          rolename:
+                                                                              dropdownvalue33,
+                                                                          branchid:
+                                                                              dropdownvalue44);
+                                                                    }
+                                                                  },
+                                                                  decoration:
+                                                                      const InputDecoration(
+                                                                    hintText:
+                                                                        " Search       🔍",
+                                                                    border:
+                                                                        InputBorder
+                                                                            .none,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
@@ -734,7 +743,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0,
+                                                                  top: 8.0,
                                                                   bottom: 8),
                                                           child: Text(
                                                             'Branch',
@@ -742,7 +751,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         ),
                                                         OnHoverButton(
                                                           child: Container(
-                                                            height: 40,
+                                                            height: 36,
                                                             padding:
                                                                 const EdgeInsets
                                                                         .symmetric(
@@ -788,16 +797,30 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   const DropDownDecoratorProps(
                                                                 dropdownSearchDecoration:
                                                                     InputDecoration(
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                  ),
+                                                                  labelText:
+                                                                      "Select",
+
                                                                   border:
                                                                       InputBorder
                                                                           .none,
-                                                                  hintText:
-                                                                      "Choose  Branch",
+                                                                  focusedBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  enabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  errorBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  disabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  // label: Text(
+                                                                  //   "Select",
+                                                                  //   style: TextStyle(
+                                                                  //       fontSize:
+                                                                  //           14),
+                                                                  // ),
                                                                 ),
                                                               ),
                                                               onChanged: (String?
@@ -847,7 +870,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0,
+                                                                  top: 8.0,
                                                                   bottom: 8),
                                                           child: Text(
                                                             'Department',
@@ -855,7 +878,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         ),
                                                         OnHoverButton(
                                                           child: Container(
-                                                            height: 40,
+                                                            height: 36,
                                                             padding:
                                                                 const EdgeInsets
                                                                         .symmetric(
@@ -901,16 +924,29 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   const DropDownDecoratorProps(
                                                                 dropdownSearchDecoration:
                                                                     InputDecoration(
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                  ),
+                                                                  labelText:
+                                                                      "Select",
                                                                   border:
                                                                       InputBorder
                                                                           .none,
-                                                                  hintText:
-                                                                      "Choose  Department",
+                                                                  focusedBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  enabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  errorBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  disabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  // label: Text(
+                                                                  //   "Select",
+                                                                  //   style: TextStyle(
+                                                                  //       fontSize:
+                                                                  //           14),
+                                                                  // ),
                                                                 ),
                                                               ),
                                                               onChanged: (String?
@@ -959,7 +995,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0,
+                                                                  top: 8.0,
                                                                   bottom: 8),
                                                           child: Text(
                                                             'Designation',
@@ -967,7 +1003,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         ),
                                                         OnHoverButton(
                                                           child: Container(
-                                                            height: 40,
+                                                            height: 36,
                                                             width:
                                                                 MediaQuery.of(
                                                                         context)
@@ -1018,16 +1054,29 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   const DropDownDecoratorProps(
                                                                 dropdownSearchDecoration:
                                                                     InputDecoration(
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                  ),
+                                                                  labelText:
+                                                                      "Select",
                                                                   border:
                                                                       InputBorder
                                                                           .none,
-                                                                  hintText:
-                                                                      "Choose Designation",
+                                                                  focusedBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  enabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  errorBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  disabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  // label: Text(
+                                                                  //   "Select",
+                                                                  //   style: TextStyle(
+                                                                  //       fontSize:
+                                                                  //           14),
+                                                                  // ),
                                                                 ),
                                                               ),
                                                               onChanged: (String?
@@ -1076,7 +1125,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         const Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0,
+                                                                  top: 8.0,
                                                                   bottom: 8),
                                                           child: Text(
                                                             'Leave Type',
@@ -1084,7 +1133,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         ),
                                                         OnHoverButton(
                                                           child: Container(
-                                                            height: 40,
+                                                            height: 36,
                                                             width:
                                                                 MediaQuery.of(
                                                                         context)
@@ -1135,16 +1184,29 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   const DropDownDecoratorProps(
                                                                 dropdownSearchDecoration:
                                                                     InputDecoration(
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        15,
-                                                                  ),
+                                                                  labelText:
+                                                                      "Select",
                                                                   border:
                                                                       InputBorder
                                                                           .none,
-                                                                  hintText:
-                                                                      "Choose  Type",
+                                                                  focusedBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  enabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  errorBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  disabledBorder:
+                                                                      InputBorder
+                                                                          .none,
+                                                                  // label: Text(
+                                                                  //   "Select",
+                                                                  //   style: TextStyle(
+                                                                  //       fontSize:
+                                                                  //           14),
+                                                                  // ),
                                                                 ),
                                                               ),
                                                               onChanged: (String?
@@ -1193,7 +1255,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0),
+                                                                  top: 6.0),
                                                           child: Text(
                                                             'Avail. Leave Balance',
                                                           ),
@@ -1210,7 +1272,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 14.0),
+                                                                  top: 6.0),
                                                           child: Center(
                                                             child: Text(
                                                               'Action',

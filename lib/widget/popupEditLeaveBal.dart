@@ -169,7 +169,7 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                       //     alldeptState.alldeptnamelist,
                       dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          // floatingLabelBehavior: FloatingLabelBehavior.never,
                           hintStyle: TextStyle(
                             fontSize: 15,
                           ),
