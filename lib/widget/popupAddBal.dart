@@ -90,7 +90,7 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.tight(const Size(250, 250)),
+                        constraints: BoxConstraints.expand(height: height / 5),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),
@@ -131,7 +131,7 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.tight(const Size(250, 250)),
+                        constraints: BoxConstraints.expand(height: height / 5),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),
