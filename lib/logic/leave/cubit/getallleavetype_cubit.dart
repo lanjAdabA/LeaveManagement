@@ -14,7 +14,9 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
       : super(const GetallleavetypeState(
             alleavetype: [],
             alleavetypeidwithname: {},
-            allleavetypenamelist: [])) {
+            allleavetypenamelist: [],
+            alleavetypeidwithnamecopy: {},
+            allleavetypenamelistcopy: [])) {
     getallleavetype();
   }
 
@@ -22,6 +24,8 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
   void getallleavetype() async {
     List allleaveidlist = [];
     List<String> allleavenamelist = [];
+    List allleaveidlistcopy = [];
+    List<String> allleavenamelistcopy = [];
 
     try {
       final response = await api.sendRequest.get("/api/leavetype");
@@ -29,19 +33,31 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
         List<dynamic> postMaps = response.data['data']['leaves'];
 
         log(postMaps.toString());
-        var alldesign = postMaps.map((e) => Leaf.fromJson(e)).toList();
-
-        for (var element in alldesign) {
+        var allleavetype = postMaps.map((e) => Leaf.fromJson(e)).toList();
+        var allleavetypecopy = allleavetype;
+        allleavetypecopy.removeRange(0, 2);
+        for (var element in allleavetype) {
           allleaveidlist.add(element.id);
           allleavenamelist.add(element.name);
+        }
+        for (var element in allleavetypecopy) {
+          allleaveidlistcopy.add(element.id);
+          allleavenamelistcopy.add(element.name);
         }
 
         var result = Map.fromIterables(allleaveidlist, allleavenamelist);
         log('From Cubit For Leavetype :$result');
+
+        var result2 =
+            Map.fromIterables(allleavenamelistcopy, allleaveidlistcopy);
+        log('From Cubit For Leavetype :$result2');
+
         emit(GetallleavetypeState(
-            alleavetype: alldesign,
+            alleavetype: allleavetype,
             alleavetypeidwithname: result,
-            allleavetypenamelist: allleavenamelist));
+            allleavetypenamelist: allleavenamelist,
+            alleavetypeidwithnamecopy: result2,
+            allleavetypenamelistcopy: allleavenamelistcopy));
       } else {
         EasyLoading.showError('Cannot fetch Data');
       }
