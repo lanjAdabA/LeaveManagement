@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:leavemanagementadmin/pages/Employee.dart';
 import 'package:leavemanagementadmin/pages/branch.dart';
 import 'package:leavemanagementadmin/pages/department.dart';
 import 'package:leavemanagementadmin/pages/designation.dart';
-import 'package:leavemanagementadmin/pages/employee.dart';
 import 'package:leavemanagementadmin/pages/leave_report.dart';
 
 import 'package:leavemanagementadmin/widget/logoutPage.dart';
