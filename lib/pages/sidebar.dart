@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:leavemanagementadmin/pages/branch.dart';
 import 'package:leavemanagementadmin/pages/department.dart';
 import 'package:leavemanagementadmin/pages/designation.dart';
-import 'package:leavemanagementadmin/pages/homepage.dart';
+import 'package:leavemanagementadmin/pages/employee.dart';
 import 'package:leavemanagementadmin/pages/leave_report.dart';
 
 import 'package:leavemanagementadmin/widget/logoutPage.dart';
@@ -118,6 +118,9 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
     // TODO: implement initState
     super.initState();
     widget._controller.addListener(() {
+      setState(() {
+        isexpanded = widget._controller.extended;
+      });
       log('Item Length  :${_items.length}');
       // if (_items.length > 6) {
       //   setState(() {
