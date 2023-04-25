@@ -8,6 +8,7 @@ import 'package:leavemanagementadmin/constant/apiendpoint.dart';
 import 'package:leavemanagementadmin/listener/auth_login_listener.dart';
 
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
+import 'package:leavemanagementadmin/model/leavetypemodel.dart';
 
 class AuthRepository {
   static const baseUrl = "https://staging.leave.globizs.com";
@@ -302,7 +303,29 @@ class AuthRepository {
     }
   }
 
-  // GET BRANCH
+  // GET Leave Report
+  // Future<List<Employee>?> getleavereport(
+  //     {required String startdate,
+  //     required String enddate,
+  //     }) async {
+  //   try {
+  //     final response = await dio.get("/api/admin/employees", queryParameters: {
+  //  "from": "2023-04-1",
+  //   "to": "2023-04-1"
+  //     });
+  //     if (response.statusCode == 200) {
+  //       log(response.data.toString());
+  //       List<dynamic> postMaps = response.data;
+
+  //       return postMaps.map((e) => GetallLeavetypeModel.fromJson(e)).toList();
+  //     } else {
+  //       EasyLoading.showError('Cannot fetch Data');
+  //     }
+  //   } catch (ex) {
+  //     rethrow;
+  //   }
+  //   return null;
+  // }
 
   // GET Employee List
 

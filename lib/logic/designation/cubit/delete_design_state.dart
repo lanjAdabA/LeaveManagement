@@ -9,6 +9,7 @@ class DeleteDesignState extends Equatable {
 
   const DeleteDesignState({
     required this.deletedesignStatus,
+    //final DeleteDesignStatus deletedesignStatus;
   });
 
   @override
