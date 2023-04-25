@@ -14,6 +14,7 @@ import 'package:leavemanagementadmin/logic/branch/getallbranch_cubit.dart';
 import 'package:leavemanagementadmin/logic/department/cubit/get_alldept_cubit.dart';
 import 'package:leavemanagementadmin/logic/designation/cubit/get_alldesign_cubit.dart';
 import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_cubit.dart';
+import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_forleavebalance_cubit.dart';
 import 'package:leavemanagementadmin/logic/role/cubit/get_role_cubit.dart';
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
@@ -95,6 +96,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     context.read<GetRoleCubit>().getallrole();
 
     context.read<GetallleavetypeCubit>().getallleavetype();
+    context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
 
     context
         .read<GetemployeelistCubit>()
@@ -403,8 +405,9 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                     alldesignstate.designidwithname);
                           }
                         }, builder: (context, getempoyeestate) {
-                          return BlocConsumer<GetallleavetypeCubit,
-                              GetallleavetypeState>(
+                          return BlocConsumer<
+                              GetallleavetypeForleavebalanceCubit,
+                              GetallleavetypeForleavebalanceState>(
                             listener: (context, allLeaveTypeState) {
                               // TODO: implement listener
                             },
@@ -534,10 +537,13 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       empNameWithId,
                                                                   allLeaveType:
                                                                       allLeaveTypeState
-                                                                          .allleavetypenamelistcopy,
+                                                                          .allleavetypenamelist,
                                                                   leaveTypeWithId:
                                                                       allLeaveTypeState
-                                                                          .alleavetypeidwithnamecopy,
+                                                                          .alleavetypeidwithname,
+                                                                  leavatypenamewithcredit:
+                                                                      allLeaveTypeState
+                                                                          .alleavetypenamewithcredit,
                                                                 );
                                                               });
                                                             },
@@ -1200,7 +1206,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         true,
                                                                   ),
                                                                   items: allLeaveTypeState
-                                                                      .allleavetypenamelistcopy,
+                                                                      .allleavetypenamelist,
                                                                   dropdownDecoratorProps:
                                                                       const DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:

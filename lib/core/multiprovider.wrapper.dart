@@ -34,6 +34,7 @@ import '../logic/branch/create_branch_cubit.dart';
 import '../logic/branch/getallbranch_cubit.dart';
 import '../logic/branch/update_branch_cubit.dart';
 import '../logic/branch/update_branch_state.dart';
+import '../logic/leave/cubit/getallleavetype_forleavebalance_cubit.dart';
 
 class MultiproviderWrapper extends StatelessWidget {
   final Widget child;
@@ -95,6 +96,7 @@ class MultiproviderWrapper extends StatelessWidget {
       BlocProvider(
           create: (context) =>
               AddLeaveBalanceCubit(AddLeaveBalanceStatus.initial)),
+      BlocProvider(create: (context) => GetallleavetypeForleavebalanceCubit()),
     ], child: child);
   }
 }

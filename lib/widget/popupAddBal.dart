@@ -11,12 +11,14 @@ class AddBalPopUp extends StatefulWidget {
   final Map<dynamic, dynamic> empNameWithId;
   final List<String> allLeaveType;
   final Map<dynamic, dynamic> leaveTypeWithId;
+  final Map<dynamic, dynamic> leavatypenamewithcredit;
   const AddBalPopUp(
       {super.key,
       required this.allEmpNameList,
       required this.empNameWithId,
       required this.allLeaveType,
-      required this.leaveTypeWithId});
+      required this.leaveTypeWithId,
+      required this.leavatypenamewithcredit});
 
   @override
   State<AddBalPopUp> createState() => _AddBalPopUpState();
@@ -26,6 +28,7 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
   String empDropDownName = "";
   String leavetypeDropDownName = "";
   int? leavedropdownvalue;
+  String leavecredit = '';
 
   @override
   Widget build(BuildContext context) {
@@ -170,6 +173,8 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                       onChanged: (String? newValue) {
                         setState(() {
                           leavetypeDropDownName = newValue as String;
+                          leavecredit = widget
+                              .leavatypenamewithcredit[leavetypeDropDownName];
                         });
 
                         leavedropdownvalue =
@@ -181,36 +186,22 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                     height: 10,
                   ),
                   Container(
-                    // height: 52,
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 237, 237),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 225, 222, 222))),
-                    child:
-                        //  Row(
-                        //   children: [
-                        //     Text(
-                        //       " Balance Credit : ",
-                        //       style: TextStyle(color: Colors.grey[600]),
-                        //     ),
-                        //     const Text("____")
-                        //   ],
-                        // )
-                        TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(fontSize: 15, color: Colors.grey),
-                              hintText: 'Balance Credit :',
-                            )),
-                  ),
+                      height: 52,
+                      padding: const EdgeInsets.symmetric(horizontal: 13),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 240, 237, 237),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 225, 222, 222))),
+                      child: Row(
+                        children: [
+                          Text(
+                            " Balance Credit : ",
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Text(leavecredit)
+                        ],
+                      ))
                 ],
               ),
             ),
