@@ -44,7 +44,9 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   TextEditingController leavereasoncontroller = TextEditingController();
 
   bool israngeselected = false;
-  _buildDefaultMultiDatePickerWithValue() async {}
+
+//Dropdown Label String
+  String Dropdownbranchlabel = 'Select';
 
   bool? ismoreloading;
   List<String> allEmp = [];
@@ -826,11 +828,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   items: allbranchState
                                                                       .allbranchnamelist,
                                                                   dropdownDecoratorProps:
-                                                                      const DropDownDecoratorProps(
+                                                                      DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:
                                                                         InputDecoration(
                                                                       labelText:
-                                                                          "Select",
+                                                                          Dropdownbranchlabel,
 
                                                                       border: InputBorder
                                                                           .none,
@@ -862,6 +864,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       dropdownvalue_branchname =
                                                                           newValue
                                                                               as String;
+                                                                      Dropdownbranchlabel =
+                                                                          dropdownvalue_branchname!;
                                                                     });
                                                                     dropdownvalue_branchid = allbranchState
                                                                         .branchidwithname
