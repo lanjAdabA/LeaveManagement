@@ -94,11 +94,11 @@ class MultiproviderWrapper extends StatelessWidget {
       BlocProvider(create: (context) => GetallleavetypeCubit()),
       BlocProvider(
           create: (context) => CreateleaveCubit(CreateLeaveStatus.initial)),
+      BlocProvider(create: (context) => GetLeaveReportCubit()),
       BlocProvider(
           create: (context) =>
               AddLeaveBalanceCubit(AddLeaveBalanceStatus.initial)),
       BlocProvider(create: (context) => GetallleavetypeForleavebalanceCubit()),
-      BlocProvider(create: (context) => GetLeaveReportCubit()),
     ], child: child);
   }
 }
