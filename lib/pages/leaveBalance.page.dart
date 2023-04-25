@@ -683,7 +683,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         ])
                                                     ],
                                                     columns: <DataColumn>[
-                                                      DataColumn(
+                                                      DataColumn2(
+                                                        fixedWidth: 52,
                                                         label: Column(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
