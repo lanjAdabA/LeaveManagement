@@ -4,7 +4,8 @@ import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class EditLeaveBalPopUp extends StatefulWidget {
-  const EditLeaveBalPopUp({super.key});
+  final String empName;
+  const EditLeaveBalPopUp({super.key, required this.empName});
 
   @override
   State<EditLeaveBalPopUp> createState() => _EditLeaveBalPopUpState();
@@ -91,7 +92,7 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                             " Employee Name : ",
                             style: TextStyle(color: Colors.grey[600]),
                           ),
-                          // const Text("____")
+                          Text(widget.empName)
                         ],
                       )
                       // DropdownSearch<String>(

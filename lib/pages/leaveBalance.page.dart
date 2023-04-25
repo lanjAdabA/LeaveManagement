@@ -165,12 +165,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
         );
 
         displayedDataCell.add(
-          const DataCell(Center(child: Text("LeaveType"))),
+          const DataCell(Center(child: Text("-"))),
         );
         displayedDataCell.add(
           const DataCell(
             Center(
-              child: Text("Leave Bal."),
+              child: Text("-"),
             ),
           ),
         );
@@ -247,7 +247,9 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         void Function(
                                                                 void Function())
                                                             setState) {
-                                                  return const EditLeaveBalPopUp();
+                                                  return EditLeaveBalPopUp(
+                                                    empName: item.employeeName,
+                                                  );
                                                 });
                                               },
                                             );
@@ -264,7 +266,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                       },
                     );
                   },
-                  child: const OnHoverButton2(child: Text("Edit"))),
+                  child: const OnHoverButton2(
+                      child: Text(
+                    "Edit",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ))),
             ),
           )),
         );
