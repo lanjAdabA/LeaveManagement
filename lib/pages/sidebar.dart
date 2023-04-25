@@ -759,7 +759,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                   ],
                 ));
           case 1:
-            return const HomePage();
+            return const EmployeePage();
 
           case 2:
             return const LeaveBalancePage();
@@ -792,7 +792,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                               ],
                             ))
                         : isselected1!
-                            ? const HomePage()
+                            ? const EmployeePage()
                             : isselected6!
                                 ? isselectedsetting!
                                     ? const LogOutPage()
@@ -807,7 +807,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                             ? isselectedsetting!
                                                 ? const LogOutPage()
                                                 : const LogOutPage()
-                                            : const HomePage();
+                                            : const EmployeePage();
           case 4:
             return issectedreport!
                 ? const LeaveReportPage()
@@ -833,7 +833,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                           ],
                         ))
                     : isselected1!
-                        ? const HomePage()
+                        ? const EmployeePage()
                         : isselected6!
                             ? isselectedsetting!
                                 ? const LogOutPage()
@@ -850,7 +850,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                         ? isselectedsetting!
                                             ? const LogOutPage()
                                             : const LogOutPage()
-                                        : const HomePage();
+                                        : const EmployeePage();
           case 5:
             return ischoosereport!
                 ? issectedreport!
@@ -878,7 +878,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                               ],
                             ))
                         : isselected1!
-                            ? const HomePage()
+                            ? const EmployeePage()
                             : isselected6!
                                 ? isselectedsetting!
                                     ? const BranchPage()
@@ -891,7 +891,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                             ? isselectedsetting!
                                                 ? const LogOutPage()
                                                 : const LogOutPage()
-                                            : const HomePage()
+                                            : const EmployeePage()
                 : isselectedsetting!
                     ? const BranchPage()
                     : const LogOutPage();
