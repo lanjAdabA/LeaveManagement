@@ -46,7 +46,10 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   bool israngeselected = false;
 
 //Dropdown Label String
-  String Dropdownbranchlabel = 'Select';
+  String dropdownbranchlabel = 'Select';
+  String dropdownDepartmentlabel = 'Select';
+  String dropdownDesignationlabel = 'Select';
+  String dropdownLeaveatypelabel = 'Select';
 
   bool? ismoreloading;
   List<String> allEmp = [];
@@ -832,7 +835,13 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                     dropdownSearchDecoration:
                                                                         InputDecoration(
                                                                       labelText:
-                                                                          Dropdownbranchlabel,
+                                                                          dropdownbranchlabel,
+
+                                                                      // labelStyle: TextStyle(
+                                                                      //     color: Colors.grey[
+                                                                      //         700],
+                                                                      //     fontSize:
+                                                                      //         20),
 
                                                                       border: InputBorder
                                                                           .none,
@@ -864,7 +873,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       dropdownvalue_branchname =
                                                                           newValue
                                                                               as String;
-                                                                      Dropdownbranchlabel =
+                                                                      dropdownbranchlabel =
                                                                           dropdownvalue_branchname!;
                                                                     });
                                                                     dropdownvalue_branchid = allbranchState
@@ -956,11 +965,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   items: alldeptState
                                                                       .alldeptnamelist,
                                                                   dropdownDecoratorProps:
-                                                                      const DropDownDecoratorProps(
+                                                                      DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:
                                                                         InputDecoration(
                                                                       labelText:
-                                                                          "Select",
+                                                                          dropdownDepartmentlabel,
                                                                       border: InputBorder
                                                                           .none,
                                                                       focusedBorder:
@@ -991,6 +1000,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       dropdownvalue_departmentname =
                                                                           newValue
                                                                               as String;
+                                                                      dropdownDepartmentlabel =
+                                                                          dropdownvalue_departmentname!;
                                                                     });
 
                                                                     dropdownvalue_departmentid = alldeptState
@@ -1084,11 +1095,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   items: alldesignstate
                                                                       .alldesignationnamelist,
                                                                   dropdownDecoratorProps:
-                                                                      const DropDownDecoratorProps(
+                                                                      DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:
                                                                         InputDecoration(
                                                                       labelText:
-                                                                          "Select",
+                                                                          dropdownDesignationlabel,
                                                                       border: InputBorder
                                                                           .none,
                                                                       focusedBorder:
@@ -1119,6 +1130,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       dropdownvalue_designname =
                                                                           newValue
                                                                               as String;
+                                                                      dropdownDesignationlabel =
+                                                                          dropdownvalue_designname!;
                                                                     });
 
                                                                     dropdownvalue_designid = alldesignstate
@@ -1214,11 +1227,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   items: allLeaveTypeState
                                                                       .allleavetypenamelist,
                                                                   dropdownDecoratorProps:
-                                                                      const DropDownDecoratorProps(
+                                                                      DropDownDecoratorProps(
                                                                     dropdownSearchDecoration:
                                                                         InputDecoration(
                                                                       labelText:
-                                                                          "Select",
+                                                                          dropdownLeaveatypelabel,
                                                                       border: InputBorder
                                                                           .none,
                                                                       focusedBorder:
@@ -1249,11 +1262,13 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                       dropdownLeavetypeName =
                                                                           newValue
                                                                               as String;
+                                                                      dropdownLeaveatypelabel =
+                                                                          dropdownLeavetypeName!;
                                                                     });
 
                                                                     dropdownleavetypevalue =
                                                                         allLeaveTypeState
-                                                                            .alleavetypeidwithnamecopy[dropdownLeavetypeName];
+                                                                            .alleavetypeidwithname[dropdownLeavetypeName];
 
                                                                     displayedDataCell
                                                                         .clear();
