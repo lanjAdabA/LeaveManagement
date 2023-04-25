@@ -12,9 +12,10 @@ part 'getallleavetype_state.dart';
 class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
   GetallleavetypeCubit()
       : super(const GetallleavetypeState(
-            alleavetype: [],
-            alleavetypeidwithname: {},
-            allleavetypenamelist: [])) {
+          alleavetype: [],
+          alleavetypeidwithname: {},
+          allleavetypenamelist: [],
+        )) {
     getallleavetype();
   }
 
@@ -29,19 +30,21 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
         List<dynamic> postMaps = response.data['data']['leaves'];
 
         log(postMaps.toString());
-        var alldesign = postMaps.map((e) => Leaf.fromJson(e)).toList();
+        var allleavetype = postMaps.map((e) => Leaf.fromJson(e)).toList();
 
-        for (var element in alldesign) {
+        for (var element in allleavetype) {
           allleaveidlist.add(element.id);
           allleavenamelist.add(element.name);
         }
 
         var result = Map.fromIterables(allleaveidlist, allleavenamelist);
         log('From Cubit For Leavetype :$result');
+
         emit(GetallleavetypeState(
-            alleavetype: alldesign,
-            alleavetypeidwithname: result,
-            allleavetypenamelist: allleavenamelist));
+          alleavetype: allleavetype,
+          alleavetypeidwithname: result,
+          allleavetypenamelist: allleavenamelist,
+        ));
       } else {
         EasyLoading.showError('Cannot fetch Data');
       }

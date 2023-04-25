@@ -5,6 +5,8 @@ import 'package:leavemanagementadmin/router/router.gr.dart';
 class AppRouter extends $AppRouter {
   @override
   final List<AutoRoute> routes = [
+    // AutoRoute(page: NewRoute.page, path: '/'),
+
     AutoRoute(path: '/', page: AuthFlowRoute.page, children: [
       AutoRoute(
         page: SidebarRoute.page,

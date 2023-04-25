@@ -508,4 +508,31 @@ class AuthRepository {
       log(e.toString());
     }
   }
+
+  void addleavebalance({
+    required String empName,
+    required int leavetypeid,
+    // required int balance,
+
+    required AuthLoginListioner authLoginListener,
+  }) async {
+    authLoginListener.loading();
+    try {
+      final data = {
+        "leave_type_id": leavetypeid,
+        "employee_name": empName,
+      };
+      var response = await dio.post(addleavebalanceurl, data: data);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        log("Successfully added Leave Balance");
+        authLoginListener.loaded();
+        EasyLoading.showToast("Successfully added Leave Balance");
+      } else {
+        authLoginListener.error();
+      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:leavemanagementadmin/logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
 
 import 'package:leavemanagementadmin/logic/Authflow/auth_flow_cubit.dart';
 import 'package:leavemanagementadmin/logic/Employee/cubit/check_empcode_cubit.dart';
@@ -34,6 +35,7 @@ import '../logic/branch/create_branch_cubit.dart';
 import '../logic/branch/getallbranch_cubit.dart';
 import '../logic/branch/update_branch_cubit.dart';
 import '../logic/branch/update_branch_state.dart';
+import '../logic/leave/cubit/getallleavetype_forleavebalance_cubit.dart';
 
 class MultiproviderWrapper extends StatelessWidget {
   final Widget child;
@@ -93,6 +95,10 @@ class MultiproviderWrapper extends StatelessWidget {
       BlocProvider(
           create: (context) => CreateleaveCubit(CreateLeaveStatus.initial)),
       BlocProvider(create: (context) => GetLeaveReportCubit()),
+      BlocProvider(
+          create: (context) =>
+              AddLeaveBalanceCubit(AddLeaveBalanceStatus.initial)),
+      BlocProvider(create: (context) => GetallleavetypeForleavebalanceCubit()),
     ], child: child);
   }
 }

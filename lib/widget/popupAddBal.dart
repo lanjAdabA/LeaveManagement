@@ -1,19 +1,39 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leavemanagementadmin/constant.dart';
+import 'package:leavemanagementadmin/logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class AddBalPopUp extends StatefulWidget {
-  const AddBalPopUp({super.key});
+  final List<String> allEmpNameList;
+  final Map<dynamic, dynamic> empNameWithId;
+  final List<String> allLeaveType;
+  final Map<dynamic, dynamic> leaveTypeWithId;
+  final Map<dynamic, dynamic> leavatypenamewithcredit;
+  const AddBalPopUp(
+      {super.key,
+      required this.allEmpNameList,
+      required this.empNameWithId,
+      required this.allLeaveType,
+      required this.leaveTypeWithId,
+      required this.leavatypenamewithcredit});
 
   @override
   State<AddBalPopUp> createState() => _AddBalPopUpState();
 }
 
 class _AddBalPopUpState extends State<AddBalPopUp> {
+  String empDropDownName = "";
+  String leavetypeDropDownName = "";
+  int? leavedropdownvalue;
+  String leavecredit = '';
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+
     return SizedBox(
       height: height / 2,
       child: AlertDialog(
@@ -39,7 +59,12 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
               Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      context.read<AddLeaveBalanceCubit>().addleavebalance(
+                          leavetypeid: leavedropdownvalue!,
+                          empname: empDropDownName);
+                      context.router.pop();
+                    },
                     child: Material(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(13),
@@ -90,12 +115,12 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.tight(const Size(250, 250)),
+                        constraints:
+                            BoxConstraints.expand(height: height / 2.5),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),
-                      // items:
-                      // alldesignstate.alldesignationnamelist,
+                      items: widget.allEmpNameList,
                       dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -108,10 +133,8 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          // dropdownvalue1 = newValue as String;
+                          empDropDownName = newValue as String;
                         });
-
-                        // dropdownvalue11 = alldesignstate.designidwithname.keys.firstWhere((k) => alldesignstate.designidwithname[k] == dropdownvalue1, orElse: () => null);
                       },
                     ),
                   ),
@@ -131,12 +154,12 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 constraints: BoxConstraints(maxHeight: 40))),
-                        constraints: BoxConstraints.tight(const Size(250, 250)),
+                        constraints:
+                            BoxConstraints.expand(height: height / 3.5),
                         showSearchBox: true,
                         showSelectedItems: true,
                       ),
-                      // items:
-                      //     alldeptState.alldeptnamelist,
+                      items: widget.allLeaveType,
                       dropdownDecoratorProps: const DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           hintStyle: TextStyle(
@@ -149,10 +172,13 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          // dropdownvalue2 = newValue as String;
+                          leavetypeDropDownName = newValue as String;
+                          leavecredit = widget
+                              .leavatypenamewithcredit[leavetypeDropDownName];
                         });
 
-                        // dropdownvalue22 = alldeptState.deptidwithname.keys.firstWhere((k) => alldeptState.deptidwithname[k] == dropdownvalue2, orElse: () => null);
+                        leavedropdownvalue =
+                            widget.leaveTypeWithId[leavetypeDropDownName];
                       },
                     ),
                   ),
@@ -160,36 +186,22 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                     height: 10,
                   ),
                   Container(
-                    // height: 52,
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 237, 237),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 225, 222, 222))),
-                    child:
-                        //  Row(
-                        //   children: [
-                        //     Text(
-                        //       " Balance Credit : ",
-                        //       style: TextStyle(color: Colors.grey[600]),
-                        //     ),
-                        //     const Text("____")
-                        //   ],
-                        // )
-                        TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(fontSize: 15, color: Colors.grey),
-                              hintText: 'Balance Credit :',
-                            )),
-                  ),
+                      height: 52,
+                      padding: const EdgeInsets.symmetric(horizontal: 13),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 240, 237, 237),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 225, 222, 222))),
+                      child: Row(
+                        children: [
+                          Text(
+                            " Balance Credit : ",
+                            style: TextStyle(color: Colors.grey[600]),
+                          ),
+                          Text(leavecredit)
+                        ],
+                      ))
                 ],
               ),
             ),

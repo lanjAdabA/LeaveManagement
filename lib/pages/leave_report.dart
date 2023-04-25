@@ -170,28 +170,6 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                     onTap: () {
                       showCalendarDatePicker2Dialog(
                         config: CalendarDatePicker2WithActionButtonsConfig(
-                          // okButton: TextButton(
-                          //     onPressed: () {
-
-                          //       context
-                          //           .read<GetLeaveReportCubit>()
-                          //           .getleavereport(
-                          //             startdate: startdate,
-                          //             enddate: enddate,
-                          //           );
-
-                          //       log("Start date : $startdate");
-                          //       log("End date : $enddate");
-
-                          //       Navigator.pop(context);
-                          //     },
-                          //     child: Text(
-                          //       "Ok",
-                          //       style: TextStyle(
-                          //           color: Colors.purple[800],
-                          //           fontSize: 15,
-                          //           fontWeight: FontWeight.w700),
-                          //     )),
                           firstDayOfWeek: 1,
                           calendarType: CalendarDatePicker2Type.range,
                           selectedDayTextStyle: const TextStyle(
@@ -252,12 +230,9 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                           Color.fromARGB(255, 164, 92, 95)
                         ],
                         width:
-                            // israngeselected == false ||
-                            //         enddatefinal.isEmpty ||
-                            //         initialenddate.isEmpty
-                            //     ? MediaQuery.of(context).size.width / 10
-                            //  :
-                            MediaQuery.of(context).size.width / 4,
+                            enddatefinal.isNotEmpty || israngeselected == false
+                                ? MediaQuery.of(context).size.width / 4
+                                : MediaQuery.of(context).size.width / 10,
                         height: 40,
                         borderRadius: 13,
                         child: startdatefinal.isEmpty && enddatefinal.isEmpty

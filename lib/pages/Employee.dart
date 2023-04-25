@@ -28,14 +28,14 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 final today = DateUtils.dateOnly(DateTime.now());
 
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class EmployeePage extends StatefulWidget {
+  const EmployeePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _EmployeePageState createState() => _EmployeePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _EmployeePageState extends State<EmployeePage> {
   List<Employee> employees = <Employee>[];
   DateTime? updatetime;
   bool isactive = false;
@@ -43,6 +43,8 @@ class _HomePageState extends State<HomePage> {
 
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
+
+  TextEditingController empsearchcontroller = TextEditingController();
   DateTime? datenow = DateTime.now();
   Widget _dataofbirth(String dob, String labeltext) {
     return Column(
@@ -90,81 +92,7 @@ class _HomePageState extends State<HomePage> {
         ]);
   }
 
-  final List<DateTime?> _multiDatePickerValueWithDefaultValue = [
-    DateTime(today.year, today.month, 1),
-    DateTime(today.year, today.month, 5),
-    DateTime(today.year, today.month, 14),
-    DateTime(today.year, today.month, 17),
-    DateTime(today.year, today.month, 25),
-  ];
   bool israngeselected = false;
-  _buildDefaultMultiDatePickerWithValue() async {}
-
-  dateTimeRangePicker() async {
-    DateTimeRange? picked = await showDateRangePicker(
-        context: context,
-        firstDate: DateTime(DateTime.now().year - 5),
-        lastDate: DateTime(DateTime.now().year + 5),
-        initialDateRange: DateTimeRange(
-          end: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day + 13),
-          start: DateTime.now(),
-        ),
-        builder: (context, child) {
-          return Column(
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(
-                  maxWidth: 400.0,
-                ),
-                child: child,
-              )
-            ],
-          );
-        });
-    print(picked);
-  }
-
-  Widget daterange(String dob, String labeltext) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(top: 10),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10),
-            child: DateTimeField(
-              controller: TextEditingController(text: dob),
-              decoration: InputDecoration(
-                labelText: labeltext,
-              ),
-              format: format,
-              onShowPicker: (context, currentValue) {
-                return showDateRangePicker(
-                        context: context,
-                        firstDate: DateTime(2023),
-                        lastDate: DateTime(2025),
-                        helpText: "SELECT DATE OF JOINING",
-                        cancelText: "CANCEL",
-                        confirmText: "OK",
-                        errorFormatText: "Enter a Valid Date",
-                        errorInvalidText: "Date Out of Range")
-                    .then((value) {
-                  setState(() {
-                    startdate =
-                        "${value!.start.year}-${value.start.month}-${value.start.day}";
-                    enddate =
-                        "${value.start.year}-${value.start.month}-${value.start.day}";
-                  });
-                  log(datetime);
-                  return null;
-                });
-              },
-            ),
-          ),
-        ]);
-  }
 
   bool? ismoreloading;
   int datalimit = 15;
@@ -2662,6 +2590,8 @@ class _HomePageState extends State<HomePage> {
                                                                       color: Colors
                                                                           .grey)),
                                                               child: TextField(
+                                                                controller:
+                                                                    empsearchcontroller,
                                                                 onChanged:
                                                                     (value) {
                                                                   displayedDataCell
@@ -2669,6 +2599,24 @@ class _HomePageState extends State<HomePage> {
                                                                   if (value
                                                                           .length >=
                                                                       3) {
+                                                                    context.read<GetemployeelistCubit>().getemployeelist(
+                                                                        name:
+                                                                            value,
+                                                                        datalimit:
+                                                                            datalimit,
+                                                                        ismoredata:
+                                                                            true,
+                                                                        desigid:
+                                                                            dropdownvalue11,
+                                                                        deptid:
+                                                                            dropdownvalue22,
+                                                                        rolename:
+                                                                            dropdownvalue33,
+                                                                        branchid:
+                                                                            dropdownvalue44);
+                                                                  }
+                                                                  if (value
+                                                                      .isEmpty) {
                                                                     context.read<GetemployeelistCubit>().getemployeelist(
                                                                         name:
                                                                             value,

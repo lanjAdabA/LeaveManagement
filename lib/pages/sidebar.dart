@@ -3,10 +3,10 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:leavemanagementadmin/pages/Employee.dart';
 import 'package:leavemanagementadmin/pages/branch.dart';
 import 'package:leavemanagementadmin/pages/department.dart';
 import 'package:leavemanagementadmin/pages/designation.dart';
-import 'package:leavemanagementadmin/pages/homepage.dart';
 import 'package:leavemanagementadmin/pages/leave_report.dart';
 
 import 'package:leavemanagementadmin/widget/logoutPage.dart';
@@ -118,6 +118,9 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
     // TODO: implement initState
     super.initState();
     widget._controller.addListener(() {
+      setState(() {
+        isexpanded = widget._controller.extended;
+      });
       log('Item Length  :${_items.length}');
       // if (_items.length > 6) {
       //   setState(() {
@@ -756,7 +759,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                   ],
                 ));
           case 1:
-            return const HomePage();
+            return const EmployeePage();
 
           case 2:
             return const LeaveBalancePage();
@@ -789,7 +792,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                               ],
                             ))
                         : isselected1!
-                            ? const HomePage()
+                            ? const EmployeePage()
                             : isselected6!
                                 ? isselectedsetting!
                                     ? const LogOutPage()
@@ -804,7 +807,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                             ? isselectedsetting!
                                                 ? const LogOutPage()
                                                 : const LogOutPage()
-                                            : const HomePage();
+                                            : const EmployeePage();
           case 4:
             return issectedreport!
                 ? LeaveReportPage()
@@ -830,7 +833,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                           ],
                         ))
                     : isselected1!
-                        ? const HomePage()
+                        ? const EmployeePage()
                         : isselected6!
                             ? isselectedsetting!
                                 ? const LogOutPage()
@@ -847,7 +850,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                         ? isselectedsetting!
                                             ? const LogOutPage()
                                             : const LogOutPage()
-                                        : const HomePage();
+                                        : const EmployeePage();
           case 5:
             return ischoosereport!
                 ? issectedreport!
@@ -875,7 +878,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                               ],
                             ))
                         : isselected1!
-                            ? const HomePage()
+                            ? const EmployeePage()
                             : isselected6!
                                 ? isselectedsetting!
                                     ? const BranchPage()
@@ -888,7 +891,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                             ? isselectedsetting!
                                                 ? const LogOutPage()
                                                 : const LogOutPage()
-                                            : const HomePage()
+                                            : const EmployeePage()
                 : isselectedsetting!
                     ? const BranchPage()
                     : const LogOutPage();

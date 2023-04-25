@@ -11,6 +11,7 @@ import 'package:leavemanagementadmin/constant/login_numbercheck.dart';
 import 'package:leavemanagementadmin/logic/Authflow/auth_flow_cubit.dart';
 import 'package:leavemanagementadmin/logic/loginCubit/cubit/login_bymail_cubit.dart';
 import 'package:leavemanagementadmin/logic/loginCubit/cubit/login_verifybymail_cubit.dart';
+import 'package:leavemanagementadmin/widget/filter.dart';
 
 @RoutePage()
 class LoginPage extends StatefulWidget {
@@ -458,32 +459,34 @@ class _LoginPageState extends State<LoginPage> {
                                           }
                                         },
                                         child: Center(
-                                          child: Card(
-                                            elevation: 10,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              //set border radius more than 50% of height and width to make circle
+                                          child: OnHoverButton(
+                                            child: Card(
+                                              elevation: 10,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                //set border radius more than 50% of height and width to make circle
+                                              ),
+                                              child: const CardWidget(
+                                                  gradient: [
+                                                    Color.fromARGB(
+                                                        255, 211, 32, 39),
+                                                    Color.fromARGB(
+                                                        255, 164, 92, 95)
+                                                  ],
+                                                  width: 340,
+                                                  height: 48,
+                                                  borderRadius: 13,
+                                                  child: Center(
+                                                    child: Text(
+                                                      "Login",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white),
+                                                    ),
+                                                  )),
                                             ),
-                                            child: const CardWidget(
-                                                gradient: [
-                                                  Color.fromARGB(
-                                                      255, 211, 32, 39),
-                                                  Color.fromARGB(
-                                                      255, 164, 92, 95)
-                                                ],
-                                                width: 340,
-                                                height: 48,
-                                                borderRadius: 13,
-                                                child: Center(
-                                                  child: Text(
-                                                    "Login",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                )),
                                           ),
                                         ),
                                       )

@@ -18,9 +18,13 @@ class PostLoadedState extends PostState {
   final bool isloading;
   final List<Employee> allemployeelist;
   final bool isempty;
+  final List<String> allempnamelist;
+  final Map<dynamic, dynamic> emptidwithname;
 
   PostLoadedState(
-      {required this.isempty,
+      {required this.allempnamelist,
+      required this.emptidwithname,
+      required this.isempty,
       required this.isloading,
       required this.allemployeelist});
 }
