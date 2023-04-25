@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:intl/intl.dart';
 import 'package:leavemanagementadmin/constant.dart';
+import 'package:leavemanagementadmin/constant/debouncer.dart';
 import 'package:leavemanagementadmin/logic/Employee/cubit/check_empcode_cubit.dart';
 import 'package:leavemanagementadmin/logic/Employee/cubit/checkemailexist_cubit.dart';
 import 'package:leavemanagementadmin/logic/Employee/cubit/create_employee_cubit.dart';
@@ -40,7 +41,9 @@ class _EmployeePageState extends State<EmployeePage> {
   DateTime? updatetime;
   bool isactive = false;
   String fillname = "";
+  bool isfocus = false;
 
+  final _debouncer = Debouncer(500);
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
 
@@ -97,10 +100,11 @@ class _EmployeePageState extends State<EmployeePage> {
   bool? ismoreloading;
   int datalimit = 15;
   ScrollController datatablescrollcontroller = ScrollController();
+  final FocusNode empfocusnode = FocusNode();
+
   @override
   void initState() {
     super.initState();
-
     readall();
 
     _selectedRadioTile = 1;
@@ -137,6 +141,16 @@ class _EmployeePageState extends State<EmployeePage> {
 
   void readall() {
     log('reading cubit.......');
+    context.read<GetallbranchCubit>().getallbranch();
+    context.read<GetAlldeptCubit>().getalldept();
+    context.read<GetAlldesignCubit>().getalldesign();
+    context.read<GetRoleCubit>().getallrole();
+
+    context.read<GetallleavetypeCubit>().getallleavetype();
+
+    context
+        .read<GetemployeelistCubit>()
+        .getemployeelist(datalimit: datalimit, ismoredata: true);
   }
 
   void fetchdata(
@@ -147,11 +161,11 @@ class _EmployeePageState extends State<EmployeePage> {
     log('Not empty');
 
     for (var item in allemplist) {
-      // log("All emplist : $allemplist");
+      log("All emplist : $allemplist");
       if (branchidwithname.isNotEmpty &&
           deptnamewithid.isNotEmpty &&
           designidwithname.isNotEmpty) {
-        //log("Display datacell $displayedDataCell");
+        log("Display datacell $displayedDataCell");
 
         displayedDataCell.add(
           DataCell(
@@ -1706,13 +1720,6 @@ class _EmployeePageState extends State<EmployeePage> {
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
                             // if (allbranchState.branchidwithname.isEmpty) {
-
-                            //   context.read<GetallbranchCubit>().getallbranch();
-                            // } else if (alldeptState.deptidwithname.isEmpty) {
-                            //   context.read<GetAlldeptCubit>().getalldept();
-                            // } else if (alldesignstate
-                            //     .designidwithname.isEmpty) {
-
                             //   log('Branch is empty');
                             //   context.read<GetallbranchCubit>().getallbranch();
                             // } else if (alldeptState.deptidwithname.isEmpty) {
@@ -1721,7 +1728,6 @@ class _EmployeePageState extends State<EmployeePage> {
                             // } else if (alldesignstate
                             //     .designidwithname.isEmpty) {
                             //   log('Designation is empty');
-
                             //   context.read<GetAlldesignCubit>().getalldesign();
                             // } else {
                             //   context.read<GetallbranchCubit>().getallbranch();
@@ -2520,7 +2526,12 @@ class _EmployeePageState extends State<EmployeePage> {
                                                     ])
                                                 ],
                                                 columns: <DataColumn>[
-                                                  DataColumn(
+                                                  DataColumn2(
+                                                    fixedWidth:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            28,
                                                     label: Column(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
@@ -2590,49 +2601,59 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       color: Colors
                                                                           .grey)),
                                                               child: TextField(
+                                                                autofocus:
+                                                                    isfocus,
                                                                 controller:
                                                                     empsearchcontroller,
                                                                 onChanged:
                                                                     (value) {
-                                                                  displayedDataCell
-                                                                      .clear();
-                                                                  if (value
-                                                                          .length >=
-                                                                      3) {
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        name:
-                                                                            value,
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue11,
-                                                                        deptid:
-                                                                            dropdownvalue22,
-                                                                        rolename:
-                                                                            dropdownvalue33,
-                                                                        branchid:
-                                                                            dropdownvalue44);
-                                                                  }
-                                                                  if (value
-                                                                      .isEmpty) {
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        name:
-                                                                            value,
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue11,
-                                                                        deptid:
-                                                                            dropdownvalue22,
-                                                                        rolename:
-                                                                            dropdownvalue33,
-                                                                        branchid:
-                                                                            dropdownvalue44);
-                                                                  }
+                                                                  _debouncer
+                                                                      .run(() {
+                                                                    if (value
+                                                                            .length >=
+                                                                        3) {
+                                                                      displayedDataCell
+                                                                          .clear();
+                                                                      setState(
+                                                                          () {
+                                                                        isfocus =
+                                                                            true;
+                                                                      });
+                                                                      context.read<GetemployeelistCubit>().getemployeelist(
+                                                                          name:
+                                                                              value,
+                                                                          datalimit:
+                                                                              datalimit,
+                                                                          ismoredata:
+                                                                              true,
+                                                                          desigid:
+                                                                              dropdownvalue11,
+                                                                          deptid:
+                                                                              dropdownvalue22,
+                                                                          rolename:
+                                                                              dropdownvalue33,
+                                                                          branchid:
+                                                                              dropdownvalue44);
+                                                                    }
+                                                                    if (value
+                                                                        .isEmpty) {
+                                                                      context.read<GetemployeelistCubit>().getemployeelist(
+                                                                          name:
+                                                                              value,
+                                                                          datalimit:
+                                                                              datalimit,
+                                                                          ismoredata:
+                                                                              true,
+                                                                          desigid:
+                                                                              dropdownvalue11,
+                                                                          deptid:
+                                                                              dropdownvalue22,
+                                                                          rolename:
+                                                                              dropdownvalue33,
+                                                                          branchid:
+                                                                              dropdownvalue44);
+                                                                    }
+                                                                  });
                                                                 },
                                                                 decoration:
                                                                     const InputDecoration(
