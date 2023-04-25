@@ -409,50 +409,66 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                             displayedDataCell[i + 8],
                           ])
                       ],
-                      columns: const <DataColumn>[
-                        DataColumn(
-                          label: Text(
+                      columns: <DataColumn>[
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 20,
+                          label: const Text(
                             'Sl.no',
                           ),
                         ),
-                        DataColumn(
+                        const DataColumn2(
                           label: Text(
                             overflow: TextOverflow.ellipsis,
                             'Employee',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 15,
+                          label: const Text(
                             'GL',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 15,
+                          label: const Text(
                             'LWP',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 13,
+                          label: const Text(
                             'MargL',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 15,
+                          label: const Text(
                             'MatL',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 15,
+                          label: const Text(
                             'PL',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 15,
+                          label: const Text(
                             'BL',
                           ),
                         ),
-                        DataColumn(
-                          label: Text(
+                        DataColumn2(
+                          size: ColumnSize.S,
+                          fixedWidth: MediaQuery.of(context).size.width / 17,
+                          label: const Text(
                             'Total',
                           ),
                         ),
