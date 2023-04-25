@@ -74,7 +74,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
               branchid: dropdownvalue_branchid,
               deptid: dropdownvalue_departmentid,
               desigid: dropdownvalue_designid,
-              rolename: dropdownvalue_roleid);
+              rolename: dropdownleavetypevalue);
 
           log('reach buttom');
         }
@@ -270,7 +270,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   int? dropdownvalue_departmentid;
   String? dropdownvalue_departmentname;
   String? dropdownLeavetypeName;
-  int? dropdownvalue_roleid;
+  int? dropdownleavetypevalue;
   String? dropdownvalue_branchname;
   int? dropdownvalue_branchid;
 
@@ -879,7 +879,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         deptid:
                                                                             dropdownvalue_departmentid,
                                                                         rolename:
-                                                                            dropdownvalue_roleid,
+                                                                            dropdownleavetypevalue,
                                                                         branchid:
                                                                             dropdownvalue_branchid);
                                                                     log(dropdownvalue44!
@@ -1005,7 +1005,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         deptid:
                                                                             dropdownvalue_departmentid,
                                                                         rolename:
-                                                                            dropdownvalue_roleid,
+                                                                            dropdownleavetypevalue,
                                                                         branchid:
                                                                             dropdownvalue_branchid);
                                                                   },
@@ -1131,7 +1131,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         deptid:
                                                                             dropdownvalue_departmentid,
                                                                         rolename:
-                                                                            dropdownvalue_roleid,
+                                                                            dropdownleavetypevalue,
                                                                         branchid:
                                                                             dropdownvalue_branchid);
                                                                     displayedDataCell
@@ -1194,6 +1194,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         BoxConstraints.tight(const Size(
                                                                             250,
                                                                             250)),
+                                                                    fit: FlexFit
+                                                                        .tight,
                                                                     showSearchBox:
                                                                         true,
                                                                     showSelectedItems:
@@ -1239,9 +1241,9 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                               as String;
                                                                     });
 
-                                                                    dropdownvalue_roleid =
-                                                                        roleidwithname[
-                                                                            dropdownLeavetypeName];
+                                                                    dropdownleavetypevalue =
+                                                                        allLeaveTypeState
+                                                                            .alleavetypeidwithnamecopy[dropdownLeavetypeName];
 
                                                                     displayedDataCell
                                                                         .clear();
@@ -1255,7 +1257,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                         deptid:
                                                                             dropdownvalue_departmentid,
                                                                         rolename:
-                                                                            dropdownvalue_roleid,
+                                                                            dropdownleavetypevalue,
                                                                         branchid:
                                                                             dropdownvalue_branchid);
                                                                   },
