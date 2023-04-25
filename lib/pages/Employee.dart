@@ -28,14 +28,14 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 final today = DateUtils.dateOnly(DateTime.now());
 
 @RoutePage()
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class EmployeePage extends StatefulWidget {
+  const EmployeePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _EmployeePageState createState() => _EmployeePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _EmployeePageState extends State<EmployeePage> {
   List<Employee> employees = <Employee>[];
   DateTime? updatetime;
   bool isactive = false;
