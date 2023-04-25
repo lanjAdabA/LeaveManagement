@@ -100,6 +100,7 @@ class _EmployeePageState extends State<EmployeePage> {
   @override
   void initState() {
     super.initState();
+
     readall();
 
     _selectedRadioTile = 1;
@@ -136,16 +137,6 @@ class _EmployeePageState extends State<EmployeePage> {
 
   void readall() {
     log('reading cubit.......');
-    context.read<GetallbranchCubit>().getallbranch();
-    context.read<GetAlldeptCubit>().getalldept();
-    context.read<GetAlldesignCubit>().getalldesign();
-    context.read<GetRoleCubit>().getallrole();
-
-    context.read<GetallleavetypeCubit>().getallleavetype();
-
-    context
-        .read<GetemployeelistCubit>()
-        .getemployeelist(datalimit: datalimit, ismoredata: true);
   }
 
   void fetchdata(
@@ -156,11 +147,11 @@ class _EmployeePageState extends State<EmployeePage> {
     log('Not empty');
 
     for (var item in allemplist) {
-      log("All emplist : $allemplist");
+      // log("All emplist : $allemplist");
       if (branchidwithname.isNotEmpty &&
           deptnamewithid.isNotEmpty &&
           designidwithname.isNotEmpty) {
-        log("Display datacell $displayedDataCell");
+        //log("Display datacell $displayedDataCell");
 
         displayedDataCell.add(
           DataCell(
@@ -1715,6 +1706,13 @@ class _EmployeePageState extends State<EmployeePage> {
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
                             // if (allbranchState.branchidwithname.isEmpty) {
+
+                            //   context.read<GetallbranchCubit>().getallbranch();
+                            // } else if (alldeptState.deptidwithname.isEmpty) {
+                            //   context.read<GetAlldeptCubit>().getalldept();
+                            // } else if (alldesignstate
+                            //     .designidwithname.isEmpty) {
+
                             //   log('Branch is empty');
                             //   context.read<GetallbranchCubit>().getallbranch();
                             // } else if (alldeptState.deptidwithname.isEmpty) {
@@ -1723,6 +1721,7 @@ class _EmployeePageState extends State<EmployeePage> {
                             // } else if (alldesignstate
                             //     .designidwithname.isEmpty) {
                             //   log('Designation is empty');
+
                             //   context.read<GetAlldesignCubit>().getalldesign();
                             // } else {
                             //   context.read<GetallbranchCubit>().getallbranch();

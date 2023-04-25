@@ -11,12 +11,12 @@
 import 'package:auto_route/auto_route.dart' as _i8;
 import 'package:flutter/material.dart' as _i9;
 import 'package:leavemanagementadmin/Authflow/auth_flow.dart' as _i1;
-import 'package:leavemanagementadmin/pages/Employee.dart' as _i6;
-import 'package:leavemanagementadmin/pages/leave_report.dart' as _i7;
-import 'package:leavemanagementadmin/pages/leaveBalance.page.dart' as _i5;
-import 'package:leavemanagementadmin/pages/loginpage.dart' as _i2;
-import 'package:leavemanagementadmin/pages/newpage.dart' as _i3;
-import 'package:leavemanagementadmin/pages/sidebar.dart' as _i4;
+import 'package:leavemanagementadmin/pages/Employee.dart' as _i4;
+import 'package:leavemanagementadmin/pages/leave_report.dart' as _i6;
+import 'package:leavemanagementadmin/pages/leaveBalance.page.dart' as _i3;
+import 'package:leavemanagementadmin/pages/loginpage.dart' as _i5;
+import 'package:leavemanagementadmin/pages/newpage.dart' as _i2;
+import 'package:leavemanagementadmin/pages/sidebar.dart' as _i7;
 
 abstract class $AppRouter extends _i8.RootStackRouter {
   $AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
@@ -30,16 +30,34 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         child: const _i1.AuthFlowPage(),
       );
     },
-    LoginRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i2.LoginPage(),
-      );
-    },
     NewRoute.name: (routeData) {
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.NewPage(),
+        child: const _i2.NewPage(),
+      );
+    },
+    LeaveBalanceRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i3.LeaveBalancePage(),
+      );
+    },
+    EmployeeRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.EmployeePage(),
+      );
+    },
+    LoginRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i5.LoginPage(),
+      );
+    },
+    LeaveReportRoute.name: (routeData) {
+      return _i8.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i6.LeaveReportPage(),
       );
     },
     SidebarRoute.name: (routeData) {
@@ -47,25 +65,7 @@ abstract class $AppRouter extends _i8.RootStackRouter {
           orElse: () => const SidebarRouteArgs());
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.SidebarPage(key: args.key),
-      );
-    },
-    LeaveBalanceRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i5.LeaveBalancePage(),
-      );
-    },
-    EmployeeRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i6.EmployeePage(),
-      );
-    },
-    LeaveReportRoute.name: (routeData) {
-      return _i8.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i7.LeaveReportPage(),
+        child: _i7.SidebarPage(key: args.key),
       );
     },
   };
@@ -86,21 +86,7 @@ class AuthFlowRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.LoginPage]
-class LoginRoute extends _i8.PageRouteInfo<void> {
-  const LoginRoute({List<_i8.PageRouteInfo>? children})
-      : super(
-          LoginRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'LoginRoute';
-
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i3.NewPage]
+/// [_i2.NewPage]
 class NewRoute extends _i8.PageRouteInfo<void> {
   const NewRoute({List<_i8.PageRouteInfo>? children})
       : super(
@@ -114,7 +100,63 @@ class NewRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.SidebarPage]
+/// [_i3.LeaveBalancePage]
+class LeaveBalanceRoute extends _i8.PageRouteInfo<void> {
+  const LeaveBalanceRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          LeaveBalanceRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LeaveBalanceRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i4.EmployeePage]
+class EmployeeRoute extends _i8.PageRouteInfo<void> {
+  const EmployeeRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          EmployeeRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'EmployeeRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i5.LoginPage]
+class LoginRoute extends _i8.PageRouteInfo<void> {
+  const LoginRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i6.LeaveReportPage]
+class LeaveReportRoute extends _i8.PageRouteInfo<void> {
+  const LeaveReportRoute({List<_i8.PageRouteInfo>? children})
+      : super(
+          LeaveReportRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LeaveReportRoute';
+
+  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i7.SidebarPage]
 class SidebarRoute extends _i8.PageRouteInfo<SidebarRouteArgs> {
   SidebarRoute({
     _i9.Key? key,
@@ -140,46 +182,4 @@ class SidebarRouteArgs {
   String toString() {
     return 'SidebarRouteArgs{key: $key}';
   }
-}
-
-/// generated route for
-/// [_i5.LeaveBalancePage]
-class LeaveBalanceRoute extends _i8.PageRouteInfo<void> {
-  const LeaveBalanceRoute({List<_i8.PageRouteInfo>? children})
-      : super(
-          LeaveBalanceRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'LeaveBalanceRoute';
-
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i6.EmployeePage]
-class EmployeeRoute extends _i8.PageRouteInfo<void> {
-  const EmployeeRoute({List<_i8.PageRouteInfo>? children})
-      : super(
-          EmployeeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'EmployeeRoute';
-
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i7.LeaveReportPage]
-class LeaveReportRoute extends _i8.PageRouteInfo<void> {
-  const LeaveReportRoute({List<_i8.PageRouteInfo>? children})
-      : super(
-          LeaveReportRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'LeaveReportRoute';
-
-  static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
