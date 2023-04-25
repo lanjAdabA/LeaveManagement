@@ -766,7 +766,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
 
           case 3:
             return issectedreport!
-                ? const LeaveReportPage()
+                ? LeaveReportPage()
                 : isselected2!
                     ? const LeaveBalancePage()
                     : isselected0!
@@ -810,7 +810,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                                             : const EmployeePage();
           case 4:
             return issectedreport!
-                ? const LeaveReportPage()
+                ? LeaveReportPage()
                 : isselected0!
                     ? FittedBox(
                         fit: BoxFit.fill,

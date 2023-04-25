@@ -60,6 +60,7 @@ dependencies:
   data_table_2: ^2.4.2
   shimmer: ^2.0.0
   calendar_date_picker2: ^0.5.2
+  syncfusion_flutter_datepicker: ^21.1.41
  
 
 
