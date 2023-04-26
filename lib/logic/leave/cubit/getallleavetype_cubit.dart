@@ -27,7 +27,7 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
     try {
       final response = await api.sendRequest.get("/api/leavetype");
       if (response.statusCode == 200) {
-        List<dynamic> postMaps = response.data['data']['leaves'];
+        List<dynamic> postMaps = response.data['data']['result'];
 
         log(postMaps.toString());
         var allleavetype = postMaps.map((e) => Leaf.fromJson(e)).toList();
@@ -37,7 +37,7 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
           allleavenamelist.add(element.name);
         }
 
-        var result = Map.fromIterables(allleaveidlist, allleavenamelist);
+        var result = Map.fromIterables(allleavenamelist, allleaveidlist);
         log('From Cubit For Leavetype :$result');
 
         emit(GetallleavetypeState(

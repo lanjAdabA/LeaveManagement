@@ -24,6 +24,8 @@ import 'package:leavemanagementadmin/widget/popupAddBal.dart';
 import 'package:leavemanagementadmin/widget/popupEditLeaveBal.dart';
 
 import '../logic/Employee/cubit/updateemployee_cubit.dart';
+import '../logic/leave_balance/cubit/leave_balance_cubit.dart';
+import '../model/leave_balance.dart';
 
 final today = DateUtils.dateOnly(DateTime.now());
 
@@ -64,28 +66,28 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     selectedRadioTileforgender = 1;
-    datatablescrollcontroller.addListener(() {
-      if (datatablescrollcontroller.position.pixels ==
-          datatablescrollcontroller.position.maxScrollExtent) {
-        if (ismoreloading == false) {
-          log('Item reach its limit');
-        } else {
-          setState(() {
-            datalimit = datalimit + 15;
-          });
-          displayedDataCell.clear();
-          context.read<GetemployeelistCubit>().getemployeelist(
-              datalimit: datalimit,
-              ismoredata: true,
-              branchid: dropdownvalue_branchid,
-              deptid: dropdownvalue_departmentid,
-              desigid: dropdownvalue_designid,
-              rolename: dropdownleavetypevalue);
+    // datatablescrollcontroller.addListener(() {
+    //   if (datatablescrollcontroller.position.pixels ==
+    //       datatablescrollcontroller.position.maxScrollExtent) {
+    //     if (ismoreloading == false) {
+    //       log('Item reach its limit');
+    //     } else {
+    //       setState(() {
+    //         datalimit = datalimit + 15;
+    //       });
+    //       displayedDataCell.clear();
+    //       context.read<GetemployeelistCubit>().getemployeelist(
+    //           datalimit: datalimit,
+    //           ismoredata: true,
+    //           branchid: dropdownvalue_branchid,
+    //           deptid: dropdownvalue_departmentid,
+    //           desigid: dropdownvalue_designid,
+    //           rolename: dropdownleavetypevalue);
 
-          log('reach buttom');
-        }
-      }
-    });
+    //       log('reach buttom');
+    //     }
+    //   }
+    // });
   }
 
   int? _selectedRadioTile;
@@ -103,13 +105,14 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     context.read<GetallleavetypeCubit>().getallleavetype();
     context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
 
+    context.read<GetLeaveBalanceCubit>().getleavebalance();
     context
         .read<GetemployeelistCubit>()
         .getemployeelist(datalimit: datalimit, ismoredata: true);
   }
 
   void fetchdata(
-      {required List<Employee> allemplist,
+      {required List<LeaveBalanceModel> allemplist,
       required Map<dynamic, dynamic> branchidwithname,
       required Map<dynamic, dynamic> deptnamewithid,
       required Map<dynamic, dynamic> designidwithname}) {
@@ -144,33 +147,29 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
           DataCell(
             Center(
               child: Text(
-                branchidwithname[item.employeeBranchId].toString(),
+                item.branch,
               ),
             ),
           ),
         );
         displayedDataCell.add(
           DataCell(
-            Center(
-                child:
-                    Text(deptnamewithid[item.employeeDepartmentId].toString())),
+            Center(child: Text(item.department)),
           ),
         );
         displayedDataCell.add(
           DataCell(
-            Center(
-                child: Text(
-                    designidwithname[item.employeeDesignationId].toString())),
+            Center(child: Text(item.designation)),
           ),
         );
 
         displayedDataCell.add(
-          const DataCell(Center(child: Text("LeaveType"))),
+          DataCell(Center(child: Text(item.leaveType))),
         );
         displayedDataCell.add(
-          const DataCell(
+          DataCell(
             Center(
-              child: Text("Leave Bal."),
+              child: Text(item.availableBalance),
             ),
           ),
         );
@@ -180,23 +179,21 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
             child: FittedBox(
               child: TextButton(
                   onPressed: () {
-                    empcode.text = item.employeeEmpCode.toString();
-                    _namefieldcontroller.text = item.employeeName;
-                    numbercontroller.text = item.employeePhone;
-                    emailcontroller.text = item.email;
-                    datetime2 =
-                        "${item.employeeDateOfJoining.year}-${item.employeeDateOfJoining.month}-${item.employeeDateOfJoining.day}";
+                    // empcode.text = item.employeeEmpCode.toString();
+                    // _namefieldcontroller.text = item.employeeName;
+                    // numbercontroller.text = item.employeePhone;
+                    // emailcontroller.text = item.email;
 
                     setState(() {
-                      dropdownvalue1 =
-                          designidwithname[item.employeeDesignationId]
-                              .toString();
+                      // dropdownvalue1 =
+                      //     designidwithname[item.employeeDesignationId]
+                      //         .toString();
 
-                      dropdownvalue2 =
-                          deptnamewithid[item.employeeDepartmentId].toString();
-                      dropdownvalue3 = item.role;
-                      dropdownvalue4 =
-                          branchidwithname[item.employeeBranchId].toString();
+                      // dropdownvalue2 =
+                      //     deptnamewithid[item.employeeDepartmentId].toString();
+                      // dropdownvalue3 = item.role;
+                      // dropdownvalue4 =
+                      //     branchidwithname[item.employeeBranchId].toString();
                     });
 
                     showDialog(
@@ -381,972 +378,849 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                     return BlocConsumer<GetAlldesignCubit, GetAlldesignState>(
                       listener: (context, alldesignstate) {},
                       builder: (context, alldesignstate) {
-                        return BlocConsumer<GetemployeelistCubit, PostState>(
-                            listener: (context, getempoyeestate) {
-                          if (getempoyeestate is PostErrorState) {
-                            SnackBar snackBar = SnackBar(
-                              content: Text(getempoyeestate.error),
-                              backgroundColor: Colors.red,
-                            );
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else if (getempoyeestate is PostinitialState) {
-                          } else if (getempoyeestate is PostLoadingState) {
-                          } else if (getempoyeestate is PostLoadedState) {
-                            log('All Branch :${allbranchState.branchidwithname}');
-                            log('All Dept :${alldeptState.deptidwithname}');
-                            log('All Design :${alldesignstate.designidwithname}');
-                            ismoreloading = getempoyeestate.isloading;
-                            isempty = getempoyeestate.isempty;
-                            allEmp = getempoyeestate.allempnamelist;
-                            empNameWithId = getempoyeestate.emptidwithname;
+                        return BlocConsumer<GetLeaveBalanceCubit,
+                            GetLeaveBalanceState>(
+                          listener: (context, leaveBalanceState) {},
+                          builder: (context, leaveBalanceState) {
+                            return BlocConsumer<GetemployeelistCubit,
+                                    PostState>(
+                                listener: (context, getempoyeestate) {
+                              if (getempoyeestate is PostErrorState) {
+                                SnackBar snackBar = SnackBar(
+                                  content: Text(getempoyeestate.error),
+                                  backgroundColor: Colors.red,
+                                );
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else if (getempoyeestate is PostinitialState) {
+                              } else if (getempoyeestate is PostLoadingState) {
+                              } else if (getempoyeestate is PostLoadedState) {
+                                log('All Branch :${allbranchState.branchidwithname}');
+                                log('All Dept :${alldeptState.deptidwithname}');
+                                log('All Design :${alldesignstate.designidwithname}');
+                                ismoreloading = getempoyeestate.isloading;
+                                isempty = getempoyeestate.isempty;
+                                allEmp = getempoyeestate.allempnamelist;
+                                empNameWithId = getempoyeestate.emptidwithname;
 
-                            fetchdata(
-                                allemplist: getempoyeestate.allemployeelist,
-                                branchidwithname:
-                                    allbranchState.branchidwithname,
-                                deptnamewithid: alldeptState.deptidwithname,
-                                designidwithname:
-                                    alldesignstate.designidwithname);
-                          }
-                        }, builder: (context, getempoyeestate) {
-                          return BlocConsumer<
-                              GetallleavetypeForleavebalanceCubit,
-                              GetallleavetypeForleavebalanceState>(
-                            listener: (context, allLeaveTypeState) {
-                              // TODO: implement listener
-                            },
-                            builder: (context, allLeaveTypeState) {
-                              return BlocConsumer<CreateEmployeeCubit,
-                                  CreateEmployeeStatus>(
-                                listener: (context, state) {
-                                  switch (state) {
-                                    case CreateEmployeeStatus.initial:
-                                      break;
-                                    case CreateEmployeeStatus.loading:
-                                      EasyLoading.show(
-                                          status: 'Adding Employee..');
-                                      break;
-                                    case CreateEmployeeStatus.loaded:
-                                      EasyLoading.showToast(
-                                              'Added Successfully')
-                                          .whenComplete(() {
-                                        displayedDataCell.clear();
-                                        context
-                                            .read<GetallbranchCubit>()
-                                            .getallbranch();
-                                        context
-                                            .read<GetAlldeptCubit>()
-                                            .getalldept();
-                                        context
-                                            .read<GetAlldesignCubit>()
-                                            .getalldesign();
-                                        context
-                                            .read<GetemployeelistCubit>()
-                                            .getemployeelist(
-                                                datalimit: datalimit,
-                                                ismoredata: true);
-                                      });
-
-                                      break;
-                                    case CreateEmployeeStatus.error:
-                                      EasyLoading.showError('Error');
-                                      break;
-                                  }
+                                fetchdata(
+                                    allemplist:
+                                        leaveBalanceState.leavebalancelist,
+                                    branchidwithname:
+                                        allbranchState.branchidwithname,
+                                    deptnamewithid: alldeptState.deptidwithname,
+                                    designidwithname:
+                                        alldesignstate.designidwithname);
+                              }
+                            }, builder: (context, getempoyeestate) {
+                              return BlocConsumer<GetallleavetypeCubit,
+                                  GetallleavetypeState>(
+                                listener: (context, getallleavetype6State) {
+                                  // TODO: implement listener
                                 },
-                                builder: (context, state) {
-                                  log(checkempState.isexist);
-                                  return Scaffold(
-                                    backgroundColor: const Color.fromARGB(
-                                        255, 245, 245, 245),
-                                    body: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 50,
-                                          ),
-                                          Padding(
-                                            padding: MediaQuery.of(context)
-                                                        .size
-                                                        .width >
-                                                    1040
-                                                ? const EdgeInsets.only(
-                                                    left: 50,
-                                                  )
-                                                : const EdgeInsets.only(
-                                                    left: 10,
+                                builder: (context, getallleavetype6State) {
+                                  return BlocConsumer<
+                                      GetallleavetypeForleavebalanceCubit,
+                                      GetallleavetypeForleavebalanceState>(
+                                    listener: (context, allLeaveTypeState) {
+                                      // TODO: implement listener
+                                    },
+                                    builder: (context, allLeaveTypeState) {
+                                      return BlocConsumer<CreateEmployeeCubit,
+                                          CreateEmployeeStatus>(
+                                        listener: (context, state) {
+                                          switch (state) {
+                                            case CreateEmployeeStatus.initial:
+                                              break;
+                                            case CreateEmployeeStatus.loading:
+                                              EasyLoading.show(
+                                                  status: 'Adding Employee..');
+                                              break;
+                                            case CreateEmployeeStatus.loaded:
+                                              EasyLoading.showToast(
+                                                      'Added Successfully')
+                                                  .whenComplete(() {
+                                                displayedDataCell.clear();
+                                                context
+                                                    .read<GetallbranchCubit>()
+                                                    .getallbranch();
+                                                context
+                                                    .read<GetAlldeptCubit>()
+                                                    .getalldept();
+                                                context
+                                                    .read<GetAlldesignCubit>()
+                                                    .getalldesign();
+                                                context
+                                                    .read<
+                                                        GetemployeelistCubit>()
+                                                    .getemployeelist(
+                                                        datalimit: datalimit,
+                                                        ismoredata: true);
+                                              });
+
+                                              break;
+                                            case CreateEmployeeStatus.error:
+                                              EasyLoading.showError('Error');
+                                              break;
+                                          }
+                                        },
+                                        builder: (context, state) {
+                                          log(checkempState.isexist);
+                                          return Scaffold(
+                                            backgroundColor:
+                                                const Color.fromARGB(
+                                                    255, 245, 245, 245),
+                                            body: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(
+                                                    height: 50,
                                                   ),
-                                            child: const Text(
-                                              'Leave Balance ',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 20),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: MediaQuery.of(context)
-                                                        .size
-                                                        .width >
-                                                    1040
-                                                ? const EdgeInsets.only(
-                                                    left: 50, top: 15)
-                                                : const EdgeInsets.only(
-                                                    left: 10, top: 15),
-                                            child: InkWell(
-                                                onTap: () {
-                                                  _namefieldcontroller.clear();
-                                                  usernamecontroller.clear();
-                                                  emailcontroller.clear();
-                                                  numbercontroller.clear();
-                                                  empcode.clear();
-                                                  setState(() {
-                                                    datetime2 = '';
-                                                  });
-                                                  dropdownvalue1 = null;
-                                                  dropdownvalue2 = null;
-                                                  dropdownvalue3 = null;
-                                                  dropdownvalue4 = null;
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (cnt) {
-                                                      log('From Showdialog :${checkempState.isexist}');
-                                                      return BlocConsumer<
-                                                          CheckemailexistCubit,
-                                                          CheckemailexistState>(
-                                                        listener: (context,
-                                                            emailcheck) {
-                                                          // TODO: implement listener
-                                                        },
-                                                        builder: (context,
-                                                            emailcheck) {
-                                                          return BlocConsumer<
-                                                              CheckEmpcodeCubit,
-                                                              CheckEmpcodeState>(
-                                                            listener: (context,
-                                                                checkempStatefinal) {
-                                                              // TODO: implement listener
-                                                            },
-                                                            builder: (context,
-                                                                checkempStatefinal) {
-                                                              return StatefulBuilder(builder: (BuildContext
-                                                                      context,
-                                                                  void Function(
-                                                                          void
-                                                                              Function())
-                                                                      setState) {
-                                                                return AddBalPopUp(
-                                                                  allEmpNameList:
-                                                                      allEmp,
-                                                                  empNameWithId:
-                                                                      empNameWithId,
-                                                                  allLeaveType:
-                                                                      allLeaveTypeState
-                                                                          .allleavetypenamelist,
-                                                                  leaveTypeWithId:
-                                                                      allLeaveTypeState
-                                                                          .alleavetypeidwithname,
-                                                                  leavatypenamewithcredit:
-                                                                      allLeaveTypeState
-                                                                          .alleavetypenamewithcredit,
-                                                                );
-                                                              });
+                                                  Padding(
+                                                    padding: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width >
+                                                            1040
+                                                        ? const EdgeInsets.only(
+                                                            left: 50,
+                                                          )
+                                                        : const EdgeInsets.only(
+                                                            left: 10,
+                                                          ),
+                                                    child: const Text(
+                                                      'Leave Balance ',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width >
+                                                            1040
+                                                        ? const EdgeInsets.only(
+                                                            left: 50, top: 15)
+                                                        : const EdgeInsets.only(
+                                                            left: 10, top: 15),
+                                                    child: InkWell(
+                                                        onTap: () {
+                                                          _namefieldcontroller
+                                                              .clear();
+                                                          usernamecontroller
+                                                              .clear();
+                                                          emailcontroller
+                                                              .clear();
+                                                          numbercontroller
+                                                              .clear();
+                                                          empcode.clear();
+                                                          setState(() {
+                                                            datetime2 = '';
+                                                          });
+                                                          dropdownvalue1 = null;
+                                                          dropdownvalue2 = null;
+                                                          dropdownvalue3 = null;
+                                                          dropdownvalue4 = null;
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (cnt) {
+                                                              log('From Showdialog :${checkempState.isexist}');
+                                                              return BlocConsumer<
+                                                                  CheckemailexistCubit,
+                                                                  CheckemailexistState>(
+                                                                listener: (context,
+                                                                    emailcheck) {
+                                                                  // TODO: implement listener
+                                                                },
+                                                                builder: (context,
+                                                                    emailcheck) {
+                                                                  return BlocConsumer<
+                                                                      CheckEmpcodeCubit,
+                                                                      CheckEmpcodeState>(
+                                                                    listener:
+                                                                        (context,
+                                                                            checkempStatefinal) {
+                                                                      // TODO: implement listener
+                                                                    },
+                                                                    builder:
+                                                                        (context,
+                                                                            checkempStatefinal) {
+                                                                      return StatefulBuilder(builder: (BuildContext
+                                                                              context,
+                                                                          void Function(void Function())
+                                                                              setState) {
+                                                                        return AddBalPopUp(
+                                                                          allEmpNameList:
+                                                                              allEmp,
+                                                                          empNameWithId:
+                                                                              empNameWithId,
+                                                                          allLeaveType:
+                                                                              allLeaveTypeState.allleavetypenamelist,
+                                                                          leaveTypeWithId:
+                                                                              allLeaveTypeState.alleavetypeidwithname,
+                                                                          leavatypenamewithcredit:
+                                                                              allLeaveTypeState.alleavetypenamewithcredit,
+                                                                        );
+                                                                      });
+                                                                    },
+                                                                  );
+                                                                },
+                                                              );
                                                             },
                                                           );
                                                         },
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                child: Material(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            13),
-                                                  ),
-                                                  elevation: 15,
-                                                  child: const OnHoverButton(
-                                                    child: CardWidget(
-                                                        gradient: [
-                                                          Color.fromARGB(
-                                                              255, 211, 32, 39),
-                                                          Color.fromARGB(
-                                                              255, 164, 92, 95)
-                                                        ],
-                                                        width: 120,
-                                                        height: 40,
-                                                        borderRadius: 13,
-                                                        child: Center(
-                                                          child: Text(
-                                                            "Add Balance",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
+                                                        child: Material(
+                                                          shape:
+                                                              RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        13),
+                                                          ),
+                                                          elevation: 15,
+                                                          child:
+                                                              const OnHoverButton(
+                                                            child: CardWidget(
+                                                                gradient: [
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          211,
+                                                                          32,
+                                                                          39),
+                                                                  Color
+                                                                      .fromARGB(
+                                                                          255,
+                                                                          164,
+                                                                          92,
+                                                                          95)
+                                                                ],
+                                                                width: 120,
+                                                                height: 40,
+                                                                borderRadius:
+                                                                    13,
+                                                                child: Center(
+                                                                  child: Text(
+                                                                    "Add Balance",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .white),
+                                                                  ),
+                                                                )),
                                                           ),
                                                         )),
                                                   ),
-                                                )),
-                                          ),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.topLeft,
-                                              child: Padding(
-                                                padding: MediaQuery.of(context)
-                                                            .size
-                                                            .width >
-                                                        1040
-                                                    ? const EdgeInsets.only(
-                                                        left: 50,
-                                                        right: 50,
-                                                        top: 20)
-                                                    : const EdgeInsets.only(
-                                                        left: 10,
-                                                        right: 10,
-                                                        top: 20),
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  child: DataTable2(
-                                                    columnSpacing: 14,
-                                                    empty: isempty
-                                                        ? const Center(
-                                                            child: Text(
-                                                            'NO EMPLOYEE FOUND',
-                                                            style: TextStyle(
-                                                                fontSize: 25),
-                                                          ))
-                                                        : const Center(
-                                                            child: SizedBox(
-                                                                height: 30,
-                                                                width: 30,
-                                                                child:
-                                                                    CircularProgressIndicator()),
-                                                          ),
-                                                    headingRowHeight: 80,
-                                                    scrollController:
-                                                        datatablescrollcontroller,
-                                                    fixedTopRows: 1,
-                                                    dividerThickness: 2,
-                                                    headingRowColor:
-                                                        //! [checked ✔ ] full header row background
-                                                        MaterialStateProperty
-                                                            .all(Colors.grey
-                                                                .withOpacity(
-                                                                    0.2)),
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                        //! [checked ✔ ] full table background
+                                                  Expanded(
+                                                    child: Align(
+                                                      alignment:
+                                                          Alignment.topLeft,
+                                                      child: Padding(
+                                                        padding: MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width >
+                                                                1040
+                                                            ? const EdgeInsets
+                                                                    .only(
+                                                                left: 50,
+                                                                right: 50,
+                                                                top: 20)
+                                                            : const EdgeInsets
+                                                                    .only(
+                                                                left: 10,
+                                                                right: 10,
+                                                                top: 20),
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          child: DataTable2(
+                                                            columnSpacing: 14,
+                                                            empty: isempty
+                                                                ? const Center(
+                                                                    child: Text(
+                                                                    'NO EMPLOYEE FOUND',
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            25),
+                                                                  ))
+                                                                : const Center(
+                                                                    child: SizedBox(
+                                                                        height:
+                                                                            30,
+                                                                        width:
+                                                                            30,
+                                                                        child:
+                                                                            CircularProgressIndicator()),
+                                                                  ),
+                                                            headingRowHeight:
+                                                                80,
+                                                            scrollController:
+                                                                datatablescrollcontroller,
+                                                            fixedTopRows: 1,
+                                                            dividerThickness: 2,
+                                                            headingRowColor:
+                                                                //! [checked ✔ ] full header row background
+                                                                MaterialStateProperty
+                                                                    .all(Colors
+                                                                        .grey
+                                                                        .withOpacity(
+                                                                            0.2)),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                                    borderRadius:
+                                                                        BorderRadius
+                                                                            .circular(
+                                                                                5),
+                                                                    //! [checked ✔ ] full table background
 
-                                                        color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              blurRadius: 4,
-                                                              spreadRadius: 3,
-                                                              offset:
-                                                                  const Offset(
-                                                                      0, 3))
-                                                        ]),
-                                                    headingTextStyle:
-                                                        const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    rows: <DataRow>[
-                                                      for (int i = 0;
-                                                          i <
-                                                              displayedDataCell
-                                                                  .length;
-                                                          i += 8)
-                                                        DataRow(cells: [
-                                                          displayedDataCell[i],
-                                                          displayedDataCell[
-                                                              i + 1],
-                                                          displayedDataCell[
-                                                              i + 2],
-                                                          displayedDataCell[
-                                                              i + 3],
-                                                          displayedDataCell[
-                                                              i + 4],
-                                                          displayedDataCell[
-                                                              i + 5],
-                                                          displayedDataCell[
-                                                              i + 6],
-                                                          displayedDataCell[
-                                                              i + 7]
-                                                        ])
-                                                    ],
-                                                    columns: <DataColumn>[
-                                                      DataColumn(
-                                                        label: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: const [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Text(
-                                                                'Sl. no. ',
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Text(
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                'Employee Name',
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 10),
-                                                              child:
-                                                                  OnHoverButton(
-                                                                child:
-                                                                    Container(
-                                                                  height: 36,
-                                                                  width: 300,
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(6),
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12),
+                                                                    color: Colors
+                                                                        .white,
+                                                                    boxShadow: [
+                                                                  BoxShadow(
                                                                       color: Colors
-                                                                          .white,
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.grey)),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            8.0),
-                                                                    child:
-                                                                        TextField(
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        displayedDataCell
-                                                                            .clear();
-                                                                        if (value.length >=
-                                                                            3) {
-                                                                          context.read<GetemployeelistCubit>().getemployeelist(
-                                                                              name: value,
-                                                                              datalimit: datalimit,
-                                                                              ismoredata: true,
-                                                                              desigid: dropdownvalue11,
-                                                                              deptid: dropdownvalue22,
-                                                                              rolename: dropdownvalue33,
-                                                                              branchid: dropdownvalue44);
-                                                                        }
-                                                                      },
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        hintText:
-                                                                            " Search       🔍",
-                                                                        border:
-                                                                            InputBorder.none,
+                                                                          .grey
+                                                                          .withOpacity(
+                                                                              0.3),
+                                                                      blurRadius:
+                                                                          4,
+                                                                      spreadRadius:
+                                                                          3,
+                                                                      offset:
+                                                                          const Offset(
+                                                                              0,
+                                                                              3))
+                                                                ]),
+                                                            headingTextStyle:
+                                                                const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                            rows: <DataRow>[
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      displayedDataCell
+                                                                          .length;
+                                                                  i += 8)
+                                                                DataRow(cells: [
+                                                                  displayedDataCell[
+                                                                      i],
+                                                                  displayedDataCell[
+                                                                      i + 1],
+                                                                  displayedDataCell[
+                                                                      i + 2],
+                                                                  displayedDataCell[
+                                                                      i + 3],
+                                                                  displayedDataCell[
+                                                                      i + 4],
+                                                                  displayedDataCell[
+                                                                      i + 5],
+                                                                  displayedDataCell[
+                                                                      i + 6],
+                                                                  displayedDataCell[
+                                                                      i + 7]
+                                                                ])
+                                                            ],
+                                                            columns: <
+                                                                DataColumn>[
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: const [
+                                                                    Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Sl. no. ',
                                                                       ),
                                                                     ),
-                                                                  ),
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 8.0,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Text(
-                                                                'Branch',
-                                                              ),
-                                                            ),
-                                                            OnHoverButton(
-                                                              child: Container(
-                                                                height: 36,
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        13),
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey)),
-                                                                child:
-                                                                    DropdownSearch<
-                                                                        String>(
-                                                                  selectedItem:
-                                                                      dropdownvalue_branchname,
-                                                                  popupProps:
-                                                                      PopupProps
-                                                                          .menu(
-                                                                    searchFieldProps: const TextFieldProps(
-                                                                        decoration: InputDecoration(
-                                                                            border:
-                                                                                OutlineInputBorder(),
-                                                                            constraints:
-                                                                                BoxConstraints(maxHeight: 40))),
-                                                                    constraints:
-                                                                        BoxConstraints.tight(const Size(
-                                                                            250,
-                                                                            250)),
-                                                                    showSearchBox:
-                                                                        true,
-                                                                    showSelectedItems:
-                                                                        true,
-                                                                  ),
-                                                                  items: allbranchState
-                                                                      .allbranchnamelist,
-                                                                  dropdownDecoratorProps:
-                                                                      DropDownDecoratorProps(
-                                                                    dropdownSearchDecoration:
-                                                                        InputDecoration(
-                                                                      labelText:
-                                                                          dropdownbranchlabel,
-
-                                                                      // labelStyle: TextStyle(
-                                                                      //     color: Colors.grey[
-                                                                      //         700],
-                                                                      //     fontSize:
-                                                                      //         20),
-
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      focusedBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      enabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      errorBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      disabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      // label: Text(
-                                                                      //   "Select",
-                                                                      //   style: TextStyle(
-                                                                      //       fontSize:
-                                                                      //           14),
-                                                                      // ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Text(
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        'Employee Name',
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  onChanged:
-                                                                      (String?
-                                                                          newValue) {
-                                                                    setState(
-                                                                        () {
-                                                                      dropdownvalue_branchname =
-                                                                          newValue
-                                                                              as String;
-                                                                      dropdownbranchlabel =
-                                                                          dropdownvalue_branchname!;
-                                                                    });
-                                                                    dropdownvalue_branchid = allbranchState
-                                                                        .branchidwithname
-                                                                        .keys
-                                                                        .firstWhere(
-                                                                            (k) =>
-                                                                                allbranchState.branchidwithname[k] ==
-                                                                                dropdownvalue_branchname,
-                                                                            orElse: () =>
-                                                                                null);
-
-                                                                    displayedDataCell
-                                                                        .clear();
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue_designid,
-                                                                        deptid:
-                                                                            dropdownvalue_departmentid,
-                                                                        rolename:
-                                                                            dropdownleavetypevalue,
-                                                                        branchid:
-                                                                            dropdownvalue_branchid);
-                                                                    log(dropdownvalue44!
-                                                                        .toString());
-                                                                  },
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          top:
+                                                                              10),
+                                                                      child:
+                                                                          OnHoverButton(
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              36,
+                                                                          width:
+                                                                              300,
+                                                                          padding:
+                                                                              const EdgeInsets.all(6),
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(12),
+                                                                              color: Colors.white,
+                                                                              border: Border.all(color: Colors.grey)),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 8.0),
+                                                                            child:
+                                                                                TextField(
+                                                                              onChanged: (value) {
+                                                                                displayedDataCell.clear();
+                                                                                if (value.length >= 3) {
+                                                                                  context.read<GetemployeelistCubit>().getemployeelist(name: value, datalimit: datalimit, ismoredata: true, desigid: dropdownvalue11, deptid: dropdownvalue22, rolename: dropdownvalue33, branchid: dropdownvalue44);
+                                                                                }
+                                                                              },
+                                                                              decoration: const InputDecoration(
+                                                                                hintText: " Search       🔍",
+                                                                                border: InputBorder.none,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 8.0,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Text(
-                                                                'Department',
-                                                              ),
-                                                            ),
-                                                            OnHoverButton(
-                                                              child: Container(
-                                                                height: 36,
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        13),
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey)),
-                                                                child:
-                                                                    DropdownSearch<
-                                                                        String>(
-                                                                  selectedItem:
-                                                                      dropdownvalue_departmentname,
-                                                                  popupProps:
-                                                                      PopupProps
-                                                                          .menu(
-                                                                    searchFieldProps: const TextFieldProps(
-                                                                        decoration: InputDecoration(
-                                                                            border:
-                                                                                OutlineInputBorder(),
-                                                                            constraints:
-                                                                                BoxConstraints(maxHeight: 40))),
-                                                                    constraints:
-                                                                        BoxConstraints.tight(const Size(
-                                                                            250,
-                                                                            250)),
-                                                                    showSearchBox:
-                                                                        true,
-                                                                    showSelectedItems:
-                                                                        true,
-                                                                  ),
-                                                                  items: alldeptState
-                                                                      .alldeptnamelist,
-                                                                  dropdownDecoratorProps:
-                                                                      DropDownDecoratorProps(
-                                                                    dropdownSearchDecoration:
-                                                                        InputDecoration(
-                                                                      labelText:
-                                                                          dropdownDepartmentlabel,
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      focusedBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      enabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      errorBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      disabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      // label: Text(
-                                                                      //   "Select",
-                                                                      //   style: TextStyle(
-                                                                      //       fontSize:
-                                                                      //           14),
-                                                                      // ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top:
+                                                                              8.0,
+                                                                          bottom:
+                                                                              8),
+                                                                      child:
+                                                                          Text(
+                                                                        'Branch',
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  onChanged:
-                                                                      (String?
-                                                                          newValue) {
-                                                                    setState(
-                                                                        () {
-                                                                      dropdownvalue_departmentname =
-                                                                          newValue
-                                                                              as String;
-                                                                      dropdownDepartmentlabel =
-                                                                          dropdownvalue_departmentname!;
-                                                                    });
-
-                                                                    dropdownvalue_departmentid = alldeptState
-                                                                        .deptidwithname
-                                                                        .keys
-                                                                        .firstWhere(
-                                                                            (k) =>
-                                                                                alldeptState.deptidwithname[k] ==
-                                                                                dropdownvalue_departmentname,
-                                                                            orElse: () =>
-                                                                                null);
-
-                                                                    displayedDataCell
-                                                                        .clear();
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue_designid,
-                                                                        deptid:
-                                                                            dropdownvalue_departmentid,
-                                                                        rolename:
-                                                                            dropdownleavetypevalue,
-                                                                        branchid:
-                                                                            dropdownvalue_branchid);
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 8.0,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Text(
-                                                                'Designation',
-                                                              ),
-                                                            ),
-                                                            OnHoverButton(
-                                                              child: Container(
-                                                                height: 36,
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        13),
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey)),
-                                                                child:
-                                                                    DropdownSearch<
-                                                                        String>(
-                                                                  selectedItem:
-                                                                      dropdownvalue_designname,
-                                                                  popupProps:
-                                                                      PopupProps
-                                                                          .menu(
-                                                                    searchFieldProps: const TextFieldProps(
-                                                                        decoration: InputDecoration(
-                                                                            border:
-                                                                                OutlineInputBorder(),
+                                                                    OnHoverButton(
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            36,
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 13),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(12),
+                                                                            border: Border.all(color: Colors.grey)),
+                                                                        child: DropdownSearch<
+                                                                            String>(
+                                                                          selectedItem:
+                                                                              dropdownvalue_branchname,
+                                                                          popupProps:
+                                                                              PopupProps.menu(
+                                                                            searchFieldProps:
+                                                                                const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
                                                                             constraints:
-                                                                                BoxConstraints(maxHeight: 40))),
-                                                                    constraints:
-                                                                        BoxConstraints.tight(const Size(
-                                                                            250,
-                                                                            250)),
-                                                                    showSearchBox:
-                                                                        true,
-                                                                    showSelectedItems:
-                                                                        true,
-                                                                  ),
-                                                                  items: alldesignstate
-                                                                      .alldesignationnamelist,
-                                                                  dropdownDecoratorProps:
-                                                                      DropDownDecoratorProps(
-                                                                    dropdownSearchDecoration:
-                                                                        InputDecoration(
-                                                                      labelText:
-                                                                          dropdownDesignationlabel,
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      focusedBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      enabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      errorBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      disabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      // label: Text(
-                                                                      //   "Select",
-                                                                      //   style: TextStyle(
-                                                                      //       fontSize:
-                                                                      //           14),
-                                                                      // ),
+                                                                                BoxConstraints.tight(const Size(250, 250)),
+                                                                            showSearchBox:
+                                                                                true,
+                                                                            showSelectedItems:
+                                                                                true,
+                                                                          ),
+                                                                          items:
+                                                                              allbranchState.allbranchnamelist,
+                                                                          dropdownDecoratorProps:
+                                                                              DropDownDecoratorProps(
+                                                                            dropdownSearchDecoration:
+                                                                                InputDecoration(
+                                                                              labelText: dropdownbranchlabel,
+
+                                                                              // labelStyle: TextStyle(
+                                                                              //     color: Colors.grey[
+                                                                              //         700],
+                                                                              //     fontSize:
+                                                                              //         20),
+
+                                                                              border: InputBorder.none,
+                                                                              focusedBorder: InputBorder.none,
+                                                                              enabledBorder: InputBorder.none,
+                                                                              errorBorder: InputBorder.none,
+                                                                              disabledBorder: InputBorder.none,
+                                                                              // label: Text(
+                                                                              //   "Select",
+                                                                              //   style: TextStyle(
+                                                                              //       fontSize:
+                                                                              //           14),
+                                                                              // ),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged:
+                                                                              (String? newValue) {
+                                                                            setState(() {
+                                                                              dropdownvalue_branchname = newValue as String;
+                                                                              dropdownbranchlabel = dropdownvalue_branchname!;
+                                                                            });
+                                                                            dropdownvalue_branchid =
+                                                                                allbranchState.branchidwithname.keys.firstWhere((k) => allbranchState.branchidwithname[k] == dropdownvalue_branchname, orElse: () => null);
+
+                                                                            displayedDataCell.clear();
+                                                                            context.read<GetemployeelistCubit>().getemployeelist(
+                                                                                datalimit: datalimit,
+                                                                                ismoredata: true,
+                                                                                desigid: dropdownvalue_designid,
+                                                                                deptid: dropdownvalue_departmentid,
+                                                                                rolename: dropdownleavetypevalue,
+                                                                                branchid: dropdownvalue_branchid);
+                                                                            log(dropdownvalue44!.toString());
+                                                                          },
+                                                                        ),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  onChanged:
-                                                                      (String?
-                                                                          newValue) {
-                                                                    setState(
-                                                                        () {
-                                                                      dropdownvalue_designname =
-                                                                          newValue
-                                                                              as String;
-                                                                      dropdownDesignationlabel =
-                                                                          dropdownvalue_designname!;
-                                                                    });
-
-                                                                    dropdownvalue_designid = alldesignstate
-                                                                        .designidwithname
-                                                                        .keys
-                                                                        .firstWhere(
-                                                                            (k) =>
-                                                                                alldesignstate.designidwithname[k] ==
-                                                                                dropdownvalue_designname,
-                                                                            orElse: () =>
-                                                                                null);
-
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue_designid,
-                                                                        deptid:
-                                                                            dropdownvalue_departmentid,
-                                                                        rolename:
-                                                                            dropdownleavetypevalue,
-                                                                        branchid:
-                                                                            dropdownvalue_branchid);
-                                                                    displayedDataCell
-                                                                        .clear();
-                                                                  },
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 8.0,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Text(
-                                                                'Leave Type',
-                                                              ),
-                                                            ),
-                                                            OnHoverButton(
-                                                              child: Container(
-                                                                height: 36,
-                                                                width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width,
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        13),
-                                                                decoration: BoxDecoration(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey)),
-                                                                child:
-                                                                    DropdownSearch<
-                                                                        String>(
-                                                                  selectedItem:
-                                                                      dropdownLeavetypeName,
-                                                                  popupProps:
-                                                                      PopupProps
-                                                                          .menu(
-                                                                    searchFieldProps: const TextFieldProps(
-                                                                        decoration: InputDecoration(
-                                                                            border:
-                                                                                OutlineInputBorder(),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top:
+                                                                              8.0,
+                                                                          bottom:
+                                                                              8),
+                                                                      child:
+                                                                          Text(
+                                                                        'Department',
+                                                                      ),
+                                                                    ),
+                                                                    OnHoverButton(
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            36,
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 13),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(12),
+                                                                            border: Border.all(color: Colors.grey)),
+                                                                        child: DropdownSearch<
+                                                                            String>(
+                                                                          selectedItem:
+                                                                              dropdownvalue_departmentname,
+                                                                          popupProps:
+                                                                              PopupProps.menu(
+                                                                            searchFieldProps:
+                                                                                const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
                                                                             constraints:
-                                                                                BoxConstraints(maxHeight: 40))),
-                                                                    constraints:
-                                                                        BoxConstraints.tight(const Size(
-                                                                            250,
-                                                                            250)),
-                                                                    fit: FlexFit
-                                                                        .tight,
-                                                                    showSearchBox:
-                                                                        true,
-                                                                    showSelectedItems:
-                                                                        true,
-                                                                  ),
-                                                                  items: allLeaveTypeState
-                                                                      .allleavetypenamelist,
-                                                                  dropdownDecoratorProps:
-                                                                      DropDownDecoratorProps(
-                                                                    dropdownSearchDecoration:
-                                                                        InputDecoration(
-                                                                      labelText:
-                                                                          dropdownLeaveatypelabel,
-                                                                      border: InputBorder
-                                                                          .none,
-                                                                      focusedBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      enabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      errorBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      disabledBorder:
-                                                                          InputBorder
-                                                                              .none,
-                                                                      // label: Text(
-                                                                      //   "Select",
-                                                                      //   style: TextStyle(
-                                                                      //       fontSize:
-                                                                      //           14),
-                                                                      // ),
+                                                                                BoxConstraints.tight(const Size(250, 250)),
+                                                                            showSearchBox:
+                                                                                true,
+                                                                            showSelectedItems:
+                                                                                true,
+                                                                          ),
+                                                                          items:
+                                                                              alldeptState.alldeptnamelist,
+                                                                          dropdownDecoratorProps:
+                                                                              DropDownDecoratorProps(
+                                                                            dropdownSearchDecoration:
+                                                                                InputDecoration(
+                                                                              labelText: dropdownDepartmentlabel,
+                                                                              border: InputBorder.none,
+                                                                              focusedBorder: InputBorder.none,
+                                                                              enabledBorder: InputBorder.none,
+                                                                              errorBorder: InputBorder.none,
+                                                                              disabledBorder: InputBorder.none,
+                                                                              // label: Text(
+                                                                              //   "Select",
+                                                                              //   style: TextStyle(
+                                                                              //       fontSize:
+                                                                              //           14),
+                                                                              // ),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged:
+                                                                              (String? newValue) {
+                                                                            setState(() {
+                                                                              dropdownvalue_departmentname = newValue as String;
+                                                                              dropdownDepartmentlabel = dropdownvalue_departmentname!;
+                                                                            });
+
+                                                                            dropdownvalue_departmentid =
+                                                                                alldeptState.deptidwithname.keys.firstWhere((k) => alldeptState.deptidwithname[k] == dropdownvalue_departmentname, orElse: () => null);
+
+                                                                            displayedDataCell.clear();
+                                                                            context.read<GetemployeelistCubit>().getemployeelist(
+                                                                                datalimit: datalimit,
+                                                                                ismoredata: true,
+                                                                                desigid: dropdownvalue_designid,
+                                                                                deptid: dropdownvalue_departmentid,
+                                                                                rolename: dropdownleavetypevalue,
+                                                                                branchid: dropdownvalue_branchid);
+                                                                          },
+                                                                        ),
+                                                                      ),
                                                                     ),
-                                                                  ),
-                                                                  onChanged:
-                                                                      (String?
-                                                                          newValue) {
-                                                                    setState(
-                                                                        () {
-                                                                      dropdownLeavetypeName =
-                                                                          newValue
-                                                                              as String;
-                                                                      dropdownLeaveatypelabel =
-                                                                          dropdownLeavetypeName!;
-                                                                    });
-
-                                                                    dropdownleavetypevalue =
-                                                                        allLeaveTypeState
-                                                                            .alleavetypeidwithname[dropdownLeavetypeName];
-
-                                                                    displayedDataCell
-                                                                        .clear();
-                                                                    context.read<GetemployeelistCubit>().getemployeelist(
-                                                                        datalimit:
-                                                                            datalimit,
-                                                                        ismoredata:
-                                                                            true,
-                                                                        desigid:
-                                                                            dropdownvalue_designid,
-                                                                        deptid:
-                                                                            dropdownvalue_departmentid,
-                                                                        rolename:
-                                                                            dropdownleavetypevalue,
-                                                                        branchid:
-                                                                            dropdownvalue_branchid);
-                                                                  },
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: const [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Text(
-                                                                'Avail. Leave Balance',
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: const [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Center(
-                                                                child: Text(
-                                                                  'Action',
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top:
+                                                                              8.0,
+                                                                          bottom:
+                                                                              8),
+                                                                      child:
+                                                                          Text(
+                                                                        'Designation',
+                                                                      ),
+                                                                    ),
+                                                                    OnHoverButton(
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            36,
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 13),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(12),
+                                                                            border: Border.all(color: Colors.grey)),
+                                                                        child: DropdownSearch<
+                                                                            String>(
+                                                                          selectedItem:
+                                                                              dropdownvalue_designname,
+                                                                          popupProps:
+                                                                              PopupProps.menu(
+                                                                            searchFieldProps:
+                                                                                const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
+                                                                            constraints:
+                                                                                BoxConstraints.tight(const Size(250, 250)),
+                                                                            showSearchBox:
+                                                                                true,
+                                                                            showSelectedItems:
+                                                                                true,
+                                                                          ),
+                                                                          items:
+                                                                              alldesignstate.alldesignationnamelist,
+                                                                          dropdownDecoratorProps:
+                                                                              DropDownDecoratorProps(
+                                                                            dropdownSearchDecoration:
+                                                                                InputDecoration(
+                                                                              labelText: dropdownDesignationlabel,
+                                                                              border: InputBorder.none,
+                                                                              focusedBorder: InputBorder.none,
+                                                                              enabledBorder: InputBorder.none,
+                                                                              errorBorder: InputBorder.none,
+                                                                              disabledBorder: InputBorder.none,
+                                                                              // label: Text(
+                                                                              //   "Select",
+                                                                              //   style: TextStyle(
+                                                                              //       fontSize:
+                                                                              //           14),
+                                                                              // ),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged:
+                                                                              (String? newValue) {
+                                                                            setState(() {
+                                                                              dropdownvalue_designname = newValue as String;
+                                                                              dropdownDesignationlabel = dropdownvalue_designname!;
+                                                                            });
+
+                                                                            dropdownvalue_designid =
+                                                                                alldesignstate.designidwithname.keys.firstWhere((k) => alldesignstate.designidwithname[k] == dropdownvalue_designname, orElse: () => null);
+
+                                                                            context.read<GetemployeelistCubit>().getemployeelist(
+                                                                                datalimit: datalimit,
+                                                                                ismoredata: true,
+                                                                                desigid: dropdownvalue_designid,
+                                                                                deptid: dropdownvalue_departmentid,
+                                                                                rolename: dropdownleavetypevalue,
+                                                                                branchid: dropdownvalue_branchid);
+                                                                            displayedDataCell.clear();
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ),
-                                                            ),
-                                                          ],
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top:
+                                                                              8.0,
+                                                                          bottom:
+                                                                              8),
+                                                                      child:
+                                                                          Text(
+                                                                        'Leave Type',
+                                                                      ),
+                                                                    ),
+                                                                    OnHoverButton(
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            36,
+                                                                        width: MediaQuery.of(context)
+                                                                            .size
+                                                                            .width,
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 13),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(12),
+                                                                            border: Border.all(color: Colors.grey)),
+                                                                        child: DropdownSearch<
+                                                                            String>(
+                                                                          selectedItem:
+                                                                              dropdownLeavetypeName,
+                                                                          popupProps:
+                                                                              PopupProps.menu(
+                                                                            searchFieldProps:
+                                                                                const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
+                                                                            constraints:
+                                                                                BoxConstraints.tight(const Size(250, 250)),
+                                                                            fit:
+                                                                                FlexFit.tight,
+                                                                            showSearchBox:
+                                                                                true,
+                                                                            showSelectedItems:
+                                                                                true,
+                                                                          ),
+                                                                          items:
+                                                                              getallleavetype6State.allleavetypenamelist,
+                                                                          dropdownDecoratorProps:
+                                                                              DropDownDecoratorProps(
+                                                                            dropdownSearchDecoration:
+                                                                                InputDecoration(
+                                                                              labelText: dropdownLeaveatypelabel,
+                                                                              border: InputBorder.none,
+                                                                              focusedBorder: InputBorder.none,
+                                                                              enabledBorder: InputBorder.none,
+                                                                              errorBorder: InputBorder.none,
+                                                                              disabledBorder: InputBorder.none,
+                                                                              // label: Text(
+                                                                              //   "Select",
+                                                                              //   style: TextStyle(
+                                                                              //       fontSize:
+                                                                              //           14),
+                                                                              // ),
+                                                                            ),
+                                                                          ),
+                                                                          onChanged:
+                                                                              (String? newValue) {
+                                                                            setState(() {
+                                                                              dropdownLeavetypeName = newValue as String;
+                                                                              dropdownLeaveatypelabel = dropdownLeavetypeName!;
+                                                                              dropdownleavetypevalue = getallleavetype6State.alleavetypeidwithname[dropdownLeavetypeName];
+                                                                            });
+
+                                                                            displayedDataCell.clear();
+                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue);
+                                                                            context.read<GetemployeelistCubit>().getemployeelist(
+                                                                                datalimit: datalimit,
+                                                                                ismoredata: true);
+                                                                          },
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .center,
+                                                                  children: const [
+                                                                    Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Avail. Leave Balance',
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: const [
+                                                                    Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Center(
+                                                                        child:
+                                                                            Text(
+                                                                          'Action',
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 50,
-                                          ),
-                                        ]),
+                                                  const SizedBox(
+                                                    height: 50,
+                                                  ),
+                                                ]),
+                                          );
+                                        },
+                                      );
+                                    },
                                   );
                                 },
                               );
-                            },
-                          );
-                        });
+                            });
+                          },
+                        );
                       },
                     );
                   },
