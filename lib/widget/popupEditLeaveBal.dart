@@ -4,7 +4,8 @@ import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class EditLeaveBalPopUp extends StatefulWidget {
-  const EditLeaveBalPopUp({super.key});
+  final String empName;
+  const EditLeaveBalPopUp({super.key, required this.empName});
 
   @override
   State<EditLeaveBalPopUp> createState() => _EditLeaveBalPopUpState();
