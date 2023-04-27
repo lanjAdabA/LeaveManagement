@@ -8,10 +8,10 @@ import 'package:leavemanagementadmin/constant/apiendpoint.dart';
 import 'package:leavemanagementadmin/listener/auth_login_listener.dart';
 
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
-import 'package:leavemanagementadmin/model/leavetypemodel.dart';
 
 class AuthRepository {
-  static const baseUrl = "https://leavemngt.globizsapp.com";
+  //static const baseUrl = "https://leavemngt.globizsapp.com";
+  static const baseUrl = "https://staging.leave.globiz.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
 
@@ -122,7 +122,7 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       var response = await dio.patch(
-        "https://staging.leave.globizs.com/api/admin/update/branch/$id",
+        "/api/admin/update/branch/$id",
         data: {
           "name": branchname,
           "is_active": isactive
@@ -180,7 +180,7 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       var response = await dio.patch(
-        "https://staging.leave.globizs.com/api/department/$id",
+        "/api/department/$id",
         data: {
           "name": branchname,
           "is_active": isactive
@@ -208,7 +208,7 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       var response = await dio.delete(
-        "https://staging.leave.globizs.com/api/department/$id",
+        "/api/department/$id",
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -264,7 +264,7 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       var response = await dio.patch(
-        "https://staging.leave.globizs.com/api/designation/$id",
+        "/api/designation/$id",
         data: {
           "name": designname,
           "is_active": isactive
@@ -290,7 +290,7 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       var response = await dio.delete(
-        "https://staging.leave.globizs.com/api/designation/$id",
+        "/api/designation/$id",
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
