@@ -44,6 +44,7 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
         List<dynamic> postMaps = response.data;
         var alldata =
             postMaps.map((e) => LeaveBalanceModel.fromJson(e)).toList();
+            
 
         for (var element in alldata) {
           branchnamelist.add(element.branch);

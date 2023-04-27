@@ -164,12 +164,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
         );
 
         displayedDataCell.add(
-          const DataCell(Center(child: Text("LeaveType"))),
+          DataCell(Center(child: Text(item.leaveType))),
         );
         displayedDataCell.add(
           DataCell(
             Center(
-              child: Text("Leave Bal."),
+              child: Text(item.availableBalance),
             ),
           ),
         );
@@ -244,9 +244,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         void Function(
                                                                 void Function())
                                                             setState) {
-                                                  return EditLeaveBalPopUp(
-                                                    empName: item.employeeName,
-                                                  );
+                                                  return  EditLeaveBalPopUp(empName: item.employeeName,);
                                                 });
                                               },
                                             );
@@ -263,11 +261,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                       },
                     );
                   },
-                  child: const OnHoverButton2(
-                      child: Text(
-                    "Edit",
-                    style: TextStyle(fontWeight: FontWeight.w600),
-                  ))),
+                  child: const OnHoverButton2(child: Text("Edit"))),
             ),
           )),
         );
@@ -685,183 +679,166 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 5),
                                                                     //! [checked ✔ ] full table background
 
-                                                        color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                              color: Colors.grey
-                                                                  .withOpacity(
-                                                                      0.3),
-                                                              blurRadius: 4,
-                                                              spreadRadius: 3,
-                                                              offset:
-                                                                  const Offset(
-                                                                      0, 3))
-                                                        ]),
-                                                    headingTextStyle:
-                                                        const TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    rows: <DataRow>[
-                                                      for (int i = 0;
-                                                          i <
-                                                              displayedDataCell
-                                                                  .length;
-                                                          i += 8)
-                                                        DataRow(cells: [
-                                                          displayedDataCell[i],
-                                                          displayedDataCell[
-                                                              i + 1],
-                                                          displayedDataCell[
-                                                              i + 2],
-                                                          displayedDataCell[
-                                                              i + 3],
-                                                          displayedDataCell[
-                                                              i + 4],
-                                                          displayedDataCell[
-                                                              i + 5],
-                                                          displayedDataCell[
-                                                              i + 6],
-                                                          displayedDataCell[
-                                                              i + 7]
-                                                        ])
-                                                    ],
-                                                    columns: <DataColumn>[
-                                                      DataColumn(
-                                                        label: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: const [
-                                                            Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Text(
-                                                                'Sl. no. ',
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 6.0),
-                                                              child: Text(
-                                                                overflow:
-                                                                    TextOverflow
-                                                                        .ellipsis,
-                                                                'Employee Name',
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      top: 10),
-                                                              child:
-                                                                  OnHoverButton(
-                                                                child:
-                                                                    Container(
-                                                                  height: 36,
-                                                                  width: 300,
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(6),
-                                                                  decoration: BoxDecoration(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              12),
-                                                                      color: Colors
-                                                                          .white,
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.grey)),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            8.0),
-                                                                    child:
-                                                                        TextField(
-                                                                      onChanged:
-                                                                          (value) {
-                                                                        displayedDataCell
-                                                                            .clear();
-                                                                        if (value.length >=
-                                                                            3) {
-                                                                          context.read<GetemployeelistCubit>().getemployeelist(
-                                                                              name: value,
-                                                                              datalimit: datalimit,
-                                                                              ismoredata: true,
-                                                                              desigid: dropdownvalue11,
-                                                                              deptid: dropdownvalue22,
-                                                                              rolename: dropdownvalue33,
-                                                                              branchid: dropdownvalue44);
-                                                                        }
-                                                                      },
-                                                                      decoration:
-                                                                          const InputDecoration(
-                                                                        hintText:
-                                                                            " Search       🔍",
-                                                                        border:
-                                                                            InputBorder.none,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      DataColumn(
-                                                        label: Column(
-                                                          children: [
-                                                            const Padding(
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      top: 8.0,
-                                                                      bottom:
-                                                                          8),
-                                                              child: Text(
-                                                                'Branch',
-                                                              ),
-                                                            ),
-                                                            OnHoverButton(
-                                                              child: Container(
-                                                                height: 36,
-                                                                padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                    horizontal:
-                                                                        13),
-                                                                decoration: BoxDecoration(
                                                                     color: Colors
                                                                         .white,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12),
-                                                                    border: Border.all(
-                                                                        color: Colors
-                                                                            .grey)),
-                                                                child:
-                                                                    DropdownSearch<
-                                                                        String>(
-                                                                  selectedItem:
-                                                                      dropdownvalue_branchname,
-                                                                  popupProps:
-                                                                      PopupProps
-                                                                          .menu(
-                                                                    searchFieldProps: const TextFieldProps(
-                                                                        decoration: InputDecoration(
-                                                                            border:
-                                                                                OutlineInputBorder(),
+                                                                    boxShadow: [
+                                                                  BoxShadow(
+                                                                      color: Colors
+                                                                          .grey
+                                                                          .withOpacity(
+                                                                              0.3),
+                                                                      blurRadius:
+                                                                          4,
+                                                                      spreadRadius:
+                                                                          3,
+                                                                      offset:
+                                                                          const Offset(
+                                                                              0,
+                                                                              3))
+                                                                ]),
+                                                            headingTextStyle:
+                                                                const TextStyle(
+                                                              fontSize: 14,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                            rows: <DataRow>[
+                                                              for (int i = 0;
+                                                                  i <
+                                                                      displayedDataCell
+                                                                          .length;
+                                                                  i += 8)
+                                                                DataRow(cells: [
+                                                                  displayedDataCell[
+                                                                      i],
+                                                                  displayedDataCell[
+                                                                      i + 1],
+                                                                  displayedDataCell[
+                                                                      i + 2],
+                                                                  displayedDataCell[
+                                                                      i + 3],
+                                                                  displayedDataCell[
+                                                                      i + 4],
+                                                                  displayedDataCell[
+                                                                      i + 5],
+                                                                  displayedDataCell[
+                                                                      i + 6],
+                                                                  displayedDataCell[
+                                                                      i + 7]
+                                                                ])
+                                                            ],
+                                                            columns: <
+                                                                DataColumn>[
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: const [
+                                                                    Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Text(
+                                                                        'Sl. no. ',
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets
+                                                                          .only(
+                                                                              top: 6.0),
+                                                                      child:
+                                                                          Text(
+                                                                        overflow:
+                                                                            TextOverflow.ellipsis,
+                                                                        'Employee Name',
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: const EdgeInsets
+                                                                              .only(
+                                                                          top:
+                                                                              10),
+                                                                      child:
+                                                                          OnHoverButton(
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              36,
+                                                                          width:
+                                                                              300,
+                                                                          padding:
+                                                                              const EdgeInsets.all(6),
+                                                                          decoration: BoxDecoration(
+                                                                              borderRadius: BorderRadius.circular(12),
+                                                                              color: Colors.white,
+                                                                              border: Border.all(color: Colors.grey)),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.only(left: 8.0),
+                                                                            child:
+                                                                                TextField(
+                                                                              onChanged: (value) {
+                                                                                displayedDataCell.clear();
+                                                                                if (value.length >= 3) {
+                                                                                  context.read<GetemployeelistCubit>().getemployeelist(name: value, datalimit: datalimit, ismoredata: true, desigid: dropdownvalue11, deptid: dropdownvalue22, rolename: dropdownvalue33, branchid: dropdownvalue44);
+                                                                                }
+                                                                              },
+                                                                              decoration: const InputDecoration(
+                                                                                hintText: " Search       🔍",
+                                                                                border: InputBorder.none,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              DataColumn(
+                                                                label: Column(
+                                                                  children: [
+                                                                    const Padding(
+                                                                      padding: EdgeInsets.only(
+                                                                          top:
+                                                                              8.0,
+                                                                          bottom:
+                                                                              8),
+                                                                      child:
+                                                                          Text(
+                                                                        'Branch',
+                                                                      ),
+                                                                    ),
+                                                                    OnHoverButton(
+                                                                      child:
+                                                                          Container(
+                                                                        height:
+                                                                            36,
+                                                                        padding:
+                                                                            const EdgeInsets.symmetric(horizontal: 13),
+                                                                        decoration: BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius: BorderRadius.circular(12),
+                                                                            border: Border.all(color: Colors.grey)),
+                                                                        child: DropdownSearch<
+                                                                            String>(
+                                                                          selectedItem:
+                                                                              dropdownvalue_branchname,
+                                                                          popupProps:
+                                                                              PopupProps.menu(
+                                                                            searchFieldProps:
+                                                                                const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
                                                                             constraints:
                                                                                 BoxConstraints.tight(const Size(250, 250)),
                                                                             showSearchBox:
