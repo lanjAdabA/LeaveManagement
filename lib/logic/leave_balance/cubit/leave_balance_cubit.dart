@@ -4,13 +4,16 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:leavemanagementadmin/Interceptor/baseapi.dart';
+
 import 'package:leavemanagementadmin/model/leave_balance.dart';
+
+import '../../../model/leave_balance.dart';
 
 part 'leave_balance_state.dart';
 
 class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
   GetLeaveBalanceCubit()
-      : super(const GetLeaveBalanceState(leavebalancelist: []));
+      : super(const GetLeaveBalanceState(leavebalancelist: [], isempty: false));
 
   API api = API();
 
@@ -28,6 +31,9 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
     List<dynamic> leavetypeidlist = [];
     try {
       log("Leave cubit ");
+      log("Leave cubit  branch : $branch");
+      log("Leave cubit  design : $design");
+      log("Leave cubit  dept : $dept");
       final response = await api.sendRequest
           .get("/api/admin/employee/balance", queryParameters: {
         "employee_name": name ?? "",
@@ -40,28 +46,40 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
       // log("end date : $enddate");
 
       if (response.statusCode == 200) {
-        List<dynamic> postMaps = response.data;
+        List<dynamic> postMaps = response.data["employees"];
         var alldata =
-            postMaps.map((e) => LeaveBalanceModel.fromJson(e)).toList();
+            postMaps.map((e) => Employeeleaveblc.fromJson(e)).toList();
 
-        for (var element in alldata) {
-          branchnamelist.add(element.branch);
-          deptnamelist.add(element.department);
-          designnamelist.add(element.designation);
-          leavetypelist.add(element.leaveType);
-          leavetypeidlist.add(element.leaveTypeId);
+        if (alldata.isEmpty) {
+          emit(GetLeaveBalanceState(
+              leavebalancelist: alldata,
+              branchnamelist: branchnamelist,
+              deptnamelist: deptnamelist,
+              designnamelist: designnamelist,
+              leavetypelist: leavetypelist,
+              leaveidandname: {},
+              isempty: true));
+        } else {
+          for (var element in alldata) {
+            branchnamelist.add(element.branch);
+            deptnamelist.add(element.department);
+            designnamelist.add(element.designation);
+            leavetypelist.add(element.leaveType);
+            leavetypeidlist.add(element.leaveTypeId);
+          }
+          var result = Map.fromIterables(leavetypelist, leavetypeidlist);
+          log("Leave Balance : $result");
+
+          emit(GetLeaveBalanceState(
+              leavebalancelist: alldata,
+              branchnamelist: branchnamelist,
+              deptnamelist: deptnamelist,
+              designnamelist: designnamelist,
+              leavetypelist: leavetypelist,
+              leaveidandname: result,
+              isempty: false));
+          log("LEave Balance :$alldata ");
         }
-        var result = Map.fromIterables(leavetypelist, leavetypeidlist);
-        log("Leave Balance : $result");
-
-        emit(GetLeaveBalanceState(
-            leavebalancelist: alldata,
-            branchnamelist: branchnamelist,
-            deptnamelist: deptnamelist,
-            designnamelist: designnamelist,
-            leavetypelist: leavetypelist,
-            leaveidandname: result));
-        log("LEave Balance :$alldata ");
       } else {
         EasyLoading.showError('Cannot fetch Data');
       }

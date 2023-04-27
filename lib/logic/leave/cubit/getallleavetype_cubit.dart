@@ -37,10 +37,8 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
           allleavenamelist.add(element.name);
         }
 
-        var result = Map.fromIterables(
-          allleavenamelist,
-          allleaveidlist,
-        );
+        var result = Map.fromIterables(allleavenamelist, allleaveidlist);
+
         log('From Cubit For Leavetype :$result');
 
         emit(GetallleavetypeState(

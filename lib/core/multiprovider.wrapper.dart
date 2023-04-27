@@ -37,6 +37,7 @@ import '../logic/branch/getallbranch_cubit.dart';
 import '../logic/branch/update_branch_cubit.dart';
 import '../logic/branch/update_branch_state.dart';
 import '../logic/leave/cubit/getallleavetype_forleavebalance_cubit.dart';
+import '../logic/leave_balance/cubit/leave_balance_cubit.dart';
 
 class MultiproviderWrapper extends StatelessWidget {
   final Widget child;

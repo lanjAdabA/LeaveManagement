@@ -65,7 +65,7 @@ class Leaf {
 
   final int id;
   final String name;
-  final double? balance;
+  final String? balance;
   final String canApply;
   final bool? hidden;
   final Icon? icon;

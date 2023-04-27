@@ -234,6 +234,7 @@ class _EmployeePageState extends State<EmployeePage> {
                           "${item.employeeDateOfJoining.year}-${item.employeeDateOfJoining.month}-${item.employeeDateOfJoining.day}";
 
                       setState(() {
+                        _selectedRadioTile = int.parse(item.employeeEmpStatus);
                         dropdownvalue1 =
                             designidwithname[item.employeeDesignationId]
                                 .toString();
@@ -442,7 +443,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                           SingleChildScrollView(
                                                         child: Form(
                                                           child: SizedBox(
-                                                            width: 300,
+                                                            width: 350,
                                                             height: 600,
                                                             child: Column(
                                                               children: [
@@ -715,6 +716,36 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                         selected:
                                                                             _selectedRadioTile ==
                                                                                 2,
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      child:
+                                                                          RadioListTile(
+                                                                        contentPadding:
+                                                                            EdgeInsets.zero,
+                                                                        title: const Text(
+                                                                            'Intern'),
+                                                                        value:
+                                                                            3,
+                                                                        groupValue:
+                                                                            _selectedRadioTile,
+                                                                        onChanged:
+                                                                            (val) {
+                                                                          print(
+                                                                              'Selected value: $val');
+                                                                          log(val
+                                                                              .toString());
+                                                                          setState(
+                                                                              () {
+                                                                            _selectedRadioTile =
+                                                                                val;
+                                                                          });
+                                                                        },
+                                                                        activeColor:
+                                                                            Colors.green,
+                                                                        selected:
+                                                                            _selectedRadioTile ==
+                                                                                3,
                                                                       ),
                                                                     ),
                                                                   ],
@@ -1954,7 +1985,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 child: Form(
                                                                   child:
                                                                       SizedBox(
-                                                                    width: 300,
+                                                                    width: 350,
                                                                     height: 725,
                                                                     child:
                                                                         Column(
@@ -2222,6 +2253,22 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                                 },
                                                                                 activeColor: Colors.green,
                                                                                 selected: _selectedRadioTile == 2,
+                                                                              ),
+                                                                            ),
+                                                                            Expanded(
+                                                                              child: RadioListTile(
+                                                                                contentPadding: EdgeInsets.zero,
+                                                                                title: const Text('Intern'),
+                                                                                value: 3,
+                                                                                groupValue: _selectedRadioTile,
+                                                                                onChanged: (val) {
+                                                                                  print('Selected value: $val');
+                                                                                  setState(() {
+                                                                                    _selectedRadioTile = val;
+                                                                                  });
+                                                                                },
+                                                                                activeColor: Colors.green,
+                                                                                selected: _selectedRadioTile == 3,
                                                                               ),
                                                                             ),
                                                                           ],
