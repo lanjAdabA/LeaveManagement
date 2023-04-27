@@ -146,7 +146,10 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
       displayedDataCell.add(
         DataCell(
-          Center(child: Text(item.employeeName)),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(item.employeeName),
+          ),
         ),
       );
       displayedDataCell.add(
@@ -160,12 +163,18 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
       );
       displayedDataCell.add(
         DataCell(
-          Center(child: Text(item.department)),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(item.department),
+          ),
         ),
       );
       displayedDataCell.add(
         DataCell(
-          Center(child: Text(item.designation)),
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(item.designation),
+          ),
         ),
       );
 
