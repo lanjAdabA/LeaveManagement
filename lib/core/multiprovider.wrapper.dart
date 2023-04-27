@@ -23,6 +23,7 @@ import 'package:leavemanagementadmin/logic/designation/cubit/update_design_cubit
 import 'package:leavemanagementadmin/logic/designation/cubit/update_design_state.dart';
 import 'package:leavemanagementadmin/logic/leave/cubit/cubit/createleave_cubit.dart';
 import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_cubit.dart';
+import 'package:leavemanagementadmin/logic/leave_balance/cubit/leave_balance_cubit.dart';
 import 'package:leavemanagementadmin/logic/leavereport/leave_report_cubit.dart';
 
 import 'package:leavemanagementadmin/logic/loginCubit/cubit/login_bymail_cubit.dart';

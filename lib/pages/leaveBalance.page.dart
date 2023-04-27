@@ -23,6 +23,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:leavemanagementadmin/widget/popupAddBal.dart';
 import 'package:leavemanagementadmin/widget/popupEditLeaveBal.dart';
 
+import '../constant/debouncer.dart';
 import '../logic/Employee/cubit/updateemployee_cubit.dart';
 import '../logic/leave_balance/cubit/leave_balance_cubit.dart';
 import '../model/leave_balance.dart';
@@ -45,6 +46,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
 
+  TextEditingController namesearchcontroller = TextEditingController();
   bool israngeselected = false;
 
 //Dropdown Label String
@@ -52,6 +54,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   String dropdownDepartmentlabel = 'Select';
   String dropdownDesignationlabel = 'Select';
   String dropdownLeaveatypelabel = 'Select';
+  String? empsearchname;
 
   bool? ismoreloading;
   List<String> allEmp = [];
@@ -90,6 +93,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     // });
   }
 
+  final _debouncer = Debouncer(500);
+  bool isfocus = false;
   int? _selectedRadioTile;
 
   int? selectedRadioTileforleave;
@@ -97,104 +102,105 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
   void readall() {
     log('reading cubit.......');
-    context.read<GetallbranchCubit>().getallbranch();
-    context.read<GetAlldeptCubit>().getalldept();
-    context.read<GetAlldesignCubit>().getalldesign();
-    context.read<GetRoleCubit>().getallrole();
-
     context.read<GetallleavetypeCubit>().getallleavetype();
-    context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
-
-    context.read<GetLeaveBalanceCubit>().getleavebalance();
     context
         .read<GetemployeelistCubit>()
         .getemployeelist(datalimit: datalimit, ismoredata: true);
+    context.read<GetallbranchCubit>().getallbranch();
+    context.read<GetAlldeptCubit>().getalldept();
+    context.read<GetAlldesignCubit>().getalldesign();
+    // context.read<GetRoleCubit>().getallrole();
+
+    context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
+
+    context.read<GetLeaveBalanceCubit>().getleavebalance();
   }
 
-  void fetchdata(
-      {required List<LeaveBalanceModel> allemplist,
-      required Map<dynamic, dynamic> branchidwithname,
-      required Map<dynamic, dynamic> deptnamewithid,
-      required Map<dynamic, dynamic> designidwithname}) {
+  void fetchdata({
+    required List<Employeeleaveblc> allemplist,
+    // required Map<dynamic, dynamic> branchidwithname,
+    // required Map<dynamic, dynamic> deptnamewithid,
+    // required Map<dynamic, dynamic> designidwithname
+  }) {
     log('Not empty');
 
     for (var item in allemplist) {
       log("All emplist : $allemplist");
-      if (branchidwithname.isNotEmpty &&
-          deptnamewithid.isNotEmpty &&
-          designidwithname.isNotEmpty) {
-        log("Display datacell $displayedDataCell");
+      // if (branchidwithname.isNotEmpty &&
+      //     deptnamewithid.isNotEmpty &&
+      //     designidwithname.isNotEmpty) {
+      //   log("Display datacell $displayedDataCell");
 
-        displayedDataCell.add(
-          DataCell(
-            SizedBox(
-              width: 20,
-              child: Center(
-                child: Text(
-                  (allemplist.indexOf(item) + 1).toString(),
-                ),
-              ),
-            ),
-          ),
-        );
-
-        displayedDataCell.add(
-          DataCell(
-            Center(child: Text(item.employeeName)),
-          ),
-        );
-        displayedDataCell.add(
-          DataCell(
-            Center(
+      displayedDataCell.add(
+        DataCell(
+          SizedBox(
+            width: 20,
+            child: Center(
               child: Text(
-                item.branch,
+                (allemplist.indexOf(item) + 1).toString(),
               ),
             ),
           ),
-        );
-        displayedDataCell.add(
-          DataCell(
-            Center(child: Text(item.department)),
-          ),
-        );
-        displayedDataCell.add(
-          DataCell(
-            Center(child: Text(item.designation)),
-          ),
-        );
+        ),
+      );
 
-        displayedDataCell.add(
-          DataCell(Center(child: Text(item.leaveType))),
-        );
-        displayedDataCell.add(
-          DataCell(
-            Center(
-              child: Text(item.availableBalance),
+      displayedDataCell.add(
+        DataCell(
+          Center(child: Text(item.employeeName)),
+        ),
+      );
+      displayedDataCell.add(
+        DataCell(
+          Center(
+            child: Text(
+              item.branch,
             ),
           ),
-        );
+        ),
+      );
+      displayedDataCell.add(
+        DataCell(
+          Center(child: Text(item.department)),
+        ),
+      );
+      displayedDataCell.add(
+        DataCell(
+          Center(child: Text(item.designation)),
+        ),
+      );
 
-        displayedDataCell.add(
-          DataCell(Center(
-            child: FittedBox(
-              child: TextButton(
-                  onPressed: () {
-                    // empcode.text = item.employeeEmpCode.toString();
-                    // _namefieldcontroller.text = item.employeeName;
-                    // numbercontroller.text = item.employeePhone;
-                    // emailcontroller.text = item.email;
+      displayedDataCell.add(
+        DataCell(Center(child: Text(item.leaveType))),
+      );
+      displayedDataCell.add(
+        DataCell(
+          Center(
+            child: Text(item.availableBalance),
+          ),
+        ),
+      );
 
-                    setState(() {
-                      // dropdownvalue1 =
-                      //     designidwithname[item.employeeDesignationId]
-                      //         .toString();
+      displayedDataCell.add(
+        DataCell(Center(
+          child: FittedBox(
+            child: TextButton(
+                onPressed: () {
+                  // empcode.text = item.employeeEmpCode.toString();
+                  // _namefieldcontroller.text = item.employeeName;
+                  // numbercontroller.text = item.employeePhone;
+                  // emailcontroller.text = item.email;
 
-                      // dropdownvalue2 =
-                      //     deptnamewithid[item.employeeDepartmentId].toString();
-                      // dropdownvalue3 = item.role;
-                      // dropdownvalue4 =
-                      //     branchidwithname[item.employeeBranchId].toString();
-                    });
+                  setState(() {
+                    // dropdownvalue1 =
+                    //     designidwithname[item.employeeDesignationId]
+                    //         .toString();
+
+                    // dropdownvalue2 =
+                    //     deptnamewithid[item.employeeDepartmentId].toString();
+                    // dropdownvalue3 = item.role;
+                    // dropdownvalue4 =
+                    //     branchidwithname[item.employeeBranchId].toString();
+                  });
 
                     showDialog(
                       context: context,
@@ -244,7 +250,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         void Function(
                                                                 void Function())
                                                             setState) {
-                                                  return  EditLeaveBalPopUp(empName: item.employeeName,);
+                                                  return const EditLeaveBalPopUp();
                                                 });
                                               },
                                             );
@@ -308,13 +314,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   String datetime4 = '';
 
   var format = DateFormat("dd-MM-yyyy");
-
-  List<String> all_desid = [];
-  List<String> all_depid = [];
-  List<String> all_des = [];
-  List<String> all_dep = [];
-  List<String> all_role = [];
-  List<String> all_roleid = [];
 
   @override
   void dispose() {
@@ -380,7 +379,17 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                       builder: (context, alldesignstate) {
                         return BlocConsumer<GetLeaveBalanceCubit,
                             GetLeaveBalanceState>(
-                          listener: (context, leaveBalanceState) {},
+                          listener: (context, leaveBalanceState) {
+                            fetchdata(
+                              allemplist: leaveBalanceState.leavebalancelist,
+
+                              // branchidwithname:
+                              //     allbranchState.branchidwithname,
+                              // deptnamewithid: alldeptState.deptidwithname,
+                              // designidwithname:
+                              //     alldesignstate.designidwithname
+                            );
+                          },
                           builder: (context, leaveBalanceState) {
                             return BlocConsumer<GetemployeelistCubit,
                                     PostState>(
@@ -402,15 +411,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                 isempty = getempoyeestate.isempty;
                                 allEmp = getempoyeestate.allempnamelist;
                                 empNameWithId = getempoyeestate.emptidwithname;
-
-                                fetchdata(
-                                    allemplist:
-                                        leaveBalanceState.leavebalancelist,
-                                    branchidwithname:
-                                        allbranchState.branchidwithname,
-                                    deptnamewithid: alldeptState.deptidwithname,
-                                    designidwithname:
-                                        alldesignstate.designidwithname);
                               }
                             }, builder: (context, getempoyeestate) {
                               return BlocConsumer<GetallleavetypeCubit,
@@ -641,7 +641,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                               .width,
                                                           child: DataTable2(
                                                             columnSpacing: 14,
-                                                            empty: isempty
+                                                            empty: leaveBalanceState
+                                                                    .isempty
                                                                 ? const Center(
                                                                     child: Text(
                                                                     'NO EMPLOYEE FOUND',
@@ -787,11 +788,22 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 const EdgeInsets.only(left: 8.0),
                                                                             child:
                                                                                 TextField(
+                                                                              autofocus: isfocus,
+                                                                              controller: namesearchcontroller,
                                                                               onChanged: (value) {
-                                                                                displayedDataCell.clear();
-                                                                                if (value.length >= 3) {
-                                                                                  context.read<GetemployeelistCubit>().getemployeelist(name: value, datalimit: datalimit, ismoredata: true, desigid: dropdownvalue11, deptid: dropdownvalue22, rolename: dropdownvalue33, branchid: dropdownvalue44);
-                                                                                }
+                                                                                _debouncer.run(() {
+                                                                                  if (value.length >= 3) {
+                                                                                    displayedDataCell.clear();
+                                                                                    setState(() {
+                                                                                      isfocus = true;
+                                                                                      empsearchname = value;
+                                                                                    });
+                                                                                    context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                  }
+                                                                                  if (value.isEmpty) {
+                                                                                    context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                  }
+                                                                                });
                                                                               },
                                                                               decoration: const InputDecoration(
                                                                                 hintText: " Search       🔍",
@@ -883,14 +895,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 allbranchState.branchidwithname.keys.firstWhere((k) => allbranchState.branchidwithname[k] == dropdownvalue_branchname, orElse: () => null);
 
                                                                             displayedDataCell.clear();
-                                                                            context.read<GetemployeelistCubit>().getemployeelist(
-                                                                                datalimit: datalimit,
-                                                                                ismoredata: true,
-                                                                                desigid: dropdownvalue_designid,
-                                                                                deptid: dropdownvalue_departmentid,
-                                                                                rolename: dropdownleavetypevalue,
-                                                                                branchid: dropdownvalue_branchid);
-                                                                            log(dropdownvalue44!.toString());
+                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(
+                                                                                leave_type_no: dropdownleavetypevalue,
+                                                                                name: empsearchname ?? "",
+                                                                                branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel,
+                                                                                dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel,
+                                                                                design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                           },
                                                                         ),
                                                                       ),
@@ -926,8 +936,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                             border: Border.all(color: Colors.grey)),
                                                                         child: DropdownSearch<
                                                                             String>(
-                                                                          selectedItem:
-                                                                              dropdownvalue_departmentname,
                                                                           popupProps:
                                                                               PopupProps.menu(
                                                                             searchFieldProps:
@@ -962,21 +970,16 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           onChanged:
                                                                               (String? newValue) {
                                                                             setState(() {
-                                                                              dropdownvalue_departmentname = newValue as String;
-                                                                              dropdownDepartmentlabel = dropdownvalue_departmentname!;
+                                                                              dropdownDepartmentlabel = newValue as String;
                                                                             });
 
-                                                                            dropdownvalue_departmentid =
-                                                                                alldeptState.deptidwithname.keys.firstWhere((k) => alldeptState.deptidwithname[k] == dropdownvalue_departmentname, orElse: () => null);
-
                                                                             displayedDataCell.clear();
-                                                                            context.read<GetemployeelistCubit>().getemployeelist(
-                                                                                datalimit: datalimit,
-                                                                                ismoredata: true,
-                                                                                desigid: dropdownvalue_designid,
-                                                                                deptid: dropdownvalue_departmentid,
-                                                                                rolename: dropdownleavetypevalue,
-                                                                                branchid: dropdownvalue_branchid);
+                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(
+                                                                                leave_type_no: dropdownleavetypevalue,
+                                                                                name: empsearchname ?? "",
+                                                                                branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel,
+                                                                                dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel,
+                                                                                design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                           },
                                                                         ),
                                                                       ),
@@ -1058,13 +1061,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                             dropdownvalue_designid =
                                                                                 alldesignstate.designidwithname.keys.firstWhere((k) => alldesignstate.designidwithname[k] == dropdownvalue_designname, orElse: () => null);
 
-                                                                            context.read<GetemployeelistCubit>().getemployeelist(
-                                                                                datalimit: datalimit,
-                                                                                ismoredata: true,
-                                                                                desigid: dropdownvalue_designid,
-                                                                                deptid: dropdownvalue_departmentid,
-                                                                                rolename: dropdownleavetypevalue,
-                                                                                branchid: dropdownvalue_branchid);
+                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(
+                                                                                leave_type_no: dropdownleavetypevalue,
+                                                                                name: empsearchname ?? "",
+                                                                                branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel,
+                                                                                dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel,
+                                                                                design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                             displayedDataCell.clear();
                                                                           },
                                                                         ),
@@ -1148,7 +1150,12 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                             });
 
                                                                             displayedDataCell.clear();
-                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue);
+                                                                            context.read<GetLeaveBalanceCubit>().getleavebalance(
+                                                                                leave_type_no: dropdownleavetypevalue,
+                                                                                name: empsearchname ?? "",
+                                                                                branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel,
+                                                                                dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel,
+                                                                                design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                             context.read<GetemployeelistCubit>().getemployeelist(
                                                                                 datalimit: datalimit,
                                                                                 ismoredata: true);

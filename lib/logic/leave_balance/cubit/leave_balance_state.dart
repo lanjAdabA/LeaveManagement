@@ -3,12 +3,13 @@ part of 'leave_balance_cubit.dart';
 enum GetLeaveBalanceStatus { initial, loading, loaded, error }
 
 class GetLeaveBalanceState extends Equatable {
-  final List<LeaveBalanceModel> leavebalancelist;
+  final List<Employeeleaveblc> leavebalancelist;
   final List<dynamic>? branchnamelist;
   final List<dynamic>? deptnamelist;
   final List<dynamic>? designnamelist;
   final List<String>? leavetypelist;
   final Map<dynamic, dynamic>? leaveidandname;
+  final bool isempty;
 
   const GetLeaveBalanceState({
     required this.leavebalancelist,
@@ -17,6 +18,7 @@ class GetLeaveBalanceState extends Equatable {
     this.designnamelist,
     this.leavetypelist,
     this.leaveidandname,
+    required this.isempty,
   });
 
   @override
@@ -26,6 +28,7 @@ class GetLeaveBalanceState extends Equatable {
         deptnamelist,
         designnamelist,
         leavetypelist,
-        leaveidandname
+        leaveidandname,
+        isempty
       ];
 }
