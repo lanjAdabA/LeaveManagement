@@ -202,76 +202,74 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                     //     branchidwithname[item.employeeBranchId].toString();
                   });
 
-                    showDialog(
-                      context: context,
-                      builder: (cnt) {
-                        return BlocConsumer<GetallbranchCubit,
-                            GetallbranchState>(
-                          listener: (context, branchstate) {
-                            // TODO: implement listener
-                          },
-                          builder: (context, branchstate) {
-                            return BlocConsumer<GetAlldeptCubit,
-                                GetAlldeptState>(
-                              listener: (context, deptstate) {
-                                // TODO: implement listener
-                              },
-                              builder: (context, deptstate) {
-                                return BlocConsumer<GetAlldesignCubit,
-                                    GetAlldesignState>(
-                                  listener: (context, designstate) {
-                                    // TODO: implement listener
-                                  },
-                                  builder: (context, designstate) {
-                                    return BlocConsumer<GetRoleCubit,
-                                        GetRoleState>(
-                                      listener: (context, rolestate) {
-                                        // TODO: implement listener
-                                      },
-                                      builder: (context, rolestate) {
-                                        return BlocConsumer<
-                                            CheckemailexistCubit,
-                                            CheckemailexistState>(
-                                          listener: (context, emailcheck) {
-                                            // TODO: implement listener
-                                          },
-                                          builder: (context, emailcheck) {
-                                            return BlocConsumer<
-                                                CheckEmpcodeCubit,
-                                                CheckEmpcodeState>(
-                                              listener: (context,
-                                                  checkempStatefinal) {
-                                                // TODO: implement listener
-                                              },
-                                              builder: (context,
-                                                  checkempStatefinal) {
-                                                return StatefulBuilder(builder:
-                                                    (BuildContext context,
-                                                        void Function(
-                                                                void Function())
-                                                            setState) {
-                                                  return const EditLeaveBalPopUp();
-                                                });
-                                              },
-                                            );
-                                          },
-                                        );
-                                      },
-                                    );
-                                  },
-                                );
-                              },
-                            );
-                          },
-                        );
-                      },
-                    );
-                  },
-                  child: const OnHoverButton2(child: Text("Edit"))),
-            ),
-          )),
-        );
-      }
+                  showDialog(
+                    context: context,
+                    builder: (cnt) {
+                      return BlocConsumer<GetallbranchCubit, GetallbranchState>(
+                        listener: (context, branchstate) {
+                          // TODO: implement listener
+                        },
+                        builder: (context, branchstate) {
+                          return BlocConsumer<GetAlldeptCubit, GetAlldeptState>(
+                            listener: (context, deptstate) {
+                              // TODO: implement listener
+                            },
+                            builder: (context, deptstate) {
+                              return BlocConsumer<GetAlldesignCubit,
+                                  GetAlldesignState>(
+                                listener: (context, designstate) {
+                                  // TODO: implement listener
+                                },
+                                builder: (context, designstate) {
+                                  return BlocConsumer<GetRoleCubit,
+                                      GetRoleState>(
+                                    listener: (context, rolestate) {
+                                      // TODO: implement listener
+                                    },
+                                    builder: (context, rolestate) {
+                                      return BlocConsumer<CheckemailexistCubit,
+                                          CheckemailexistState>(
+                                        listener: (context, emailcheck) {
+                                          // TODO: implement listener
+                                        },
+                                        builder: (context, emailcheck) {
+                                          return BlocConsumer<CheckEmpcodeCubit,
+                                              CheckEmpcodeState>(
+                                            listener:
+                                                (context, checkempStatefinal) {
+                                              // TODO: implement listener
+                                            },
+                                            builder:
+                                                (context, checkempStatefinal) {
+                                              return StatefulBuilder(builder:
+                                                  (BuildContext context,
+                                                      void Function(
+                                                              void Function())
+                                                          setState) {
+                                                return EditLeaveBalPopUp(
+                                                  empName: item.employeeName,
+                                                );
+                                              });
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+                child: const OnHoverButton2(child: Text("Edit"))),
+          ),
+        )),
+      );
+      //}
     }
   }
 

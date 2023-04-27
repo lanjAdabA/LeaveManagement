@@ -48,17 +48,27 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
       if (response.statusCode == 200) {
         List<dynamic> postMaps = response.data["employees"];
         var alldata =
-            postMaps.map((e) => LeaveBalanceModel.fromJson(e)).toList();
+            postMaps.map((e) => Employeeleaveblc.fromJson(e)).toList();
 
-        for (var element in alldata) {
-          branchnamelist.add(element.branch);
-          deptnamelist.add(element.department);
-          designnamelist.add(element.designation);
-          leavetypelist.add(element.leaveType);
-          leavetypeidlist.add(element.leaveTypeId);
-        }
-        var result = Map.fromIterables(leavetypelist, leavetypeidlist);
-        log("Leave Balance : $result");
+        if (alldata.isEmpty) {
+          emit(GetLeaveBalanceState(
+              leavebalancelist: alldata,
+              branchnamelist: branchnamelist,
+              deptnamelist: deptnamelist,
+              designnamelist: designnamelist,
+              leavetypelist: leavetypelist,
+              leaveidandname: {},
+              isempty: true));
+        } else {
+          for (var element in alldata) {
+            branchnamelist.add(element.branch);
+            deptnamelist.add(element.department);
+            designnamelist.add(element.designation);
+            leavetypelist.add(element.leaveType);
+            leavetypeidlist.add(element.leaveTypeId);
+          }
+          var result = Map.fromIterables(leavetypelist, leavetypeidlist);
+          log("Leave Balance : $result");
 
           emit(GetLeaveBalanceState(
               leavebalancelist: alldata,
