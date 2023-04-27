@@ -23,7 +23,7 @@ class LoginBymailCubit extends Cubit<LoginBymailState> {
     try {
       final response = await dio.post(
         loginUrl,
-        data: {"username": email},
+        data: {"username": email, "appStatus": 1},
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {

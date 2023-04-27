@@ -188,27 +188,36 @@ class _EmployeePageState extends State<EmployeePage> {
         );
         displayedDataCell.add(
           DataCell(
-            Center(child: Text(item.employeeName)),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text(item.employeeName),
+            ),
           ),
         );
         displayedDataCell.add(
           DataCell(
-            Center(
-                child: Text(
-                    designidwithname[item.employeeDesignationId].toString())),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child:
+                  Text(designidwithname[item.employeeDesignationId].toString()),
+            ),
           ),
         );
 
         displayedDataCell.add(
           DataCell(
-            Center(
-                child:
-                    Text(deptnamewithid[item.employeeDepartmentId].toString())),
+            Padding(
+              padding: const EdgeInsets.only(left: 15),
+              child: Text(deptnamewithid[item.employeeDepartmentId].toString()),
+            ),
           ),
         );
 
         displayedDataCell.add(
-          DataCell(Center(child: Text(item.role))),
+          DataCell(Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(item.role),
+          )),
         );
         displayedDataCell.add(
           DataCell(
