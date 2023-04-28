@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
+import 'package:leavemanagementadmin/logic/leave_balance/cubit/leave_balance_cubit.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class AddBalPopUp extends StatefulWidget {
+  final List datacell;
   final List<String> allEmpNameList;
   final Map<dynamic, dynamic> empNameWithId;
   final List<String> allLeaveType;
@@ -18,7 +20,8 @@ class AddBalPopUp extends StatefulWidget {
       required this.empNameWithId,
       required this.allLeaveType,
       required this.leaveTypeWithId,
-      required this.leavatypenamewithcredit});
+      required this.leavatypenamewithcredit,
+      required this.datacell});
 
   @override
   State<AddBalPopUp> createState() => _AddBalPopUpState();
@@ -63,6 +66,8 @@ class _AddBalPopUpState extends State<AddBalPopUp> {
                       context.read<AddLeaveBalanceCubit>().addleavebalance(
                           leavetypeid: leavedropdownvalue!,
                           empname: empDropDownName);
+                      widget.datacell.clear();
+                      context.read<GetLeaveBalanceCubit>().getleavebalance();
                       context.router.pop();
                     },
                     child: Material(

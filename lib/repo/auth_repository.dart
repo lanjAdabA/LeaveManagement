@@ -488,8 +488,8 @@ class AuthRepository {
     authLoginListener.loading();
     try {
       final data = {
-        "leave_type_id": leavetypeid,
-        "reason_for_leave": reasonforleave,
+        "leave_type_id": leavetypeid, //for half day
+        "reason_for_leave": reasonforleave, //optional
         "half_day": halfday,
         "day_section": daysection,
         "leave_apply_for": empid,
