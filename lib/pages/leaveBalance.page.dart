@@ -74,28 +74,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     selectedRadioTileforgender = 1;
-    // datatablescrollcontroller.addListener(() {
-    //   if (datatablescrollcontroller.position.pixels ==
-    //       datatablescrollcontroller.position.maxScrollExtent) {
-    //     if (ismoreloading == false) {
-    //       log('Item reach its limit');
-    //     } else {
-    //       setState(() {
-    //         datalimit = datalimit + 15;
-    //       });
-    //       displayedDataCell.clear();
-    //       context.read<GetemployeelistCubit>().getemployeelist(
-    //           datalimit: datalimit,
-    //           ismoredata: true,
-    //           branchid: dropdownvalue_branchid,
-    //           deptid: dropdownvalue_departmentid,
-    //           desigid: dropdownvalue_designid,
-    //           rolename: dropdownleavetypevalue);
-
-    //       log('reach buttom');
-    //     }
-    //   }
-    // });
   }
 
   final _debouncer = Debouncer(500);
@@ -114,7 +92,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     context.read<GetallbranchCubit>().getallbranch();
     context.read<GetAlldeptCubit>().getalldept();
     context.read<GetAlldesignCubit>().getalldesign();
-    // context.read<GetRoleCubit>().getallrole();
 
     context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
 
@@ -123,18 +100,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
   void fetchdata({
     required List<Employeeleaveblc> allemplist,
-    // required Map<dynamic, dynamic> branchidwithname,
-    // required Map<dynamic, dynamic> deptnamewithid,
-    // required Map<dynamic, dynamic> designidwithname
   }) {
     log('Not empty');
 
     for (var item in allemplist) {
       log("All emplist : $allemplist");
-      // if (branchidwithname.isNotEmpty &&
-      //     deptnamewithid.isNotEmpty &&
-      //     designidwithname.isNotEmpty) {
-      //   log("Display datacell $displayedDataCell");
 
       displayedDataCell.add(
         DataCell(
@@ -199,22 +169,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
           child: FittedBox(
             child: TextButton(
                 onPressed: () {
-                  // empcode.text = item.employeeEmpCode.toString();
-                  // _namefieldcontroller.text = item.employeeName;
-                  // numbercontroller.text = item.employeePhone;
-                  // emailcontroller.text = item.email;
-
-                  setState(() {
-                    // dropdownvalue1 =
-                    //     designidwithname[item.employeeDesignationId]
-                    //         .toString();
-
-                    // dropdownvalue2 =
-                    //     deptnamewithid[item.employeeDepartmentId].toString();
-                    // dropdownvalue3 = item.role;
-                    // dropdownvalue4 =
-                    //     branchidwithname[item.employeeBranchId].toString();
-                  });
+                  setState(() {});
 
                   showDialog(
                     context: context,
@@ -262,6 +217,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                           setState) {
                                                 return EditLeaveBalPopUp(
                                                   empName: item.employeeName,
+                                                  leavetype: item.leaveType,
                                                 );
                                               });
                                             },
@@ -394,12 +350,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                           listener: (context, leaveBalanceState) {
                             fetchdata(
                               allemplist: leaveBalanceState.leavebalancelist,
-
-                              // branchidwithname:
-                              //     allbranchState.branchidwithname,
-                              // deptnamewithid: alldeptState.deptidwithname,
-                              // designidwithname:
-                              //     alldesignstate.designidwithname
                             );
                           },
                           builder: (context, leaveBalanceState) {
@@ -501,12 +451,37 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         : const EdgeInsets.only(
                                                             left: 10,
                                                           ),
-                                                    child: const Text(
-                                                      'Leave Balance ',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        const Text(
+                                                          'Leave Balance ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 50.0),
+                                                          child: ElevatedButton.icon(
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .grey),
+                                                              onPressed: () {},
+                                                              icon: Icon(Icons
+                                                                  .download),
+                                                              label: Text(
+                                                                  "Download")),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
                                                   Padding(
@@ -775,16 +750,22 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           92,
                                                                           95)
                                                                 ],
-                                                                width: 120,
+                                                                width: 140,
                                                                 height: 40,
                                                                 borderRadius:
                                                                     13,
                                                                 child: Center(
-                                                                  child: Text(
-                                                                    "Add Balance",
-                                                                    style: TextStyle(
-                                                                        color: Colors
-                                                                            .white),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsets.symmetric(
+                                                                        horizontal:
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      "Add Leave Balance",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              Colors.white),
+                                                                    ),
                                                                   ),
                                                                 )),
                                                           ),
@@ -1041,24 +1022,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                             dropdownSearchDecoration:
                                                                                 InputDecoration(
                                                                               labelText: dropdownbranchlabel,
-
-                                                                              // labelStyle: TextStyle(
-                                                                              //     color: Colors.grey[
-                                                                              //         700],
-                                                                              //     fontSize:
-                                                                              //         20),
-
                                                                               border: InputBorder.none,
                                                                               focusedBorder: InputBorder.none,
                                                                               enabledBorder: InputBorder.none,
                                                                               errorBorder: InputBorder.none,
                                                                               disabledBorder: InputBorder.none,
-                                                                              // label: Text(
-                                                                              //   "Select",
-                                                                              //   style: TextStyle(
-                                                                              //       fontSize:
-                                                                              //           14),
-                                                                              // ),
                                                                             ),
                                                                           ),
                                                                           onChanged:
@@ -1135,12 +1103,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                               enabledBorder: InputBorder.none,
                                                                               errorBorder: InputBorder.none,
                                                                               disabledBorder: InputBorder.none,
-                                                                              // label: Text(
-                                                                              //   "Select",
-                                                                              //   style: TextStyle(
-                                                                              //       fontSize:
-                                                                              //           14),
-                                                                              // ),
                                                                             ),
                                                                           ),
                                                                           onChanged:
@@ -1219,12 +1181,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                               enabledBorder: InputBorder.none,
                                                                               errorBorder: InputBorder.none,
                                                                               disabledBorder: InputBorder.none,
-                                                                              // label: Text(
-                                                                              //   "Select",
-                                                                              //   style: TextStyle(
-                                                                              //       fontSize:
-                                                                              //           14),
-                                                                              // ),
                                                                             ),
                                                                           ),
                                                                           onChanged:
@@ -1309,12 +1265,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                               enabledBorder: InputBorder.none,
                                                                               errorBorder: InputBorder.none,
                                                                               disabledBorder: InputBorder.none,
-                                                                              // label: Text(
-                                                                              //   "Select",
-                                                                              //   style: TextStyle(
-                                                                              //       fontSize:
-                                                                              //           14),
-                                                                              // ),
                                                                             ),
                                                                           ),
                                                                           onChanged:

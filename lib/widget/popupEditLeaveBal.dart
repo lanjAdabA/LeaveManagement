@@ -4,8 +4,10 @@ import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class EditLeaveBalPopUp extends StatefulWidget {
+  final String leavetype;
   final String empName;
-  const EditLeaveBalPopUp({super.key, required this.empName});
+  const EditLeaveBalPopUp(
+      {super.key, required this.empName, required this.leavetype});
 
   @override
   State<EditLeaveBalPopUp> createState() => _EditLeaveBalPopUpState();
@@ -92,40 +94,9 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                             " Employee Name : ",
                             style: TextStyle(color: Colors.grey[600]),
                           ),
-                          // const Text("____")
+                          Text(widget.empName)
                         ],
-                      )
-                      // DropdownSearch<String>(
-                      //   popupProps: PopupProps.menu(
-                      //     searchFieldProps: const TextFieldProps(
-                      //         decoration: InputDecoration(
-                      //             border: OutlineInputBorder(),
-                      //             constraints: BoxConstraints(maxHeight: 40))),
-                      //     constraints: BoxConstraints.tight(const Size(250, 250)),
-                      //     showSearchBox: true,
-                      //     showSelectedItems: true,
-                      //   ),
-                      //   // items:
-                      //   // alldesignstate.alldesignationnamelist,
-                      //   dropdownDecoratorProps: const DropDownDecoratorProps(
-                      //     dropdownSearchDecoration: InputDecoration(
-                      //       hintStyle: TextStyle(
-                      //         fontSize: 15,
-                      //       ),
-                      //       border: InputBorder.none,
-                      //       labelText: "Employee Name :",
-                      //       hintText: "Select Employee Name",
-                      //     ),
-                      //   ),
-                      //   onChanged: (String? newValue) {
-                      //     setState(() {
-                      //       // dropdownvalue1 = newValue as String;
-                      //     });
-
-                      //     // dropdownvalue11 = alldesignstate.designidwithname.keys.firstWhere((k) => alldesignstate.designidwithname[k] == dropdownvalue1, orElse: () => null);
-                      //   },
-                      // ),
-                      ),
+                      )),
                   const SizedBox(
                     height: 10,
                   ),
@@ -168,14 +139,14 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                       ),
                       // items:
                       //     alldeptState.alldeptnamelist,
-                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                      dropdownDecoratorProps: DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
                           // floatingLabelBehavior: FloatingLabelBehavior.never,
                           hintStyle: TextStyle(
                             fontSize: 15,
                           ),
                           border: InputBorder.none,
-                          labelText: "Leave Type :",
+                          labelText: widget.leavetype,
                           hintText: "Select Applicable Leave Type",
                         ),
                       ),

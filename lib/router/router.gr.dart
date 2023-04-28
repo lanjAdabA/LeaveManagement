@@ -11,11 +11,11 @@
 import 'package:auto_route/auto_route.dart' as _i8;
 import 'package:flutter/material.dart' as _i9;
 import 'package:leavemanagementadmin/Authflow/auth_flow.dart' as _i1;
-import 'package:leavemanagementadmin/pages/Employee.dart' as _i2;
-import 'package:leavemanagementadmin/pages/leave_report.dart' as _i4;
+import 'package:leavemanagementadmin/pages/Employee.dart' as _i4;
+import 'package:leavemanagementadmin/pages/leave_report.dart' as _i6;
 import 'package:leavemanagementadmin/pages/leaveBalance.page.dart' as _i3;
 import 'package:leavemanagementadmin/pages/loginpage.dart' as _i5;
-import 'package:leavemanagementadmin/pages/newpage.dart' as _i6;
+import 'package:leavemanagementadmin/pages/newpage.dart' as _i2;
 import 'package:leavemanagementadmin/pages/sidebar.dart' as _i7;
 
 abstract class $AppRouter extends _i8.RootStackRouter {
@@ -30,10 +30,10 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         child: const _i1.AuthFlowPage(),
       );
     },
-    EmployeeRoute.name: (routeData) {
+    NewRoute.name: (routeData) {
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.EmployeePage(),
+        child: const _i2.NewPage(),
       );
     },
     LeaveBalanceRoute.name: (routeData) {
@@ -42,10 +42,10 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         child: const _i3.LeaveBalancePage(),
       );
     },
-    LeaveReportRoute.name: (routeData) {
+    EmployeeRoute.name: (routeData) {
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.LeaveReportPage(),
+        child: const _i4.EmployeePage(),
       );
     },
     LoginRoute.name: (routeData) {
@@ -54,10 +54,10 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         child: const _i5.LoginPage(),
       );
     },
-    NewRoute.name: (routeData) {
+    LeaveReportRoute.name: (routeData) {
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.NewPage(),
+        child: const _i6.LeaveReportPage(),
       );
     },
     SidebarRoute.name: (routeData) {
@@ -86,15 +86,15 @@ class AuthFlowRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.EmployeePage]
-class EmployeeRoute extends _i8.PageRouteInfo<void> {
-  const EmployeeRoute({List<_i8.PageRouteInfo>? children})
+/// [_i2.NewPage]
+class NewRoute extends _i8.PageRouteInfo<void> {
+  const NewRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          EmployeeRoute.name,
+          NewRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'EmployeeRoute';
+  static const String name = 'NewRoute';
 
   static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
@@ -114,15 +114,15 @@ class LeaveBalanceRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.LeaveReportPage]
-class LeaveReportRoute extends _i8.PageRouteInfo<void> {
-  const LeaveReportRoute({List<_i8.PageRouteInfo>? children})
+/// [_i4.EmployeePage]
+class EmployeeRoute extends _i8.PageRouteInfo<void> {
+  const EmployeeRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          LeaveReportRoute.name,
+          EmployeeRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'LeaveReportRoute';
+  static const String name = 'EmployeeRoute';
 
   static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
@@ -142,15 +142,15 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.NewPage]
-class NewRoute extends _i8.PageRouteInfo<void> {
-  const NewRoute({List<_i8.PageRouteInfo>? children})
+/// [_i6.LeaveReportPage]
+class LeaveReportRoute extends _i8.PageRouteInfo<void> {
+  const LeaveReportRoute({List<_i8.PageRouteInfo>? children})
       : super(
-          NewRoute.name,
+          LeaveReportRoute.name,
           initialChildren: children,
         );
 
-  static const String name = 'NewRoute';
+  static const String name = 'LeaveReportRoute';
 
   static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
