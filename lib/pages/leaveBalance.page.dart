@@ -345,12 +345,6 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                           listener: (context, leaveBalanceState) {
                             fetchdata(
                               allemplist: leaveBalanceState.leavebalancelist,
-
-                              // branchidwithname:
-                              //     allbranchState.branchidwithname,
-                              // deptnamewithid: alldeptState.deptidwithname,
-                              // designidwithname:
-                              //     alldesignstate.designidwithname
                             );
                           },
                           builder: (context, leaveBalanceState) {
@@ -452,12 +446,37 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                         : const EdgeInsets.only(
                                                             left: 10,
                                                           ),
-                                                    child: const Text(
-                                                      'Leave Balance ',
-                                                      style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        const Text(
+                                                          'Leave Balance ',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  right: 50.0),
+                                                          child: ElevatedButton.icon(
+                                                              style: ElevatedButton
+                                                                  .styleFrom(
+                                                                      backgroundColor:
+                                                                          Colors
+                                                                              .grey),
+                                                              onPressed: () {},
+                                                              icon: Icon(Icons
+                                                                  .download),
+                                                              label: Text(
+                                                                  "Download")),
+                                                        )
+                                                      ],
                                                     ),
                                                   ),
                                                   Padding(
