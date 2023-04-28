@@ -160,203 +160,225 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: MediaQuery.of(context).size.width > 1040
-                  ? const EdgeInsets.only(left: 50, top: 13)
-                  : const EdgeInsets.only(left: 10, top: 13),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: InkWell(
-                    onTap: () {
-                      showCalendarDatePicker2Dialog(
-                        config: CalendarDatePicker2WithActionButtonsConfig(
-                          firstDayOfWeek: 1,
-                          calendarType: CalendarDatePicker2Type.range,
-                          selectedDayTextStyle: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w700),
-                          selectedDayHighlightColor: Colors.purple[800],
-                          centerAlignModePicker: true,
-                          customModePickerIcon: const SizedBox(),
-                        ),
-                        context: (context),
-                        dialogSize: const Size(325, 400),
-                      ).then((value) {
-                        israngeselected = false;
-                        startdate = "";
-                        enddate = "";
-                        startdatefinal = "";
-                        enddatefinal = "";
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: MediaQuery.of(context).size.width > 1040
+                      ? const EdgeInsets.only(left: 50, top: 13)
+                      : const EdgeInsets.only(left: 10, top: 13),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: InkWell(
+                        onTap: () {
+                          showCalendarDatePicker2Dialog(
+                            config: CalendarDatePicker2WithActionButtonsConfig(
+                              firstDayOfWeek: 1,
+                              calendarType: CalendarDatePicker2Type.range,
+                              selectedDayTextStyle: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700),
+                              selectedDayHighlightColor: Colors.purple[800],
+                              centerAlignModePicker: true,
+                              customModePickerIcon: const SizedBox(),
+                            ),
+                            context: (context),
+                            dialogSize: const Size(325, 400),
+                          ).then((value) {
+                            israngeselected = false;
+                            startdate = "";
+                            enddate = "";
+                            startdatefinal = "";
+                            enddatefinal = "";
 
-                        if (value!.length == 1) {
-                          setState(
-                            () {
-                              israngeselected = true;
-                              startdatefinal =
-                                  DateFormat('MMM d, yyyy').format(value[0]!);
-                              startdate =
-                                  "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                            },
-                          );
-                        } else if (value.length == 2) {
-                          setState(
-                            () {
-                              israngeselected = true;
-                              startdate =
-                                  "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                              startdatefinal =
-                                  DateFormat.yMMMd().format(value[0]!);
-                              enddate =
-                                  "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
-                              enddatefinal =
-                                  DateFormat.yMMMd().format(value[1]!);
-                            },
-                          );
-                        }
-                        displayedDataCell.clear();
-                        context.read<GetLeaveReportCubit>().getleavereport(
-                              startdate: startdate,
-                              enddate: enddate,
-                            );
-                      });
-                    },
-                    child: Material(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(13),
-                      ),
-                      elevation: 15,
-                      child: CardWidget(
-                        gradient: const [
-                          Color.fromARGB(255, 211, 32, 39),
-                          Color.fromARGB(255, 164, 92, 95)
-                        ],
-                        width:
-                            enddatefinal.isNotEmpty || israngeselected == false
+                            if (value!.length == 1) {
+                              setState(
+                                () {
+                                  israngeselected = true;
+                                  startdatefinal = DateFormat('MMM d, yyyy')
+                                      .format(value[0]!);
+                                  startdate =
+                                      "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                },
+                              );
+                            } else if (value.length == 2) {
+                              setState(
+                                () {
+                                  israngeselected = true;
+                                  startdate =
+                                      "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                  startdatefinal =
+                                      DateFormat.yMMMd().format(value[0]!);
+                                  enddate =
+                                      "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
+                                  enddatefinal =
+                                      DateFormat.yMMMd().format(value[1]!);
+                                },
+                              );
+                            }
+                            displayedDataCell.clear();
+                            context.read<GetLeaveReportCubit>().getleavereport(
+                                  startdate: startdate,
+                                  enddate: enddate,
+                                );
+                          });
+                        },
+                        child: Material(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(13),
+                          ),
+                          elevation: 15,
+                          child: CardWidget(
+                            gradient: const [
+                              Color.fromARGB(255, 211, 32, 39),
+                              Color.fromARGB(255, 164, 92, 95)
+                            ],
+                            width: enddatefinal.isNotEmpty ||
+                                    israngeselected == false
                                 ? MediaQuery.of(context).size.width / 4
                                 : MediaQuery.of(context).size.width / 10,
-                        height: 40,
-                        borderRadius: 13,
-                        child: startdatefinal.isEmpty && enddatefinal.isEmpty
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Row(
+                            height: 40,
+                            borderRadius: 13,
+                            child: startdatefinal.isEmpty &&
+                                    enddatefinal.isEmpty
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
-                                      const SizedBox(
-                                        width: 10,
+                                      Row(
+                                        children: [
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text(
+                                            'From : ',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            "01 $month, $currentyear",
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.white),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          const Text(
+                                            "To : ",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
+                                          Text(
+                                            initialenddate,
+                                            style: const TextStyle(
+                                                fontSize: 13,
+                                                color: Colors.white),
+                                          )
+                                        ],
                                       ),
-                                      const Text(
-                                        'From : ',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                      const Icon(
+                                        Icons.calendar_month,
+                                        color: Colors.white,
+                                      ),
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      israngeselected
+                                          ? Row(
+                                              children: [
+                                                const SizedBox(
+                                                  width: 10,
+                                                ),
+                                                enddatefinal.isEmpty
+                                                    ? Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(left: 5),
+                                                        child: Text(
+                                                          startdatefinal,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 13,
+                                                                  color: Colors
+                                                                      .white),
+                                                        ),
+                                                      )
+                                                    : Row(
+                                                        children: [
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          const Text(
+                                                            'From : ',
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                            startdatefinal,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                          const SizedBox(
+                                                            width: 10,
+                                                          ),
+                                                          const Text(
+                                                            "To : ",
+                                                            style: TextStyle(
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .white),
+                                                          ),
+                                                          Text(
+                                                            enddatefinal,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        13,
+                                                                    color: Colors
+                                                                        .white),
+                                                          )
+                                                        ],
+                                                      )
+                                              ],
+                                            )
+                                          : const SizedBox(),
+                                      const Padding(
+                                        padding: EdgeInsets.only(right: 7),
+                                        child: Icon(Icons.calendar_month,
                                             color: Colors.white),
                                       ),
-                                      Text(
-                                        "01 $month, $currentyear",
-                                        style: const TextStyle(
-                                            fontSize: 13, color: Colors.white),
-                                      ),
-                                      const SizedBox(
-                                        width: 10,
-                                      ),
-                                      const Text(
-                                        "To : ",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      Text(
-                                        initialenddate,
-                                        style: const TextStyle(
-                                            fontSize: 13, color: Colors.white),
-                                      )
                                     ],
                                   ),
-                                  const Icon(
-                                    Icons.calendar_month,
-                                    color: Colors.white,
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  israngeselected
-                                      ? Row(
-                                          children: [
-                                            const SizedBox(
-                                              width: 10,
-                                            ),
-                                            enddatefinal.isEmpty
-                                                ? Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 5),
-                                                    child: Text(
-                                                      startdatefinal,
-                                                      style: const TextStyle(
-                                                          fontSize: 13,
-                                                          color: Colors.white),
-                                                    ),
-                                                  )
-                                                : Row(
-                                                    children: [
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      const Text(
-                                                        'From : ',
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        startdatefinal,
-                                                        style: const TextStyle(
-                                                            fontSize: 13,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      const Text(
-                                                        "To : ",
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      Text(
-                                                        enddatefinal,
-                                                        style: const TextStyle(
-                                                            fontSize: 13,
-                                                            color:
-                                                                Colors.white),
-                                                      )
-                                                    ],
-                                                  )
-                                          ],
-                                        )
-                                      : const SizedBox(),
-                                  const Padding(
-                                    padding: EdgeInsets.only(right: 5),
-                                    child: Icon(Icons.calendar_month,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                      ),
-                    )),
-              ),
+                          ),
+                        )),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 50),
+                  child: ElevatedButton(
+                      onPressed: () {}, child: Text("Download report")),
+                ),
+              ],
             ),
             Expanded(
               child: Align(
