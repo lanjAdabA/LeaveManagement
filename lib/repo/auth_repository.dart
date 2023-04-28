@@ -529,7 +529,6 @@ class AuthRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("Successfully added Leave Balance");
         authLoginListener.loaded();
-        EasyLoading.showToast("Successfully added Leave Balance");
       } else {
         authLoginListener.error();
       }
