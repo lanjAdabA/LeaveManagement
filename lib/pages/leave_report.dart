@@ -61,6 +61,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
   int? leavetypedropdownid;
 
   int? selectedRadioTileforleave;
+  int? selectedRadioTileforleavereason;
 
   String datetime2 = '';
   String datetime3 = '';
@@ -74,6 +75,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
   void initState() {
     super.initState();
     selectedRadioTileforleave = 1;
+    selectedRadioTileforleavereason = 1;
     context.read<GetLeaveReportCubit>().getleavereport();
     DateTime currentmonth = DateTime.now();
     final DateFormat formatter = DateFormat("MMM");
@@ -278,346 +280,454 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                       ],
                                     ),
                                   ],
-                                  title: const Text(
-                                    "Add new Leave",
+                                  title: const Center(
+                                    child: Text(
+                                      "Add new Leave",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
                                   ),
                                   content: SingleChildScrollView(
                                     child: Form(
                                       child: SizedBox(
-                                        width: 350,
+                                        width: 370,
                                         height: 460,
-                                        child: Column(
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                  'Leave Applied For : ${item.name}'),
-                                            ),
-                                            const SizedBox(
-                                              height: 10,
-                                            ),
-                                            Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 13),
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromARGB(
-                                                      255, 240, 237, 237),
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  border: Border.all(
-                                                      color:
-                                                          const Color.fromARGB(
-                                                              255,
-                                                              225,
-                                                              222,
-                                                              222))),
-                                              child: DropdownSearch<String>(
-                                                popupProps: PopupProps.menu(
-                                                  searchFieldProps: const TextFieldProps(
-                                                      decoration: InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(),
-                                                          constraints:
-                                                              BoxConstraints(
-                                                                  maxHeight:
-                                                                      40))),
-                                                  constraints:
-                                                      BoxConstraints.tight(
-                                                          const Size(250, 250)),
-                                                  showSearchBox: true,
-                                                  showSelectedItems: true,
+                                        child: Column(children: [
+                                          const SizedBox(
+                                            height: 10,
+                                          ),
+                                          Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Row(
+                                              children: [
+                                                const Text(
+                                                  'Leave Applied For : ',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
-                                                items: allleavetypestate
-                                                    .allleavetypenamelist,
-                                                dropdownDecoratorProps:
-                                                    const DropDownDecoratorProps(
-                                                  dropdownSearchDecoration:
-                                                      InputDecoration(
-                                                    hintStyle: TextStyle(
-                                                      fontSize: 15,
-                                                    ),
-                                                    border: InputBorder.none,
-                                                    labelText: "Leave Type :",
-                                                    hintText:
-                                                        "Choose Leave Type",
+                                                Text(item.name),
+                                              ],
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 20,
+                                          ),
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              "Mode of leave : ",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 4,
+                                          ),
+
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: RadioListTile(
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  title: const Text(
+                                                    'Normal',
+                                                    style:
+                                                        TextStyle(fontSize: 15),
                                                   ),
+                                                  value: 1,
+                                                  groupValue:
+                                                      selectedRadioTileforleavereason,
+                                                  onChanged: (val) {
+                                                    print(
+                                                        'Selected value: $val');
+                                                    log(val.toString());
+                                                    setState(() {
+                                                      selectedRadioTileforleavereason =
+                                                          val;
+                                                    });
+                                                  },
+                                                  activeColor: Colors.green,
+                                                  selected:
+                                                      selectedRadioTileforleavereason ==
+                                                          1,
                                                 ),
-                                                onChanged: (String? newValue) {
-                                                  log(allleavetypestate
-                                                      .alleavetypeidwithname
-                                                      .toString());
-                                                  setState(() {
-                                                    leavetypedropdown =
-                                                        newValue as String;
-                                                  });
-                                                  leavetypedropdownid = allleavetypestate
-                                                      .alleavetypeidwithname
-                                                      .keys
-                                                      .firstWhere(
-                                                          (k) =>
-                                                              allleavetypestate
-                                                                      .alleavetypeidwithname[
-                                                                  k] ==
-                                                              leavetypedropdown,
-                                                          orElse: () => null);
-                                                },
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            const Align(
-                                              alignment: Alignment.centerLeft,
-                                              child:
-                                                  Text('Select Date Range :'),
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
+                                              Expanded(
+                                                child: RadioListTile(
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  title: const Text(
+                                                    'Emergency',
+                                                    style:
+                                                        TextStyle(fontSize: 14),
+                                                  ),
+                                                  value: 2,
+                                                  groupValue:
+                                                      selectedRadioTileforleavereason,
+                                                  onChanged: (val) {
+                                                    print(
+                                                        'Selected value: $val');
+                                                    setState(() {
+                                                      selectedRadioTileforleavereason =
+                                                          val;
+                                                    });
+                                                  },
+                                                  activeColor: Colors.green,
+                                                  selected:
+                                                      selectedRadioTileforleavereason ==
+                                                          2,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: RadioListTile(
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  title: const Text(
+                                                    'Penalty',
+                                                    style:
+                                                        TextStyle(fontSize: 15),
+                                                  ),
+                                                  value: 3,
+                                                  groupValue:
+                                                      selectedRadioTileforleavereason,
+                                                  onChanged: (val) {
+                                                    print(
+                                                        'Selected value: $val');
+                                                    setState(() {
+                                                      selectedRadioTileforleavereason =
+                                                          val;
+                                                    });
+                                                  },
+                                                  activeColor: Colors.green,
+                                                  selected:
+                                                      selectedRadioTileforleavereason ==
+                                                          3,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 13),
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromARGB(
+                                                    255, 240, 237, 237),
                                                 borderRadius:
-                                                    BorderRadius.circular(10),
+                                                    BorderRadius.circular(12),
                                                 border: Border.all(
                                                     color: const Color.fromARGB(
-                                                        255, 222, 221, 221)),
+                                                        255, 225, 222, 222))),
+                                            child: DropdownSearch<String>(
+                                              popupProps: PopupProps.menu(
+                                                searchFieldProps: const TextFieldProps(
+                                                    decoration: InputDecoration(
+                                                        border:
+                                                            OutlineInputBorder(),
+                                                        constraints:
+                                                            BoxConstraints(
+                                                                maxHeight:
+                                                                    40))),
+                                                constraints:
+                                                    BoxConstraints.tight(
+                                                        const Size(250, 250)),
+                                                showSearchBox: true,
+                                                showSelectedItems: true,
                                               ),
-                                              height: 50,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  showCalendarDatePicker2Dialog(
-                                                    config:
-                                                        CalendarDatePicker2WithActionButtonsConfig(
-                                                      firstDayOfWeek: 1,
-                                                      calendarType:
-                                                          CalendarDatePicker2Type
-                                                              .range,
-                                                      selectedDayTextStyle:
-                                                          const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700),
-                                                      selectedDayHighlightColor:
-                                                          Colors.purple[800],
-                                                      centerAlignModePicker:
-                                                          true,
-                                                      customModePickerIcon:
-                                                          const SizedBox(),
-                                                    ),
-                                                    context: (context),
-                                                    dialogSize:
-                                                        const Size(325, 400),
-                                                  ).then((value) {
-                                                    if (value!.length == 1) {
-                                                      setState(
-                                                        () {
-                                                          israngeselected =
-                                                              true;
-                                                          startdatefinal =
-                                                              DateFormat(
-                                                                      'MMMM d, yyyy')
-                                                                  .format(value[
-                                                                      0]!);
-                                                          startdate =
-                                                              "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                                                        },
-                                                      );
-                                                    } else if (value.length ==
-                                                        2) {
-                                                      setState(
-                                                        () {
-                                                          israngeselected =
-                                                              true;
-                                                          startdate =
-                                                              "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
-                                                          startdatefinal =
-                                                              DateFormat(
-                                                                      'MMMM d, yyyy')
-                                                                  .format(value[
-                                                                      0]!);
-                                                          enddate =
-                                                              "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
-                                                          enddatefinal = DateFormat(
-                                                                  'MMMM d, yyyy')
-                                                              .format(
-                                                                  value[1]!);
-                                                        },
-                                                      );
-                                                    }
+                                              items: allleavetypestate
+                                                  .allleavetypenamelist,
+                                              dropdownDecoratorProps:
+                                                  const DropDownDecoratorProps(
+                                                dropdownSearchDecoration:
+                                                    InputDecoration(
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 15,
+                                                  ),
+                                                  border: InputBorder.none,
+                                                  labelText: "Leave Type :",
+                                                  hintText: "Choose Leave Type",
+                                                ),
+                                              ),
+                                              onChanged: (String? newValue) {
+                                                log(allleavetypestate
+                                                    .alleavetypeidwithname
+                                                    .toString());
+                                                setState(() {
+                                                  leavetypedropdown =
+                                                      newValue as String;
+                                                });
+                                                leavetypedropdownid = allleavetypestate
+                                                    .alleavetypeidwithname.keys
+                                                    .firstWhere(
+                                                        (k) =>
+                                                            allleavetypestate
+                                                                    .alleavetypeidwithname[
+                                                                k] ==
+                                                            leavetypedropdown,
+                                                        orElse: () => null);
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 15,
+                                          ),
+                                          const Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              'Select Date Range :',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              border: Border.all(
+                                                  color: const Color.fromARGB(
+                                                      255, 222, 221, 221)),
+                                            ),
+                                            height: 50,
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            child: InkWell(
+                                              onTap: () {
+                                                showCalendarDatePicker2Dialog(
+                                                  config:
+                                                      CalendarDatePicker2WithActionButtonsConfig(
+                                                    firstDayOfWeek: 1,
+                                                    calendarType:
+                                                        CalendarDatePicker2Type
+                                                            .range,
+                                                    selectedDayTextStyle:
+                                                        const TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w700),
+                                                    selectedDayHighlightColor:
+                                                        Colors.purple[800],
+                                                    centerAlignModePicker: true,
+                                                    customModePickerIcon:
+                                                        const SizedBox(),
+                                                  ),
+                                                  context: (context),
+                                                  dialogSize:
+                                                      const Size(325, 400),
+                                                ).then((value) {
+                                                  if (value!.length == 1) {
+                                                    setState(
+                                                      () {
+                                                        israngeselected = true;
+                                                        startdatefinal =
+                                                            DateFormat(
+                                                                    'MMMM d, yyyy')
+                                                                .format(
+                                                                    value[0]!);
+                                                        startdate =
+                                                            "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                      },
+                                                    );
+                                                  } else if (value.length ==
+                                                      2) {
+                                                    setState(
+                                                      () {
+                                                        israngeselected = true;
+                                                        startdate =
+                                                            "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                        startdatefinal =
+                                                            DateFormat(
+                                                                    'MMMM d, yyyy')
+                                                                .format(
+                                                                    value[0]!);
+                                                        enddate =
+                                                            "${value[1]!.year}-${value[1]!.month}-${value[1]!.day}";
+                                                        enddatefinal = DateFormat(
+                                                                'MMMM d, yyyy')
+                                                            .format(value[1]!);
+                                                      },
+                                                    );
+                                                  }
 
-                                                    log(israngeselected
-                                                        .toString());
-                                                    log('Start Date :$startdate');
-                                                    log('End Date $enddate');
-                                                  });
-                                                },
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    israngeselected
-                                                        ? Row(
-                                                            children: [
-                                                              enddatefinal
-                                                                      .isEmpty
-                                                                  ? Padding(
-                                                                      padding: const EdgeInsets
-                                                                              .only(
-                                                                          left:
-                                                                              5),
-                                                                      child:
-                                                                          Text(
+                                                  log(israngeselected
+                                                      .toString());
+                                                  log('Start Date :$startdate');
+                                                  log('End Date $enddate');
+                                                });
+                                              },
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  israngeselected
+                                                      ? Row(
+                                                          children: [
+                                                            enddatefinal.isEmpty
+                                                                ? Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            5),
+                                                                    child: Text(
+                                                                      startdatefinal,
+                                                                      style: const TextStyle(
+                                                                          fontSize:
+                                                                              13),
+                                                                    ),
+                                                                  )
+                                                                : Row(
+                                                                    children: [
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            5,
+                                                                      ),
+                                                                      const Text(
+                                                                        'From : ',
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                14,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                      Text(
                                                                         startdatefinal,
                                                                         style: const TextStyle(
                                                                             fontSize:
                                                                                 13),
                                                                       ),
-                                                                    )
-                                                                  : Row(
-                                                                      children: [
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              5,
-                                                                        ),
-                                                                        const Text(
-                                                                          'From : ',
-                                                                          style: TextStyle(
-                                                                              fontSize: 14,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                        Text(
-                                                                          startdatefinal,
-                                                                          style:
-                                                                              const TextStyle(fontSize: 13),
-                                                                        ),
-                                                                        const SizedBox(
-                                                                          width:
-                                                                              10,
-                                                                        ),
-                                                                        const Text(
-                                                                          "To : ",
-                                                                          style: TextStyle(
-                                                                              fontSize: 14,
-                                                                              fontWeight: FontWeight.bold),
-                                                                        ),
-                                                                        Text(
-                                                                          enddatefinal,
-                                                                          style:
-                                                                              const TextStyle(fontSize: 13),
-                                                                        )
-                                                                      ],
-                                                                    )
-                                                            ],
-                                                          )
-                                                        : const SizedBox(),
-                                                    const Padding(
-                                                      padding: EdgeInsets.only(
-                                                          right: 5),
-                                                      child: Icon(
-                                                          Icons.calendar_month),
-                                                    ),
-                                                  ],
-                                                ),
+                                                                      const SizedBox(
+                                                                        width:
+                                                                            10,
+                                                                      ),
+                                                                      const Text(
+                                                                        "To : ",
+                                                                        style: TextStyle(
+                                                                            fontSize:
+                                                                                14,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
+                                                                      Text(
+                                                                        enddatefinal,
+                                                                        style: const TextStyle(
+                                                                            fontSize:
+                                                                                13),
+                                                                      )
+                                                                    ],
+                                                                  )
+                                                          ],
+                                                        )
+                                                      : const SizedBox(),
+                                                  const Padding(
+                                                    padding: EdgeInsets.only(
+                                                        right: 5),
+                                                    child: Icon(
+                                                        Icons.calendar_month),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            TextFormField(
-                                                keyboardType:
-                                                    TextInputType.text,
-                                                controller:
-                                                    leavereasoncontroller,
-                                                decoration:
-                                                    const InputDecoration(
-                                                  hintText: 'Reason For Leave',
-                                                )),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            Row(
-                                              children: [
-                                                const Text("Half Day : "),
-                                                Switch(
-                                                  value: isactive,
-                                                  activeColor:
-                                                      const Color.fromARGB(
-                                                          255, 72, 217, 77),
-                                                  onChanged: (bool value) {
-                                                    setState(() {
-                                                      isactive = value;
-                                                    });
-                                                  },
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 5,
-                                            ),
-                                            isactive
-                                                ? Row(
-                                                    children: [
-                                                      Expanded(
-                                                        child: RadioListTile(
-                                                          contentPadding:
-                                                              EdgeInsets.zero,
-                                                          title: const Text(
-                                                              'First Half'),
-                                                          value: 1,
-                                                          groupValue:
-                                                              selectedRadioTileforleave,
-                                                          onChanged: (val) {
-                                                            print(
-                                                                'Selected value: $val');
-                                                            log(val.toString());
-                                                            setState(() {
-                                                              selectedRadioTileforleave =
-                                                                  val;
-                                                            });
-                                                          },
-                                                          activeColor:
-                                                              Colors.green,
-                                                          selected:
-                                                              selectedRadioTileforleave ==
-                                                                  1,
-                                                        ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          // TextFormField(
+                                          //     keyboardType:
+                                          //         TextInputType.text,
+                                          //     controller:
+                                          //         leavereasoncontroller,
+                                          //     decoration:
+                                          //         const InputDecoration(
+                                          //       hintText: 'Reason For Leave',
+                                          //     )),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            children: [
+                                              const Text("Half Day : "),
+                                              Switch(
+                                                value: isactive,
+                                                activeColor:
+                                                    const Color.fromARGB(
+                                                        255, 72, 217, 77),
+                                                onChanged: (bool value) {
+                                                  setState(() {
+                                                    isactive = value;
+                                                  });
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          isactive
+                                              ? Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: RadioListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        title: const Text(
+                                                            'First Half'),
+                                                        value: 1,
+                                                        groupValue:
+                                                            selectedRadioTileforleave,
+                                                        onChanged: (val) {
+                                                          print(
+                                                              'Selected value: $val');
+                                                          log(val.toString());
+                                                          setState(() {
+                                                            selectedRadioTileforleave =
+                                                                val;
+                                                          });
+                                                        },
+                                                        activeColor:
+                                                            Colors.green,
+                                                        selected:
+                                                            selectedRadioTileforleave ==
+                                                                1,
                                                       ),
-                                                      Expanded(
-                                                        child: RadioListTile(
-                                                          contentPadding:
-                                                              EdgeInsets.zero,
-                                                          title: const Text(
-                                                              'Second Half'),
-                                                          value: 2,
-                                                          groupValue:
-                                                              selectedRadioTileforleave,
-                                                          onChanged: (val) {
-                                                            print(
-                                                                'Selected value: $val');
-                                                            setState(() {
-                                                              selectedRadioTileforleave =
-                                                                  val;
-                                                            });
-                                                          },
-                                                          activeColor:
-                                                              Colors.green,
-                                                          selected:
-                                                              selectedRadioTileforleave ==
-                                                                  2,
-                                                        ),
+                                                    ),
+                                                    Expanded(
+                                                      child: RadioListTile(
+                                                        contentPadding:
+                                                            EdgeInsets.zero,
+                                                        title: const Text(
+                                                            'Second Half'),
+                                                        value: 2,
+                                                        groupValue:
+                                                            selectedRadioTileforleave,
+                                                        onChanged: (val) {
+                                                          print(
+                                                              'Selected value: $val');
+                                                          setState(() {
+                                                            selectedRadioTileforleave =
+                                                                val;
+                                                          });
+                                                        },
+                                                        activeColor:
+                                                            Colors.green,
+                                                        selected:
+                                                            selectedRadioTileforleave ==
+                                                                2,
                                                       ),
-                                                    ],
-                                                  )
-                                                : const SizedBox(),
-                                          ],
-                                        ),
+                                                    ),
+                                                  ],
+                                                )
+                                              : const SizedBox(),
+                                        ]),
                                       ),
                                     ),
                                   ),
