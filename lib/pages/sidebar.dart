@@ -613,7 +613,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselectedsetting = ischoosereport! ? false : !isselectedsetting!;
-              issectedreport = ischoosereport! ? !issectedreport! : false;
+              issectedreport = ischoosereport! ? true : false;
               isselected0 = ischoosereport!
                   ? false
                   : isselected0!
@@ -658,6 +658,54 @@ class _ScreensExampleState extends State<_ScreensExample> {
           );
           break;
 
+        // case 5:
+        //   setState(
+        //     () {
+        //       isselectedsetting = ischoosereport!
+        //           ? isselectedsetting!
+        //               ? true
+        //               : true
+        //           : isselectedsetting!
+        //               ? true
+        //               : false;
+        //       isselected0 = ischoosereport!
+        //           ? false
+        //           : isselected0!
+        //               ? true
+        //               : false;
+        //       isselected2 = ischoosereport!
+        //           ? false
+        //           : isselected2!
+        //               ? true
+        //               : false;
+        //       isselected1 = ischoosereport!
+        //           ? false
+        //           : isselected1!
+        //               ? true
+        //               : false;
+        //       isselected6 = ischoosereport!
+        //           ? false
+        //           : isselected6!
+        //               ? true
+        //               : false;
+        //       isselected7 = ischoosereport!
+        //           ? false
+        //           : isselected7!
+        //               ? true
+        //               : false;
+        //       isselected8 = ischoosereport!
+        //           ? false
+        //           : isselected8!
+        //               ? true
+        //               : false;
+        //       isselected9 = ischoosereport!
+        //           ? false
+        //           : isselected9!
+        //               ? true
+        //               : false;
+        //     },
+        //   );
+        //   break;
         case 5:
           setState(
             () {

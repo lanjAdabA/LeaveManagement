@@ -8,10 +8,10 @@ import 'package:leavemanagementadmin/constant/apiendpoint.dart';
 import 'package:leavemanagementadmin/listener/auth_login_listener.dart';
 
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
-import 'package:leavemanagementadmin/model/leavetypemodel.dart';
 
 class AuthRepository {
-  static const baseUrl = "https://leavemngt.globizsapp.com";
+  //static const baseUrl = "https://leavemngt.globizsapp.com";
+  static const baseUrl = "https://staging.leave.globizs.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
 
@@ -37,7 +37,7 @@ class AuthRepository {
         verifyUser,
         data: {userorphone: emailorphone, "otp": otp},
       );
-
+      log('Verify Status Code :${response.statusCode}');
       if (response.statusCode == 200 || response.statusCode == 201) {
         log('Verify mail response' + response.data['message']);
         Store.setToken(response.data['data']['accessToken']);
@@ -46,11 +46,13 @@ class AuthRepository {
       } else {
         print('error');
         authLoginListener.error();
+        log('Verify Status Code :${response.statusCode}');
         // Login failed
         throw Exception('Failed to log in');
       }
     } catch (e) {
       authLoginListener.error();
+      log(e.toString());
       rethrow;
     }
   }
