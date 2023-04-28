@@ -21,13 +21,13 @@ import 'package:leavemanagementadmin/widget/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:leavemanagementadmin/widget/popupAddBal.dart';
-import 'package:leavemanagementadmin/widget/popupEditLeaveBal.dart';
 
 import '../constant/debouncer.dart';
 import '../logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
 import '../logic/Employee/cubit/updateemployee_cubit.dart';
 import '../logic/leave_balance/cubit/leave_balance_cubit.dart';
 import '../model/leave_balance.dart';
+import '../widget/popupEditLeaveBal.dart';
 
 final today = DateUtils.dateOnly(DateTime.now());
 
@@ -74,6 +74,28 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
     selectedRadioTileforgender = 1;
+    // datatablescrollcontroller.addListener(() {
+    //   if (datatablescrollcontroller.position.pixels ==
+    //       datatablescrollcontroller.position.maxScrollExtent) {
+    //     if (ismoreloading == false) {
+    //       log('Item reach its limit');
+    //     } else {
+    //       setState(() {
+    //         datalimit = datalimit + 15;
+    //       });
+    //       displayedDataCell.clear();
+    //       context.read<GetemployeelistCubit>().getemployeelist(
+    //           datalimit: datalimit,
+    //           ismoredata: true,
+    //           branchid: dropdownvalue_branchid,
+    //           deptid: dropdownvalue_departmentid,
+    //           desigid: dropdownvalue_designid,
+    //           rolename: dropdownleavetypevalue);
+
+    //       log('reach buttom');
+    //     }
+    //   }
+    // });
   }
 
   final _debouncer = Debouncer(500);
@@ -92,6 +114,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     context.read<GetallbranchCubit>().getallbranch();
     context.read<GetAlldeptCubit>().getalldept();
     context.read<GetAlldesignCubit>().getalldesign();
+    // context.read<GetRoleCubit>().getallrole();
 
     context.read<GetallleavetypeForleavebalanceCubit>().getallleavetype();
 
@@ -100,11 +123,18 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
   void fetchdata({
     required List<Employeeleaveblc> allemplist,
+    // required Map<dynamic, dynamic> branchidwithname,
+    // required Map<dynamic, dynamic> deptnamewithid,
+    // required Map<dynamic, dynamic> designidwithname
   }) {
     log('Not empty');
 
     for (var item in allemplist) {
       log("All emplist : $allemplist");
+      // if (branchidwithname.isNotEmpty &&
+      //     deptnamewithid.isNotEmpty &&
+      //     designidwithname.isNotEmpty) {
+      //   log("Display datacell $displayedDataCell");
 
       displayedDataCell.add(
         DataCell(
@@ -166,74 +196,57 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
         DataCell(Center(
           child: FittedBox(
             child: TextButton(
-                onPressed: () {
-                  setState(() {});
+                onPressed: item.leaveType == 'General' ||
+                        item.leaveType == 'LWP'
+                    ? null
+                    : () {
+                        // empcode.text = item.employeeEmpCode.toString();
+                        // _namefieldcontroller.text = item.employeeName;
+                        // numbercontroller.text = item.employeePhone;
+                        // emailcontroller.text = item.email;
 
-                  showDialog(
-                    context: context,
-                    builder: (cnt) {
-                      return BlocConsumer<GetallbranchCubit, GetallbranchState>(
-                        listener: (context, branchstate) {
-                          // TODO: implement listener
-                        },
-                        builder: (context, branchstate) {
-                          return BlocConsumer<GetAlldeptCubit, GetAlldeptState>(
-                            listener: (context, deptstate) {
-                              // TODO: implement listener
-                            },
-                            builder: (context, deptstate) {
-                              return BlocConsumer<GetAlldesignCubit,
-                                  GetAlldesignState>(
-                                listener: (context, designstate) {
-                                  // TODO: implement listener
-                                },
-                                builder: (context, designstate) {
-                                  return BlocConsumer<GetRoleCubit,
-                                      GetRoleState>(
-                                    listener: (context, rolestate) {
-                                      // TODO: implement listener
-                                    },
-                                    builder: (context, rolestate) {
-                                      return BlocConsumer<CheckemailexistCubit,
-                                          CheckemailexistState>(
-                                        listener: (context, emailcheck) {
-                                          // TODO: implement listener
-                                        },
-                                        builder: (context, emailcheck) {
-                                          return BlocConsumer<CheckEmpcodeCubit,
-                                              CheckEmpcodeState>(
-                                            listener:
-                                                (context, checkempStatefinal) {
-                                              // TODO: implement listener
-                                            },
-                                            builder:
-                                                (context, checkempStatefinal) {
-                                              return StatefulBuilder(builder:
-                                                  (BuildContext context,
-                                                      void Function(
-                                                              void Function())
-                                                          setState) {
-                                                return EditLeaveBalPopUp(
-                                                  empName: item.employeeName,
-                                                  leavetype: item.leaveType,
-                                                );
-                                              });
-                                            },
-                                          );
-                                        },
-                                      );
-                                    },
+                        setState(() {
+                          // dropdownvalue1 =
+                          //     designidwithname[item.employeeDesignationId]
+                          //         .toString();
+
+                          // dropdownvalue2 =
+                          //     deptnamewithid[item.employeeDepartmentId].toString();
+                          // dropdownvalue3 = item.role;
+                          // dropdownvalue4 =
+                          //     branchidwithname[item.employeeBranchId].toString();
+                        });
+
+                        showDialog(
+                          context: context,
+                          builder: (cnt) {
+                            return BlocConsumer<
+                                GetallleavetypeForleavebalanceCubit,
+                                GetallleavetypeForleavebalanceState>(
+                              listener: (context, allLeaveTypeState) {
+                                // TODO: implement listener
+                              },
+                              builder: (context, allLeaveTypeState) {
+                                return StatefulBuilder(builder: (BuildContext
+                                        context,
+                                    void Function(void Function()) setState) {
+                                  return EditLeaveBalPopUp(
+                                    empName: item.employeeName,
+                                    leavetype: item.leaveType,
+                                    leavetypelist:
+                                        allLeaveTypeState.allleavetypenamelist,
+                                    creditnamewithid: allLeaveTypeState
+                                        .alleavetypenamewithcredit,
                                   );
-                                },
-                              );
-                            },
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-                child: const OnHoverButton2(child: Text("Edit"))),
+                                });
+                              },
+                            );
+                          },
+                        );
+                      },
+                child: item.leaveType == 'General' || item.leaveType == 'LWP'
+                    ? Text("Edit")
+                    : OnHoverButton2(child: Text("Edit"))),
           ),
         )),
       );

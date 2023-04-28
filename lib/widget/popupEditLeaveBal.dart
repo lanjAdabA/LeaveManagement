@@ -1,20 +1,39 @@
+import 'dart:developer';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:leavemanagementadmin/constant.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 
 class EditLeaveBalPopUp extends StatefulWidget {
-  final String leavetype;
+  late String leavetype;
+  final Map<dynamic, dynamic> creditnamewithid;
   final String empName;
-  const EditLeaveBalPopUp(
-      {super.key, required this.empName, required this.leavetype});
+  final List<String> leavetypelist;
+  EditLeaveBalPopUp(
+      {super.key,
+      required this.empName,
+      required this.leavetype,
+      required this.creditnamewithid,
+      required this.leavetypelist});
 
   @override
   State<EditLeaveBalPopUp> createState() => _EditLeaveBalPopUpState();
 }
 
 class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
+  String? leavecredit;
+
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    log('from pop up :' + widget.creditnamewithid.toString());
+    setState(() {
+      leavecredit = widget.creditnamewithid[widget.leavetype];
+    });
+  }
+
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return SizedBox(
@@ -67,7 +86,7 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
           ),
         ],
         title: const Text(
-          "Add Leave Balance",
+          "Update Leave Balance",
           style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
         ),
         content: SizedBox(
@@ -128,6 +147,7 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                         border: Border.all(
                             color: const Color.fromARGB(255, 225, 222, 222))),
                     child: DropdownSearch<String>(
+                      items: widget.leavetypelist,
                       popupProps: PopupProps.menu(
                         searchFieldProps: const TextFieldProps(
                             decoration: InputDecoration(
@@ -141,18 +161,21 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                       //     alldeptState.alldeptnamelist,
                       dropdownDecoratorProps: DropDownDecoratorProps(
                         dropdownSearchDecoration: InputDecoration(
+                          hintText: 'Select Applicable Leave Type :',
+                          floatingLabelBehavior: FloatingLabelBehavior.never,
                           // floatingLabelBehavior: FloatingLabelBehavior.never,
                           hintStyle: TextStyle(
                             fontSize: 15,
                           ),
                           border: InputBorder.none,
                           labelText: widget.leavetype,
-                          hintText: "Select Applicable Leave Type",
                         ),
                       ),
                       onChanged: (String? newValue) {
                         setState(() {
-                          // dropdownvalue2 = newValue as String;
+                          widget.leavetype = newValue!;
+                          leavecredit =
+                              widget.creditnamewithid[widget.leavetype];
                         });
 
                         // dropdownvalue22 = alldeptState.deptidwithname.keys.firstWhere((k) => alldeptState.deptidwithname[k] == dropdownvalue2, orElse: () => null);
@@ -163,28 +186,31 @@ class _EditLeaveBalPopUpState extends State<EditLeaveBalPopUp> {
                     height: 10,
                   ),
                   Container(
-                    height: 52,
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
-                    decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 240, 237, 237),
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 225, 222, 222))),
-                    child:
-                        //  const Text("Balance Credit : ")
-                        TextFormField(
-                            keyboardType: TextInputType.text,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              errorBorder: InputBorder.none,
-                              disabledBorder: InputBorder.none,
-                              hintStyle:
-                                  TextStyle(fontSize: 15, color: Colors.grey),
-                              hintText: 'Balance Credit :',
-                            )),
-                  ),
+                      height: 52,
+                      padding: const EdgeInsets.symmetric(horizontal: 13),
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 240, 237, 237),
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                              color: const Color.fromARGB(255, 225, 222, 222))),
+                      child: Row(
+                        children: [
+                          Text("Balance Credit : $leavecredit"),
+                        ],
+                      )
+                      // TextFormField(
+                      //     keyboardType: TextInputType.text,
+                      //     decoration: const InputDecoration(
+                      //       border: InputBorder.none,
+                      //       focusedBorder: InputBorder.none,
+                      //       enabledBorder: InputBorder.none,
+                      //       errorBorder: InputBorder.none,
+                      //       disabledBorder: InputBorder.none,
+                      //       hintStyle:
+                      //           TextStyle(fontSize: 15, color: Colors.grey),
+                      //       hintText: 'Balance Credit :',
+                      //     )),
+                      ),
                 ],
               ),
             ),
