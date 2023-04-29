@@ -303,6 +303,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                                 const Text(
                                                   'Leave Applied For : ',
                                                   style: TextStyle(
+                                                      color: Colors.black54,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -318,6 +319,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             child: Text(
                                               "Mode of leave : ",
                                               style: TextStyle(
+                                                  color: Colors.black54,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -481,6 +483,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             child: Text(
                                               'Select Date Range :',
                                               style: TextStyle(
+                                                  color: Colors.black54,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
