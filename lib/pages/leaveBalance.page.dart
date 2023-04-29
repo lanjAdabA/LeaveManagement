@@ -991,12 +991,14 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                           isfocus = true;
                                                                                           empsearchname = value;
                                                                                         });
-                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                                       }
                                                                                       if (value.isEmpty) {
-                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                        displayedDataCell.clear();
+                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
                                                                                       }
                                                                                     });
+                                                                                    empsearchname = "";
                                                                                   },
                                                                                   decoration: const InputDecoration(
                                                                                     hintText: " Search       🔍",

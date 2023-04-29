@@ -998,7 +998,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                       child: Row(
                         children: const [
                           Icon(Icons.download),
-                          Text("Download report"),
+                          Text("Download Report"),
                         ],
                       )),
                 )
