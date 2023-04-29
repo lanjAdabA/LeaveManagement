@@ -158,8 +158,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
       );
       displayedDataCell.add(
         DataCell(
-          Text(
-            item.branch,
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(
+              item.branch,
+            ),
           ),
         ),
       );
@@ -181,7 +184,10 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
       );
 
       displayedDataCell.add(
-        DataCell(Text(item.leaveType)),
+        DataCell(Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(item.leaveType),
+        )),
       );
       displayedDataCell.add(
         DataCell(
