@@ -14,11 +14,13 @@ class GetAlldesignCubit extends Cubit<GetAlldesignState> {
       : super(const GetAlldesignState(
             alldesignlist: [],
             designidwithname: {},
-            alldesignationnamelist: []));
+            alldesignationnamelist: [],
+            alldesignationnamelist_noall: []));
 
   API api = API();
   void getalldesign() async {
     List alldesignidlist = [];
+    List<String> alldesignidlist_noall = [];
     List<String> alldesignamelist = [];
 
     try {
@@ -27,9 +29,11 @@ class GetAlldesignCubit extends Cubit<GetAlldesignState> {
         List<dynamic> postMaps = response.data;
         var alldesign =
             postMaps.map((e) => AllDesignModel.fromJson(e)).toList();
+
         alldesignidlist.add(0);
         alldesignamelist.add("All");
         for (var element in alldesign) {
+          alldesignidlist_noall.add(element.name);
           alldesignidlist.add(element.id);
           alldesignamelist.add(element.name);
           // if (allbranchIdlist.contains(element.id)) {
@@ -49,7 +53,8 @@ class GetAlldesignCubit extends Cubit<GetAlldesignState> {
         emit(GetAlldesignState(
             alldesignlist: alldesign,
             designidwithname: result,
-            alldesignationnamelist: alldesignamelist));
+            alldesignationnamelist: alldesignamelist,
+            alldesignationnamelist_noall: alldesignidlist_noall));
       } else {
         EasyLoading.showError('Cannot fetch Data');
       }

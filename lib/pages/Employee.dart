@@ -676,6 +676,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 Expanded(
                                                                   child:
                                                                       RadioListTile(
+                                                                    dense: true,
                                                                     contentPadding:
                                                                         EdgeInsets
                                                                             .zero,
@@ -707,11 +708,17 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 Expanded(
                                                                   child:
                                                                       RadioListTile(
+                                                                    dense: true,
                                                                     contentPadding:
                                                                         EdgeInsets
                                                                             .zero,
-                                                                    title: const Text(
-                                                                        'Probation Period'),
+                                                                    title:
+                                                                        const Text(
+                                                                      'Probation Period',
+                                                                      style: TextStyle(
+                                                                          fontSize:
+                                                                              10),
+                                                                    ),
                                                                     value: 2,
                                                                     groupValue:
                                                                         _selectedRadioTile,
@@ -736,6 +743,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 Expanded(
                                                                   child:
                                                                       RadioListTile(
+                                                                    dense: true,
                                                                     contentPadding:
                                                                         EdgeInsets
                                                                             .zero,
@@ -819,7 +827,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       true,
                                                                 ),
                                                                 items: designstate
-                                                                    .alldesignationnamelist,
+                                                                    .alldesignationnamelist_noall,
                                                                 dropdownDecoratorProps:
                                                                     const DropDownDecoratorProps(
                                                                   dropdownSearchDecoration:
@@ -908,7 +916,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       true,
                                                                 ),
                                                                 items: deptstate
-                                                                    .alldeptnamelist,
+                                                                    .alldeptnamelist_noall,
                                                                 dropdownDecoratorProps:
                                                                     const DropDownDecoratorProps(
                                                                   dropdownSearchDecoration:
@@ -1085,7 +1093,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       true,
                                                                 ),
                                                                 items: branchstate
-                                                                    .allbranchnamelist,
+                                                                    .allbranchnamelist_noall,
                                                                 dropdownDecoratorProps:
                                                                     const DropDownDecoratorProps(
                                                                   dropdownSearchDecoration:
@@ -1457,17 +1465,20 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             if (_namefieldcontroller.text.isEmpty ||
                                                                                 empcode.text.isEmpty ||
                                                                                 emailcontroller.text.isEmpty ||
-                                                                                empcode.text.isEmpty) {
-                                                                              CustomSnackBar(
-                                                                                  context,
-                                                                                  const Text(
-                                                                                    'All Fields Are Mandatory',
-                                                                                  ),
-                                                                                  Colors.red);
+                                                                                empcode.text.isEmpty ||
+                                                                                datetime.isEmpty ||
+                                                                                usernamecontroller.text.isEmpty ||
+                                                                                dropdownvalue11 == null ||
+                                                                                dropdownvalue22 == null ||
+                                                                                dropdownvalue33 == null ||
+                                                                                dropdownvalue44 == null) {
+                                                                              EasyLoading.showError('All Fields Are Mandatory');
                                                                             } else {
                                                                               context.read<CreateEmployeeCubit>().createemployee(empname: _namefieldcontroller.text, empusername: usernamecontroller.text, email: emailcontroller.text, empcode: int.parse(empcode.text), phonenumber: numbercontroller.text, deptid: dropdownvalue22!, designid: dropdownvalue11!, branchid: dropdownvalue44!, roleid: dropdownvalue33!, dateofjoining: datetime, emptype: _selectedRadioTile.toString(), gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
 
                                                                               EasyLoading.dismiss();
+
+                                                                              _selectedRadioTile = 1;
                                                                               context.router.pop();
                                                                             }
                                                                           },
@@ -1747,6 +1758,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                           children: [
                                                                             Expanded(
                                                                               child: RadioListTile(
+                                                                                dense: true,
                                                                                 contentPadding: EdgeInsets.zero,
                                                                                 title: const Text('Employee'),
                                                                                 value: 1,
@@ -1764,6 +1776,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ),
                                                                             Expanded(
                                                                               child: RadioListTile(
+                                                                                dense: true,
                                                                                 contentPadding: EdgeInsets.zero,
                                                                                 title: const Text('Probation Period'),
                                                                                 value: 2,
@@ -1780,6 +1793,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ),
                                                                             Expanded(
                                                                               child: RadioListTile(
+                                                                                dense: true,
                                                                                 contentPadding: EdgeInsets.zero,
                                                                                 title: const Text('Intern'),
                                                                                 value: 3,
@@ -1816,7 +1830,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                               showSelectedItems: true,
                                                                             ),
                                                                             items:
-                                                                                alldesignstate.alldesignationnamelist,
+                                                                                alldesignstate.alldesignationnamelist_noall,
                                                                             dropdownDecoratorProps:
                                                                                 const DropDownDecoratorProps(
                                                                               dropdownSearchDecoration: InputDecoration(
@@ -1859,7 +1873,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                               showSelectedItems: true,
                                                                             ),
                                                                             items:
-                                                                                alldeptState.alldeptnamelist,
+                                                                                alldeptState.alldeptnamelist_noall,
                                                                             dropdownDecoratorProps:
                                                                                 const DropDownDecoratorProps(
                                                                               dropdownSearchDecoration: InputDecoration(
@@ -1947,7 +1961,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                               showSelectedItems: true,
                                                                             ),
                                                                             items:
-                                                                                allbranchState.allbranchnamelist,
+                                                                                allbranchState.allbranchnamelist_noall,
                                                                             dropdownDecoratorProps:
                                                                                 const DropDownDecoratorProps(
                                                                               dropdownSearchDecoration: InputDecoration(

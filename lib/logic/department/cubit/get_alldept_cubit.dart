@@ -14,12 +14,14 @@ class GetAlldeptCubit extends Cubit<GetAlldeptState> {
             alldeptlist: [],
             deptidwithname: {},
             deptStatus: DeptStatus.initial,
-            alldeptnamelist: []));
+            alldeptnamelist: [],
+            alldeptnamelist_noall: []));
 
   API api = API();
   void getalldept() async {
     List alldeptidlist = [];
     List<String> alldeptnamelist = [];
+    List<String> alldeptnamelist_noall = [];
 
     try {
       final response = await api.sendRequest.get("/api/department");
@@ -30,6 +32,7 @@ class GetAlldeptCubit extends Cubit<GetAlldeptState> {
         alldeptidlist.add(0);
         alldeptnamelist.add("All");
         for (var element in alldept) {
+          alldeptnamelist_noall.add(element.name);
           alldeptidlist.add(element.id);
           alldeptnamelist.add(element.name);
           // if (allbranchIdlist.contains(element.id)) {
@@ -50,7 +53,8 @@ class GetAlldeptCubit extends Cubit<GetAlldeptState> {
             alldeptlist: alldept,
             deptidwithname: result,
             deptStatus: DeptStatus.loaded,
-            alldeptnamelist: alldeptnamelist));
+            alldeptnamelist: alldeptnamelist,
+            alldeptnamelist_noall: alldeptnamelist_noall));
       } else {
         EasyLoading.showError('Cannot fetch Data');
       }
