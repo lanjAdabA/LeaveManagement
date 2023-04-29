@@ -406,7 +406,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                                         'LWP'
                                                     ? SizedBox()
                                                     : Text(
-                                                        'Leave Balance :${leavetype2state.alleavetype == null ? '' : leavetype2state.alleavetype!.balance}')
+                                                        'Leave Balance : ${leavetype2state.alleavetype == null ? '' : leavetype2state.alleavetype!.balance}')
                                               ],
                                             )
                                           : SizedBox(),
