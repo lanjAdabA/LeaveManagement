@@ -163,7 +163,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            FontAwesomeIcons.codeBranch,
+            Icons.format_align_left,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -212,7 +212,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            FontAwesomeIcons.codeBranch,
+            Icons.format_align_left,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -248,7 +248,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            FontAwesomeIcons.codeBranch,
+            Icons.format_align_left,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -294,7 +294,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            FontAwesomeIcons.codeBranch,
+            Icons.format_align_left,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -349,7 +349,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         label: 'Employee',
       ),
       const SidebarXItem(
-        icon: Icons.account_balance,
+        icon: Icons.medical_information,
         label: 'Leave Balance',
       ),
       SidebarXItem(
