@@ -27,7 +27,8 @@ class GetAlldeptCubit extends Cubit<GetAlldeptState> {
         List<dynamic> postMaps = response.data;
         var alldept =
             postMaps.map((e) => AllDeptListModel.fromJson(e)).toList();
-
+        alldeptidlist.add(0);
+        alldeptnamelist.add("All");
         for (var element in alldept) {
           alldeptidlist.add(element.id);
           alldeptnamelist.add(element.name);
