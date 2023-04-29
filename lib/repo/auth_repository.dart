@@ -480,7 +480,8 @@ class AuthRepository {
     required String enddate,
     required String reasonforleave,
     required int halfday,
-    required int daysection,
+    required dynamic daysection,
+    required int leaveapplymode,
 
     // required String isactive,
     required AuthLoginListioner authLoginListener,
@@ -495,6 +496,7 @@ class AuthRepository {
         "leave_apply_for": empid,
         "from_date": startdate,
         "to_date": enddate,
+        "leave_apply_mode": leaveapplymode
       };
       var response =
           await dio.post(createleaveurl, data: FormData.fromMap(data));
@@ -502,7 +504,6 @@ class AuthRepository {
       if (response.statusCode == 200 || response.statusCode == 201) {
         log("Successfully added Leave");
         authLoginListener.loaded();
-        EasyLoading.showToast("Successfully added Leave");
       } else {
         authLoginListener.error();
       }

@@ -18,7 +18,8 @@ class CreateleaveCubit extends Cubit<CreateLeaveStatus>
     required String enddate,
     required String reasonforleave,
     required int halfday,
-    required int daysection,
+    required dynamic daysection,
+    required int leaveapplymode,
     //required String isactive,
   }) {
     _authRepository.createleave(
@@ -29,7 +30,8 @@ class CreateleaveCubit extends Cubit<CreateLeaveStatus>
         halfday: halfday,
         leavetypeid: leavetypeid,
         reasonforleave: reasonforleave,
-        startdate: startdate);
+        startdate: startdate,
+        leaveapplymode: leaveapplymode);
     //log("IS_Active : $isactive");
   }
 
