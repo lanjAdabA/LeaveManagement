@@ -758,6 +758,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
       },
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 245, 245, 245),
           body: Column(children: [
             const SizedBox(
               height: 35,

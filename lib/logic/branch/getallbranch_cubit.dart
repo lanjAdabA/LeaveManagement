@@ -26,8 +26,12 @@ class GetallbranchCubit extends Cubit<GetallbranchState> {
         List<dynamic> postMaps = response.data;
         var allbranch = postMaps.map((e) => AllBranchList.fromJson(e)).toList();
 
+        allbranchNamelist.add("All");
+        allbranchIdlist.add(0);
+
         for (var element in allbranch) {
           allbranchIdlist.add(element.id);
+
           allbranchNamelist.add(element.name);
           // if (allbranchIdlist.contains(element.id)) {
           //   log('Already Added');

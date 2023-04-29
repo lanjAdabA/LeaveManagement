@@ -31,7 +31,8 @@ class GetallleavetypeCubit extends Cubit<GetallleavetypeState> {
 
         log(postMaps.toString());
         var allleavetype = postMaps.map((e) => Leaf.fromJson(e)).toList();
-
+        allleaveidlist.add(0);
+        allleavenamelist.add("All");
         for (var element in allleavetype) {
           allleaveidlist.add(element.id);
           allleavenamelist.add(element.name);

@@ -30,10 +30,11 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
     List<String> leavetypelist = [];
     List<dynamic> leavetypeidlist = [];
     try {
-      log("Leave cubit ");
+      log("Leave cubit  name : $name");
       log("Leave cubit  branch : $branch");
       log("Leave cubit  design : $design");
       log("Leave cubit  dept : $dept");
+      log("Leave cubit  leave_type_no : $leave_type_no");
       final response = await api.sendRequest
           .get("/api/admin/employee/balance", queryParameters: {
         "employee_name": name ?? "",
@@ -42,8 +43,6 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
         "designation": design ?? "",
         "leave_type_no": leave_type_no
       });
-      // log("Start date : $startdate");
-      // log("end date : $enddate");
 
       if (response.statusCode == 200) {
         List<dynamic> postMaps = response.data["employees"];
@@ -78,7 +77,6 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
               leavetypelist: leavetypelist,
               leaveidandname: result,
               isempty: false));
-          log("LEave Balance :$alldata ");
         }
       } else {
         EasyLoading.showError('Cannot fetch Data');

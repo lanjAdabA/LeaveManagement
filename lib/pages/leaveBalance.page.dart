@@ -991,11 +991,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                           isfocus = true;
                                                                                           empsearchname = value;
                                                                                         });
-                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownLeaveatypelabel == "All" ? null : dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
                                                                                       }
                                                                                       if (value.isEmpty) {
                                                                                         displayedDataCell.clear();
-                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                        context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownLeaveatypelabel == "All" ? null : dropdownleavetypevalue, name: value, branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
                                                                                       }
                                                                                     });
                                                                                     empsearchname = "";
@@ -1064,7 +1064,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 dropdownvalue_branchid = allbranchState.branchidwithname.keys.firstWhere((k) => allbranchState.branchidwithname[k] == dropdownvalue_branchname, orElse: () => null);
 
                                                                                 displayedDataCell.clear();
-                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+
+                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: newValue == "All" ? null : dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
                                                                               },
                                                                             ),
                                                                           ),
@@ -1121,7 +1122,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 });
 
                                                                                 displayedDataCell.clear();
-                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: newValue == "All" ? null : dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
                                                                               },
                                                                             ),
                                                                           ),
@@ -1183,7 +1184,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
                                                                                 dropdownvalue_designid = alldesignstate.designidwithname.keys.firstWhere((k) => alldesignstate.designidwithname[k] == dropdownvalue_designname, orElse: () => null);
 
-                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
+                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: newValue == "All" ? null : dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
                                                                                 displayedDataCell.clear();
                                                                               },
                                                                             ),
@@ -1247,8 +1248,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                                 });
 
                                                                                 displayedDataCell.clear();
-                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' ? '' : dropdownDesignationlabel);
-                                                                                context.read<GetemployeelistCubit>().getemployeelist(datalimit: datalimit, ismoredata: true);
+                                                                                context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: newValue == "All" ? null : dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
+                                                                                //context.read<GetemployeelistCubit>().getemployeelist(datalimit: datalimit, ismoredata: true);
                                                                               },
                                                                             ),
                                                                           ),

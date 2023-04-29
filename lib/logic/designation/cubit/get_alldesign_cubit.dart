@@ -27,7 +27,8 @@ class GetAlldesignCubit extends Cubit<GetAlldesignState> {
         List<dynamic> postMaps = response.data;
         var alldesign =
             postMaps.map((e) => AllDesignModel.fromJson(e)).toList();
-
+        alldesignidlist.add(0);
+        alldesignamelist.add("All");
         for (var element in alldesign) {
           alldesignidlist.add(element.id);
           alldesignamelist.add(element.name);
