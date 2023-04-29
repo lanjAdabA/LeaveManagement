@@ -163,7 +163,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            Icons.format_align_left,
+            Icons.format_align_left_sharp,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -248,7 +248,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            Icons.format_align_left,
+            Icons.lan_sharp,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -270,7 +270,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            FontAwesomeIcons.addressCard,
+            Icons.contact_emergency,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),
@@ -294,7 +294,7 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
         iconWidget: Padding(
           padding: EdgeInsets.only(left: isexpanded ? 40 : 0),
           child: const Icon(
-            Icons.format_align_left,
+            Icons.lan,
             // color: Color.fromARGB(255, 164, 92, 95),
             size: 15,
           ),

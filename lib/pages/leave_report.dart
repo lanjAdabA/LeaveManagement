@@ -280,8 +280,8 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             const Text(
                                               'Leave Applied For : ',
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black54),
+                                                  color: Colors.black54,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                             Text(item.name),
                                           ],

@@ -10,8 +10,8 @@ part 'login_bymail_state.dart';
 
 class LoginBymailCubit extends Cubit<LoginBymailState> {
   LoginBymailCubit(initialState) : super(const LoginBymailState(issend: false));
-  static const baseUrl = "https://staging.leave.globizs.com";
-//static const baseUrl = "https://leavemngt.globizsapp.com";
+  // static const baseUrl = "https://staging.leave.globizs.com";
+  static const baseUrl = "https://leavemngt.globizsapp.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
   Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
@@ -24,10 +24,10 @@ class LoginBymailCubit extends Cubit<LoginBymailState> {
     try {
       final response = await dio.post(
         loginUrl,
-        data: {
-          "username": email,
-        },
-        // data: {"username": email, "appStatus": 1},
+        // data: {
+        //   "username": email,
+        // },
+        data: {"username": email, "appStatus": 1},
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {

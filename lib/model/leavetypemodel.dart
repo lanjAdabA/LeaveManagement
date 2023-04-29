@@ -68,7 +68,7 @@ class Leaf {
   final String? balance;
   final String canApply;
   final bool? hidden;
-  final Icon? icon;
+  final String? icon;
 
   factory Leaf.fromJson(Map<String, dynamic> json) => Leaf(
         id: json["id"],

@@ -20,7 +20,6 @@ import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:leavemanagementadmin/widget/popupAddBal.dart';
 
 import '../constant/debouncer.dart';
 import '../logic/AddLeaveBal/cubit/add_leave_balance_cubit.dart';
@@ -159,8 +158,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
       );
       displayedDataCell.add(
         DataCell(
-          Text(
-            item.branch,
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(
+              item.branch,
+            ),
           ),
         ),
       );
@@ -182,7 +184,10 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
       );
 
       displayedDataCell.add(
-        DataCell(Text(item.leaveType)),
+        DataCell(Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(item.leaveType),
+        )),
       );
       displayedDataCell.add(
         DataCell(
@@ -245,8 +250,8 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                         );
                       },
                 child: item.leaveType == 'General' || item.leaveType == 'LWP'
-                    ? Text("Edit")
-                    : OnHoverButton2(child: Text("Edit"))),
+                    ? const Text("Edit")
+                    : const OnHoverButton(child: Text("Edit"))),
           ),
         )),
       );
@@ -521,7 +526,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                   icon: const Icon(
                                                                       Icons
                                                                           .download),
-                                                                  label: Text(
+                                                                  label: const Text(
                                                                       "Download")),
                                                             )
                                                           ],
@@ -935,7 +940,10 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                 ],
                                                                 columns: <
                                                                     DataColumn>[
-                                                                  DataColumn(
+                                                                  DataColumn2(
+                                                                    fixedWidth:
+                                                                        MediaQuery.of(context).size.width /
+                                                                            20,
                                                                     label:
                                                                         Column(
                                                                       mainAxisAlignment:
@@ -1271,8 +1279,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           padding:
                                                                               EdgeInsets.only(top: 6.0),
                                                                           child:
-                                                                              Text(
-                                                                            'Avail. Leave Balance',
+                                                                              Center(
+                                                                            child:
+                                                                                Text(
+                                                                              'Avail. Leave Balance',
+                                                                            ),
                                                                           ),
                                                                         ),
                                                                       ],
@@ -1339,36 +1350,6 @@ class _OnHoverButtonState extends State<OnHoverButton> {
   @override
   Widget build(BuildContext context) {
     final hoveredTransform = Matrix4.identity()..scale(1.07);
-    final transform = isHovered ? hoveredTransform : Matrix4.identity();
-    return MouseRegion(
-      onEnter: (event) => onEntered(true),
-      onExit: (event) => onEntered(false),
-      child: AnimatedContainer(
-        transform: transform,
-        duration: const Duration(milliseconds: 200),
-        child: widget.child,
-      ),
-    );
-  }
-
-  void onEntered(bool isHovered) => setState(() {
-        this.isHovered = isHovered;
-      });
-}
-
-class OnHoverButton2 extends StatefulWidget {
-  final Widget child;
-  const OnHoverButton2({super.key, required this.child});
-
-  @override
-  State<OnHoverButton2> createState() => _OnHoverButton2State();
-}
-
-class _OnHoverButton2State extends State<OnHoverButton2> {
-  bool isHovered = false;
-  @override
-  Widget build(BuildContext context) {
-    final hoveredTransform = Matrix4.identity()..scale(1.1);
     final transform = isHovered ? hoveredTransform : Matrix4.identity();
     return MouseRegion(
       onEnter: (event) => onEntered(true),

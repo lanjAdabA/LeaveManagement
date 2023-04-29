@@ -14,10 +14,12 @@ class GetallbranchCubit extends Cubit<GetallbranchState> {
           allbranchlist: [],
           branchidwithname: {},
           allbranchnamelist: [],
+          allbranchnamelist_noall: [],
         ));
 
   List allbranchIdlist = [];
   List<String> allbranchNamelist = [];
+  List<String> allbranchNamelist_noall = [];
   API api = API();
   void getallbranch() async {
     try {
@@ -30,6 +32,7 @@ class GetallbranchCubit extends Cubit<GetallbranchState> {
         allbranchIdlist.add(0);
 
         for (var element in allbranch) {
+          allbranchNamelist_noall.add(element.name);
           allbranchIdlist.add(element.id);
 
           allbranchNamelist.add(element.name);
@@ -51,6 +54,7 @@ class GetallbranchCubit extends Cubit<GetallbranchState> {
           branchidwithname: result,
           allbranchlist: allbranch,
           allbranchnamelist: allbranchNamelist,
+          allbranchnamelist_noall: allbranchNamelist_noall,
         ));
       } else {
         EasyLoading.showError('Cannot fetch Data');

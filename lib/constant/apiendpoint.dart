@@ -4,9 +4,9 @@ const branchadd = "/api/admin/create/branch";
 
 // const baseUrl = "https://leavemngt.globizsapp.com";
 
-//const baseUrl = "https://leavemngt.globizsapp.com";
+const baseUrl = "https://leavemngt.globizsapp.com";
 
-const baseUrl = "https://staging.leave.globizs.com";
+// const baseUrl = "https://staging.leave.globizs.com";
 const branchaddurl = "/api/admin/create/branch";
 const postdeptUrl = "/api/department";
 const postdesignationURL = "/api/designation";
