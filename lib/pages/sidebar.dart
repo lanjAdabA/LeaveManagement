@@ -516,7 +516,7 @@ bool? ischoosereport;
 bool? isselected0;
 bool? isselected1;
 bool? isselected2;
-
+bool? isselected5;
 bool? isselected4;
 bool? isselected6;
 bool? isselected7;
@@ -547,6 +547,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
     isselected1 = false;
     isselected2 = false;
     isselected4 = false;
+    isselected5 = false;
     isselected6 = false;
     isselected7 = false;
     isselected8 = false;
@@ -564,6 +565,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = false;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
@@ -577,6 +579,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = false;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
@@ -591,12 +594,14 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = false;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
         case 3:
           setState(
             () {
+              issectedreport = issectedreport! ? false : false;
               ischoosereport = !ischoosereport!;
               isselected0 = isselected0! ? true : false;
               isselected1 = isselected1! ? true : false;
@@ -605,6 +610,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = isselected7! ? true : false;
               isselected8 = isselected8! ? true : false;
               isselected9 = isselected9! ? true : false;
+              isselected9 = isselected5! ? true : false;
             },
           );
           break;
@@ -713,14 +719,17 @@ class _ScreensExampleState extends State<_ScreensExample> {
                   ? isselectedsetting!
                       ? true
                       : true
-                  : false;
-              isselected0 = isselected0! ? true : false;
-              isselected2 = isselected2! ? true : false;
-              isselected1 = isselected1! ? true : false;
-              isselected6 = isselected6! ? true : false;
-              isselected7 = isselected7! ? true : false;
-              isselected8 = isselected8! ? true : false;
-              isselected9 = isselected9! ? true : false;
+                  : isselectedsetting!
+                      ? true
+                      : false;
+              isselected5 = ischoosereport! ? false : true;
+              isselected0 = isselected0! ? false : false;
+              isselected2 = isselected2! ? false : false;
+              isselected1 = isselected1! ? false : false;
+              isselected6 = isselected6! ? false : false;
+              isselected7 = isselected7! ? false : false;
+              isselected8 = isselected8! ? false : false;
+              isselected9 = isselected9! ? false : false;
             },
           );
           break;
@@ -735,6 +744,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = false;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
@@ -749,6 +759,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = true;
               isselected8 = false;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
@@ -763,6 +774,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = true;
               isselected9 = false;
+              isselected5 = false;
             },
           );
           break;
@@ -777,6 +789,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
               isselected7 = false;
               isselected8 = false;
               isselected9 = true;
+              isselected5 = false;
             },
           );
           break;
@@ -821,47 +834,50 @@ class _ScreensExampleState extends State<_ScreensExample> {
           case 3:
             return issectedreport!
                 ? const LeaveReportPage()
-                : isselected2!
-                    ? const LeaveBalancePage()
-                    : isselected0!
-                        ? FittedBox(
-                            fit: BoxFit.fill,
-                            child: Column(
-                              children: const [
-                                Text(
-                                  "Welcome",
-                                  style: TextStyle(
-                                      fontSize: 42,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "Globizs web solution Pvt. Ltd.",
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 211, 32, 39),
-                                        fontSize: 56),
-                                  ),
-                                )
-                              ],
-                            ))
-                        : isselected1!
-                            ? const EmployeePage()
-                            : isselected6!
-                                ? isselectedsetting!
-                                    ? const LogOutPage()
-                                    : const BranchPage()
-                                : isselected7!
-                                    ? const DepartmentPage()
-                                    : isselected8!
-                                        ? ischoosereport!
-                                            ? const LogOutPage()
-                                            : const DesignationPage()
-                                        : isselected9!
-                                            ? isselectedsetting!
+                : isselected4!
+                    ? const LeaveReportPage()
+                    : isselected2!
+                        ? const LeaveBalancePage()
+                        : isselected0!
+                            ? FittedBox(
+                                fit: BoxFit.fill,
+                                child: Column(
+                                  children: const [
+                                    Text(
+                                      "Welcome",
+                                      style: TextStyle(
+                                          fontSize: 42,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        "Globizs web solution Pvt. Ltd.",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 211, 32, 39),
+                                            fontSize: 56),
+                                      ),
+                                    )
+                                  ],
+                                ))
+                            : isselected1!
+                                ? const EmployeePage()
+                                : isselected6!
+                                    ? isselectedsetting!
+                                        ? const LogOutPage()
+                                        : const BranchPage()
+                                    : isselected7!
+                                        ? const DepartmentPage()
+                                        : isselected8!
+                                            ? ischoosereport!
                                                 ? const LogOutPage()
-                                                : const LogOutPage()
-                                            : const EmployeePage();
+                                                : const DesignationPage()
+                                            : isselected9!
+                                                ? isselectedsetting!
+                                                    ? const LogOutPage()
+                                                    : const LogOutPage()
+                                                : const EmployeePage();
           case 4:
             return issectedreport!
                 ? const LeaveReportPage()
@@ -886,25 +902,31 @@ class _ScreensExampleState extends State<_ScreensExample> {
                             )
                           ],
                         ))
-                    : isselected1!
-                        ? const EmployeePage()
-                        : isselected6!
-                            ? isselectedsetting!
-                                ? const LogOutPage()
-                                : const BranchPage()
-                            : isselected7!
+                    : isselected2!
+                        ? const LeaveBalancePage()
+                        : isselected1!
+                            ? const EmployeePage()
+                            : isselected5!
                                 ? ischoosereport!
-                                    ? const DepartmentPage()
-                                    : const DesignationPage()
-                                : isselected8!
+                                    ? const BranchPage()
+                                    : const BranchPage()
+                                : isselected6!
                                     ? ischoosereport!
-                                        ? const DesignationPage()
-                                        : const LogOutPage()
-                                    : isselected9!
-                                        ? isselectedsetting!
-                                            ? const LogOutPage()
-                                            : const LogOutPage()
-                                        : const EmployeePage();
+                                        ? const BranchPage()
+                                        : const DepartmentPage()
+                                    : isselected7!
+                                        ? ischoosereport!
+                                            ? const DepartmentPage()
+                                            : const DesignationPage()
+                                        : isselected8!
+                                            ? ischoosereport!
+                                                ? const DesignationPage()
+                                                : const LogOutPage()
+                                            : isselected9!
+                                                ? isselectedsetting!
+                                                    ? const LogOutPage()
+                                                    : const LogOutPage()
+                                                : const EmployeePage();
           case 5:
             log('Isselectedsetting :$isselectedsetting');
             return isselectedsetting!
