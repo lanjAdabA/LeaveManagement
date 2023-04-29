@@ -472,13 +472,13 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                       //     },
                                       //   ),
                                       // ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       const Align(
                                         alignment: Alignment.centerLeft,
                                         child: Text(
-                                          'Select Date Range :',
+                                          'Select Date :',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.black54),
@@ -559,7 +559,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              israngeselected
+                                              israngeselected2
                                                   ? Row(
                                                       children: [
                                                         enddatefinal2.isEmpty
@@ -763,6 +763,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
           },
           builder: (context, createleavestatus) {
             return Scaffold(
+              backgroundColor: const Color.fromARGB(255, 245, 245, 245),
               body: Column(children: [
                 const SizedBox(
                   height: 35,
