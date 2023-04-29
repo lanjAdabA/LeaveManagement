@@ -280,6 +280,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             const Text(
                                               'Leave Applied For : ',
                                               style: TextStyle(
+                                                  color: Colors.black54,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                             Text(item.name),
@@ -294,7 +295,8 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                         child: Text(
                                           "Mode of leave : ",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black54),
                                         ),
                                       ),
                                       const SizedBox(
@@ -380,7 +382,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                       ),
                                       Row(
                                         children: [
-                                          Text(
+                                          const Text(
                                             'Leave Type : ',
                                             style: TextStyle(
                                                 color: Colors.black54,
@@ -478,7 +480,8 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                         child: Text(
                                           'Select Date Range :',
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold),
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black54),
                                         ),
                                       ),
                                       const SizedBox(
@@ -1139,8 +1142,8 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                               size: ColumnSize.S,
                               fixedWidth:
                                   MediaQuery.of(context).size.width / 12,
-                              label: Center(
-                                child: const Text(
+                              label: const Center(
+                                child: Text(
                                   'Action',
                                 ),
                               ),
