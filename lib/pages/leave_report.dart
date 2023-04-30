@@ -411,67 +411,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                             )
                                           : SizedBox(),
 
-                                      // Container(
-                                      //   padding: const EdgeInsets.symmetric(
-                                      //       horizontal: 13),
-                                      //   decoration: BoxDecoration(
-                                      //       color: const Color.fromARGB(
-                                      //           255, 240, 237, 237),
-                                      //       borderRadius:
-                                      //           BorderRadius.circular(12),
-                                      //       border: Border.all(
-                                      //           color: const Color.fromARGB(
-                                      //               255, 225, 222, 222))),
-                                      //   child: DropdownSearch<String>(
-                                      //     popupProps: PopupProps.menu(
-                                      //       searchFieldProps: const TextFieldProps(
-                                      //           decoration: InputDecoration(
-                                      //               border:
-                                      //                   OutlineInputBorder(),
-                                      //               constraints:
-                                      //                   BoxConstraints(
-                                      //                       maxHeight:
-                                      //                           40))),
-                                      //       constraints:
-                                      //           BoxConstraints.tight(
-                                      //               const Size(250, 250)),
-                                      //       showSearchBox: true,
-                                      //       showSelectedItems: true,
-                                      //     ),
-                                      //     items: allleavetypestate
-                                      //         .allleavetypenamelist,
-                                      //     dropdownDecoratorProps:
-                                      //         const DropDownDecoratorProps(
-                                      //       dropdownSearchDecoration:
-                                      //           InputDecoration(
-                                      //         hintStyle: TextStyle(
-                                      //           fontSize: 15,
-                                      //         ),
-                                      //         border: InputBorder.none,
-                                      //         labelText: "Leave Type :",
-                                      //         hintText: "Choose Leave Type",
-                                      //       ),
-                                      //     ),
-                                      //     onChanged: (String? newValue) {
-                                      //       log(allleavetypestate
-                                      //           .alleavetypeidwithname
-                                      //           .toString());
-                                      //       setState(() {
-                                      //         leavetypedropdown =
-                                      //             newValue as String;
-                                      //       });
-                                      //       leavetypedropdownid = allleavetypestate
-                                      //           .alleavetypeidwithname.keys
-                                      //           .firstWhere(
-                                      //               (k) =>
-                                      //                   allleavetypestate
-                                      //                           .alleavetypeidwithname[
-                                      //                       k] ==
-                                      //                   leavetypedropdown,
-                                      //               orElse: () => null);
-                                      //     },
-                                      //   ),
-                                      // ),
+                                      
                                       SizedBox(
                                         height: 15,
                                       ),
