@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:auto_route/auto_route.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +16,6 @@ import 'package:leavemanagementadmin/logic/leavereport/leave_report_cubit.dart';
 import 'package:leavemanagementadmin/model/leave_report.dart';
 
 import '../logic/leave/cubit/cubit/createleave_cubit.dart';
-import '../logic/leave/cubit/getallleavetype_cubit.dart';
 import 'sidebar.dart';
 
 @RoutePage()
@@ -404,12 +402,12 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                                 leavetype2state.alleavetype!
                                                             .name ==
                                                         'LWP'
-                                                    ? SizedBox()
+                                                    ? const SizedBox()
                                                     : Text(
                                                         'Leave Balance :${leavetype2state.alleavetype == null ? '' : leavetype2state.alleavetype!.balance}')
                                               ],
                                             )
-                                          : SizedBox(),
+                                          : const SizedBox(),
 
                                       // Container(
                                       //   padding: const EdgeInsets.symmetric(
@@ -472,7 +470,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                       //     },
                                       //   ),
                                       // ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       const Align(
@@ -766,7 +764,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
               backgroundColor: const Color.fromARGB(255, 245, 245, 245),
               body: Column(children: [
                 const SizedBox(
-                  height: 35,
+                  height: 50,
                 ),
                 Padding(
                   padding: MediaQuery.of(context).size.width > 1040
@@ -1003,14 +1001,23 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 50),
-                      child: ElevatedButton(
+                      child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 43, 48, 58)),
                           onPressed: () {},
-                          child: Row(
-                            children: const [
-                              Icon(Icons.download),
-                              Text("Download report"),
-                            ],
-                          )),
+                          icon: const Icon(Icons.download),
+                          label: const Text("Download")),
+                      //  ElevatedButton(
+                      //     onPressed: () {},
+                      //     child: Row(
+                      //       children: const [
+                      //         Icon(Icons.download),
+                      //         Text("Download report"),
+                      //       ],
+                      //     )),
                     )
                   ],
                 ),
