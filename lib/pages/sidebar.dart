@@ -115,7 +115,6 @@ class _ExampleSidebarXState extends State<ExampleSidebarX> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     widget._controller.addListener(() {
       setState(() {

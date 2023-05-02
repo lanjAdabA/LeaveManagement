@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:html';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,11 +8,15 @@ import 'package:leavemanagementadmin/Interceptor/diointerceptor.dart';
 import 'package:leavemanagementadmin/Interceptor/storetoken.dart';
 import 'package:leavemanagementadmin/constant/apiendpoint.dart';
 import 'package:leavemanagementadmin/listener/auth_login_listener.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 
 class AuthRepository {
   //static const baseUrl = "https://leavemngt.globizsapp.com";
+
+  // static const baseUrl = "https://leavemngt.globizsapp.com";
+
   static const baseUrl = "https://staging.leave.globizs.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
@@ -332,7 +338,7 @@ class AuthRepository {
   // GET Employee List
 
   Future<List<Employee>?> getemployeeList(
-      {required int datalimit,
+      {required int pagenumber,
       String? name,
       int? deptid,
       int? desigid,
@@ -340,8 +346,8 @@ class AuthRepository {
       int? roleid}) async {
     try {
       final response = await dio.get("/api/admin/employees", queryParameters: {
-        "limit": datalimit,
-        "page_no": 1,
+        "limit": 15,
+        "page_no": pagenumber,
         "name": name ?? "",
         "department_id": deptid ?? 0,
         "designation_id": desigid ?? 0,
@@ -421,8 +427,7 @@ class AuthRepository {
     required int roleid,
     required String dateofjoining,
     required String emptype,
-
-    // required String isactive,
+    required String isactive,
     required AuthLoginListioner authLoginListener,
   }) async {
     authLoginListener.loading();
@@ -437,7 +442,8 @@ class AuthRepository {
         "date_of_joining": dateofjoining,
         "phone": phonenumber,
         "emp_type": emptype,
-        "role": roleid
+        "role": roleid,
+        "is_active": isactive
       });
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -536,5 +542,12 @@ class AuthRepository {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  downloadFile(url, label) {
+    var timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    AnchorElement anchorElement = AnchorElement(href: url);
+    anchorElement.download = "$label$timestamp";
+    anchorElement.click();
   }
 }

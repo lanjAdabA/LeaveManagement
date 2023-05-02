@@ -12,9 +12,9 @@ class GetemployeelistCubit extends Cubit<PostState> {
   GetemployeelistCubit() : super(PostinitialState(''));
 
   AuthRepository postRepository = AuthRepository();
-
+  List<Employee>? emplistfinal = [];
   void getemployeelist(
-      {required int datalimit,
+      {required int pagenumber,
       required bool ismoredata,
       String? name,
       int? deptid,
@@ -27,13 +27,15 @@ class GetemployeelistCubit extends Cubit<PostState> {
     try {
       if (ismoredata) {
         List<Employee>? emplist = await postRepository.getemployeeList(
-            datalimit: datalimit,
+            pagenumber: pagenumber,
             name: name,
             deptid: deptid,
             branchid: branchid,
             desigid: desigid,
             roleid: rolename);
+
         for (var element in emplist!) {
+          emplistfinal!.add(element);
           allemptidlist.add(element.employeeId);
           allempnamelist.add(element.employeeName);
           // if (allbranchIdlist.contains(element.id)) {
@@ -50,22 +52,21 @@ class GetemployeelistCubit extends Cubit<PostState> {
         var result = Map.fromIterables(allempnamelist, allemptidlist);
         log('From Cubit for Department :$result');
 
-        if (emplist.length < datalimit) {
-          log('item is lesss than $datalimit');
+        if (emplist.length < 15) {
           ismoredata = false;
 
           log(emplist.length.toString());
           log(emplist.toString());
           if (emplist.isEmpty) {
             emit(PostLoadedState(
-                allemployeelist: emplist,
+                allemployeelist: emplistfinal!,
                 isloading: false,
                 isempty: true,
                 allempnamelist: allempnamelist,
                 emptidwithname: result));
           } else {
             emit(PostLoadedState(
-                allemployeelist: emplist,
+                allemployeelist: emplistfinal!,
                 isloading: false,
                 isempty: false,
                 allempnamelist: allempnamelist,
@@ -74,7 +75,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
         } else {
           log(emplist.length.toString());
           emit(PostLoadedState(
-              allemployeelist: emplist,
+              allemployeelist: emplistfinal!,
               isloading: ismoredata,
               isempty: false,
               allempnamelist: allempnamelist,

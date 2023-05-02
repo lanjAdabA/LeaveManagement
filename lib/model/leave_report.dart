@@ -2,6 +2,7 @@
 //
 //     final leaveReportModel = leaveReportModelFromJson(jsonString);
 
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<LeaveReportModel> leaveReportModelFromJson(String str) =>
@@ -12,10 +13,20 @@ String leaveReportModelToJson(List<LeaveReportModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class LeaveReportModel {
+  final int id;
+  final String name;
+  final String general;
+  final String lwp;
+  final String matl;
+  final String margl;
+  final String pt;
+  final String bl;
+  final String total;
+
   LeaveReportModel({
     required this.id,
     required this.name,
-    required this.gl,
+    required this.general,
     required this.lwp,
     required this.matl,
     required this.margl,
@@ -24,21 +35,11 @@ class LeaveReportModel {
     required this.total,
   });
 
-  int id;
-  String name;
-  String gl;
-  String lwp;
-  String matl;
-  String margl;
-  String pt;
-  String bl;
-  String total;
-
   factory LeaveReportModel.fromJson(Map<String, dynamic> json) =>
       LeaveReportModel(
         id: json["id"],
         name: json["name"],
-        gl: json["gl"],
+        general: json["general"],
         lwp: json["lwp"],
         matl: json["matl"],
         margl: json["margl"],
@@ -50,7 +51,7 @@ class LeaveReportModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "gl": gl,
+        "general": general,
         "lwp": lwp,
         "matl": matl,
         "margl": margl,

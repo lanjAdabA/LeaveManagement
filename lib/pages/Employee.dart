@@ -98,7 +98,7 @@ class _EmployeePageState extends State<EmployeePage> {
   bool israngeselected = false;
 
   bool? ismoreloading;
-  int datalimit = 15;
+  int pagenumber = 1;
   ScrollController datatablescrollcontroller = ScrollController();
   final FocusNode empfocusnode = FocusNode();
 
@@ -117,11 +117,12 @@ class _EmployeePageState extends State<EmployeePage> {
           log('Item reach its limit');
         } else {
           setState(() {
-            datalimit = datalimit + 15;
+            pagenumber = pagenumber + 1;
           });
           displayedDataCell.clear();
+
           context.read<GetemployeelistCubit>().getemployeelist(
-              datalimit: datalimit,
+              pagenumber: pagenumber,
               ismoredata: true,
               branchid: dropdownvalue_branchid,
               deptid: dropdownvalue_departmentid,
@@ -150,7 +151,7 @@ class _EmployeePageState extends State<EmployeePage> {
 
     context
         .read<GetemployeelistCubit>()
-        .getemployeelist(datalimit: datalimit, ismoredata: true);
+        .getemployeelist(pagenumber: pagenumber, ismoredata: true);
   }
 
   void fetchdata(
@@ -182,7 +183,13 @@ class _EmployeePageState extends State<EmployeePage> {
         displayedDataCell.add(
           DataCell(
             Center(
-              child: Text(item.employeeIsActive == "1" ? 'Active' : "Inactive"),
+              child: Text(
+                item.employeeIsActive == "1" ? 'Active' : "Inactive",
+                style: TextStyle(
+                    color: item.employeeIsActive == "1"
+                        ? Colors.green
+                        : Colors.red),
+              ),
             ),
           ),
         );
@@ -240,6 +247,9 @@ class _EmployeePageState extends State<EmployeePage> {
                   datetime2 =
                       "${item.employeeDateOfJoining.year}-${item.employeeDateOfJoining.month}-${item.employeeDateOfJoining.day}";
 
+                  startdatefinal = DateFormat('MMM d, yyyy')
+                      .format(item.employeeDateOfJoining);
+
                   setState(() {
                     _selectedRadioTile = int.parse(item.employeeEmpStatus);
                     dropdownvalue1 =
@@ -250,6 +260,7 @@ class _EmployeePageState extends State<EmployeePage> {
                     dropdownvalue3 = item.role;
                     dropdownvalue4 =
                         branchidwithname[item.employeeBranchId].toString();
+                    isactive = item.employeeIsActive == '1' ? true : false;
                   });
 
                   showDialog(
@@ -374,8 +385,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     empname:
                                                                         _namefieldcontroller
                                                                             .text,
-                                                                    empcode: int
-                                                                        .parse(empcode
+                                                                    empcode: int.parse(
+                                                                        empcode
                                                                             .text),
                                                                     phonenumber:
                                                                         numbercontroller
@@ -393,8 +404,13 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     emptype:
                                                                         _selectedRadioTile
                                                                             .toString(),
-                                                                    email: emailcontroller
-                                                                        .text);
+                                                                    email:
+                                                                        emailcontroller
+                                                                            .text,
+                                                                    isactive:
+                                                                        isactive
+                                                                            ? "1"
+                                                                            : "0");
 
                                                                 EasyLoading
                                                                     .dismiss();
@@ -446,9 +462,42 @@ class _EmployeePageState extends State<EmployeePage> {
                                                     child: Form(
                                                       child: SizedBox(
                                                         width: 350,
-                                                        height: 600,
+                                                        height: 630,
                                                         child: Column(
                                                           children: [
+                                                            Row(
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Text(
+                                                                      'Employee Status : '),
+                                                                ),
+                                                                const Text(
+                                                                    "Active "),
+                                                                Switch(
+                                                                  value:
+                                                                      isactive,
+                                                                  activeColor:
+                                                                      const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          72,
+                                                                          217,
+                                                                          77),
+                                                                  onChanged: (bool
+                                                                      value) {
+                                                                    setState(
+                                                                        () {
+                                                                      isactive =
+                                                                          value;
+                                                                    });
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+
                                                             TextFormField(
                                                                 onChanged:
                                                                     (value) {
@@ -636,9 +685,63 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   hintText:
                                                                       'Email',
                                                                 )),
-                                                            _dataofbirth(
-                                                                datetime2,
-                                                                'Date Of Joining'),
+                                                            // _dataofbirth(
+                                                            //     datetime2,
+                                                            //     'Date Of Joining'),
+
+                                                            Container(
+                                                              child:
+                                                                  TextFormField(
+                                                                showCursor:
+                                                                    false,
+                                                                onTap: () {
+                                                                  showCalendarDatePicker2Dialog(
+                                                                          config:
+                                                                              CalendarDatePicker2WithActionButtonsConfig(
+                                                                            firstDayOfWeek:
+                                                                                1,
+                                                                            calendarType:
+                                                                                CalendarDatePicker2Type.single,
+                                                                            selectedDayTextStyle:
+                                                                                const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                                            selectedDayHighlightColor:
+                                                                                Colors.purple[800],
+                                                                            centerAlignModePicker:
+                                                                                true,
+                                                                            customModePickerIcon:
+                                                                                const SizedBox(),
+                                                                          ),
+                                                                          context:
+                                                                              context,
+                                                                          dialogSize: const Size(
+                                                                              325,
+                                                                              400))
+                                                                      .then(
+                                                                          (value) {
+                                                                    setState(
+                                                                      () {
+                                                                        israngeselected =
+                                                                            true;
+                                                                        startdatefinal =
+                                                                            DateFormat('MMM d, yyyy').format(value![0]!);
+                                                                        datetime2 =
+                                                                            "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                                      },
+                                                                    );
+                                                                  });
+                                                                },
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  suffixIcon:
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .calendar_month),
+                                                                  hintText:
+                                                                      startdatefinal,
+                                                                ),
+                                                              ),
+                                                            ),
+
                                                             const SizedBox(
                                                               height: 5,
                                                             ),
@@ -1194,6 +1297,7 @@ class _EmployeePageState extends State<EmployeePage> {
   String startdate = '';
   String enddate = '';
   String startdatefinal = '';
+  String addempdateview = '';
   String enddatefinal = '';
 
   String datetime2 = '';
@@ -1239,7 +1343,7 @@ class _EmployeePageState extends State<EmployeePage> {
               context.read<GetAlldesignCubit>().getalldesign();
               context
                   .read<GetemployeelistCubit>()
-                  .getemployeelist(datalimit: datalimit, ismoredata: true);
+                  .getemployeelist(pagenumber: pagenumber, ismoredata: true);
             });
 
             break;
@@ -1330,7 +1434,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                     context
                                         .read<GetemployeelistCubit>()
                                         .getemployeelist(
-                                            datalimit: datalimit,
+                                            pagenumber: pagenumber,
                                             ismoredata: true);
                                   });
 
@@ -1741,9 +1845,41 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ),
                                                                           ],
                                                                         ),
-                                                                        _dataofbirth(
-                                                                            datetime2,
-                                                                            'Date Of Joining'),
+                                                                        Container(
+                                                                          child:
+                                                                              TextFormField(
+                                                                            showCursor:
+                                                                                false,
+                                                                            onTap:
+                                                                                () {
+                                                                              showCalendarDatePicker2Dialog(
+                                                                                      config: CalendarDatePicker2WithActionButtonsConfig(
+                                                                                        firstDayOfWeek: 1,
+                                                                                        calendarType: CalendarDatePicker2Type.single,
+                                                                                        selectedDayTextStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                                                        selectedDayHighlightColor: Colors.purple[800],
+                                                                                        centerAlignModePicker: true,
+                                                                                        customModePickerIcon: const SizedBox(),
+                                                                                      ),
+                                                                                      context: context,
+                                                                                      dialogSize: const Size(325, 400))
+                                                                                  .then((value) {
+                                                                                setState(
+                                                                                  () {
+                                                                                    israngeselected = true;
+                                                                                    addempdateview = DateFormat('MMM d, yyyy').format(value![0]!);
+                                                                                    datetime2 = "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                                                  },
+                                                                                );
+                                                                              });
+                                                                            },
+                                                                            decoration:
+                                                                                InputDecoration(
+                                                                              suffixIcon: const Icon(Icons.calendar_month),
+                                                                              hintText: addempdateview.isEmpty ? "Date of Joining" : addempdateview,
+                                                                            ),
+                                                                          ),
+                                                                        ),
                                                                         const SizedBox(
                                                                           height:
                                                                               5,
@@ -2206,8 +2342,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           name:
                                                                               value,
-                                                                          datalimit:
-                                                                              datalimit,
+                                                                          pagenumber:
+                                                                              pagenumber,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2224,8 +2360,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           name:
                                                                               value,
-                                                                          datalimit:
-                                                                              datalimit,
+                                                                          pagenumber:
+                                                                              pagenumber,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2350,8 +2486,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             null);
 
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2464,8 +2600,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2575,8 +2711,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2686,8 +2822,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:

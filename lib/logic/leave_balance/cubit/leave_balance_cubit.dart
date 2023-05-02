@@ -45,9 +45,9 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
       });
 
       if (response.statusCode == 200) {
-        List<dynamic> postMaps = response.data["employees"];
+        List<dynamic> postMaps = response.data;
         var alldata =
-            postMaps.map((e) => Employeeleaveblc.fromJson(e)).toList();
+            postMaps.map((e) => LeaveBalanceModel.fromJson(e)).toList();
 
         if (alldata.isEmpty) {
           emit(GetLeaveBalanceState(

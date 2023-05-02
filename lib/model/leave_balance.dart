@@ -5,34 +5,17 @@
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
-LeaveBalanceModel leaveBalanceModelFromJson(String str) =>
-    LeaveBalanceModel.fromJson(json.decode(str));
+List<LeaveBalanceModel> leaveBalanceModelFromJson(String str) =>
+    List<LeaveBalanceModel>.from(
+        json.decode(str).map((x) => LeaveBalanceModel.fromJson(x)));
 
-String leaveBalanceModelToJson(LeaveBalanceModel data) =>
-    json.encode(data.toJson());
+String leaveBalanceModelToJson(List<LeaveBalanceModel> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class LeaveBalanceModel {
-  final List<Employeeleaveblc> employees;
-
-  LeaveBalanceModel({
-    required this.employees,
-  });
-
-  factory LeaveBalanceModel.fromJson(Map<String, dynamic> json) =>
-      LeaveBalanceModel(
-        employees: List<Employeeleaveblc>.from(
-            json["employees"].map((x) => Employeeleaveblc.fromJson(x))),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "employees": List<dynamic>.from(employees.map((x) => x.toJson())),
-      };
-}
-
-class Employeeleaveblc {
-  final int eId;
-  final String employeeName;
-  final int eEmpCode;
+  final int id;
+  final int empCode;
+  final String name;
   final String branch;
   final String department;
   final String designation;
@@ -40,10 +23,10 @@ class Employeeleaveblc {
   final String leaveType;
   final String availableBalance;
 
-  Employeeleaveblc({
-    required this.eId,
-    required this.employeeName,
-    required this.eEmpCode,
+  LeaveBalanceModel({
+    required this.id,
+    required this.empCode,
+    required this.name,
     required this.branch,
     required this.department,
     required this.designation,
@@ -52,11 +35,11 @@ class Employeeleaveblc {
     required this.availableBalance,
   });
 
-  factory Employeeleaveblc.fromJson(Map<String, dynamic> json) =>
-      Employeeleaveblc(
-        eId: json["e_id"],
-        employeeName: json["employee_name"],
-        eEmpCode: json["e_emp_code"],
+  factory LeaveBalanceModel.fromJson(Map<String, dynamic> json) =>
+      LeaveBalanceModel(
+        id: json["id"],
+        empCode: json["emp_code"],
+        name: json["name"],
         branch: json["branch"],
         department: json["department"],
         designation: json["designation"],
@@ -66,9 +49,9 @@ class Employeeleaveblc {
       );
 
   Map<String, dynamic> toJson() => {
-        "e_id": eId,
-        "employee_name": employeeName,
-        "e_emp_code": eEmpCode,
+        "id": id,
+        "emp_code": empCode,
+        "name": name,
         "branch": branch,
         "department": department,
         "designation": designation,
