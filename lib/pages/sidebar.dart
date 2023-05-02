@@ -716,9 +716,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
           setState(
             () {
               isselectedsetting = ischoosereport!
-                  ? isselectedsetting!
-                      ? true
-                      : true
+                  ? !isselectedsetting!
                   : isselectedsetting!
                       ? true
                       : false;
@@ -974,7 +972,50 @@ class _ScreensExampleState extends State<_ScreensExample> {
                     : isselectedsetting!
                         ? const BranchPage()
                         : const LogOutPage()
-                : const LogOutPage();
+                : ischoosereport!
+                    ? issectedreport!
+                        ? const LeaveReportPage()
+                        : isselected0!
+                            ? FittedBox(
+                                fit: BoxFit.fill,
+                                child: Column(
+                                  children: const [
+                                    Text(
+                                      "Welcome",
+                                      style: TextStyle(
+                                          fontSize: 42,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        "Globizs web solution Pvt. Ltd.",
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 211, 32, 39),
+                                            fontSize: 56),
+                                      ),
+                                    )
+                                  ],
+                                ))
+                            : isselected1!
+                                ? const EmployeePage()
+                                : isselected6!
+                                    ? isselectedsetting!
+                                        ? const BranchPage()
+                                        : const LogOutPage()
+                                    : isselected7!
+                                        ? const DepartmentPage()
+                                        : isselected8!
+                                            ? const DesignationPage()
+                                            : isselected9!
+                                                ? isselectedsetting!
+                                                    ? const LogOutPage()
+                                                    : const LogOutPage()
+                                                : const EmployeePage()
+                    : isselectedsetting!
+                        ? const BranchPage()
+                        : const LogOutPage();
 
           case 6:
             return ischoosereport!
