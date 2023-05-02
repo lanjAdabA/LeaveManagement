@@ -818,7 +818,7 @@ class _ScreensExampleState extends State<_ScreensExample> {
                     Padding(
                       padding: EdgeInsets.only(top: 8.0),
                       child: Text(
-                        "Globizs web solution Pvt. Ltd.",
+                        "Globizs Web Solutions Pvt. Ltd.",
                         style: TextStyle(color: Colors.redAccent, fontSize: 56),
                       ),
                     )

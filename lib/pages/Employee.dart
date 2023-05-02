@@ -723,6 +723,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             true;
                                                                         startdatefinal =
                                                                             DateFormat('MMM d, yyyy').format(value![0]!);
+
                                                                         datetime2 =
                                                                             "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
                                                                       },

@@ -13,8 +13,8 @@ import 'package:http/http.dart' as http;
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 
 class AuthRepository {
-  static const baseUrl = "https://leavemngt.globizsapp.com";
-  //static const baseUrl = "https://staging.leave.globizs.com";
+  //static const baseUrl = "https://leavemngt.globizsapp.com";
+  static const baseUrl = "https://staging.leave.globizs.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
 
