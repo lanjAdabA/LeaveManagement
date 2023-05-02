@@ -182,7 +182,13 @@ class _EmployeePageState extends State<EmployeePage> {
         displayedDataCell.add(
           DataCell(
             Center(
-              child: Text(item.employeeIsActive == "1" ? 'Active' : "Inactive"),
+              child: Text(
+                item.employeeIsActive == "1" ? 'Active' : "Inactive",
+                style: TextStyle(
+                    color: item.employeeIsActive == "1"
+                        ? Colors.green
+                        : Colors.red),
+              ),
             ),
           ),
         );
