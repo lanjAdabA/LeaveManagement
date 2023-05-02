@@ -64,7 +64,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   bool? ismoreloading;
   List<String> allEmp = [];
   Map<dynamic, dynamic> empNameWithId = {};
-  int datalimit = 15;
+  int pagenumber = 1;
   ScrollController datatablescrollcontroller = ScrollController();
   @override
   void initState() {
@@ -81,11 +81,11 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     //       log('Item reach its limit');
     //     } else {
     //       setState(() {
-    //         datalimit = datalimit + 15;
+    //         pagenumber = pagenumber + 15;
     //       });
     //       displayedDataCell.clear();
     //       context.read<GetemployeelistCubit>().getemployeelist(
-    //           datalimit: datalimit,
+    //           pagenumber: pagenumber,
     //           ismoredata: true,
     //           branchid: dropdownvalue_branchid,
     //           deptid: dropdownvalue_departmentid,
@@ -110,7 +110,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
     context.read<GetallleavetypeCubit>().getallleavetype();
     context
         .read<GetemployeelistCubit>()
-        .getemployeelist(datalimit: datalimit, ismoredata: true);
+        .getemployeelist(pagenumber: pagenumber, ismoredata: true);
     context.read<GetallbranchCubit>().getallbranch();
     context.read<GetAlldeptCubit>().getalldept();
     context.read<GetAlldesignCubit>().getalldesign();
@@ -337,7 +337,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
               context.read<GetAlldesignCubit>().getalldesign();
               context
                   .read<GetemployeelistCubit>()
-                  .getemployeelist(datalimit: datalimit, ismoredata: true);
+                  .getemployeelist(pagenumber: pagenumber, ismoredata: true);
             });
 
             break;
@@ -416,7 +416,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                               context
                                                   .read<GetemployeelistCubit>()
                                                   .getemployeelist(
-                                                      datalimit: datalimit,
+                                                      pagenumber: pagenumber,
                                                       ismoredata: true);
                                               displayedDataCell.clear();
                                               context
@@ -1262,7 +1262,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
 
                                                                                 displayedDataCell.clear();
                                                                                 context.read<GetLeaveBalanceCubit>().getleavebalance(leave_type_no: newValue == "All" ? null : dropdownleavetypevalue, name: empsearchname ?? "", branch: dropdownbranchlabel == 'Select' || dropdownbranchlabel == "All" ? '' : dropdownbranchlabel, dept: dropdownDepartmentlabel == 'Select' || dropdownDepartmentlabel == "All" ? '' : dropdownDepartmentlabel, design: dropdownDesignationlabel == 'Select' || dropdownDesignationlabel == "All" ? '' : dropdownDesignationlabel);
-                                                                                //context.read<GetemployeelistCubit>().getemployeelist(datalimit: datalimit, ismoredata: true);
+                                                                                //context.read<GetemployeelistCubit>().getemployeelist(pagenumber: pagenumber, ismoredata: true);
                                                                               },
                                                                             ),
                                                                           ),

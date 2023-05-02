@@ -13,8 +13,8 @@ import 'package:http/http.dart' as http;
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 
 class AuthRepository {
-  static const baseUrl = "https://leavemngt.globizsapp.com";
-  //static const baseUrl = "https://staging.leave.globizs.com";
+  // static const baseUrl = "https://leavemngt.globizsapp.com";
+  static const baseUrl = "https://staging.leave.globizs.com";
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
 
@@ -335,7 +335,7 @@ class AuthRepository {
   // GET Employee List
 
   Future<List<Employee>?> getemployeeList(
-      {required int datalimit,
+      {required int pagenumber,
       String? name,
       int? deptid,
       int? desigid,
@@ -343,8 +343,8 @@ class AuthRepository {
       int? roleid}) async {
     try {
       final response = await dio.get("/api/admin/employees", queryParameters: {
-        "limit": datalimit,
-        "page_no": 1,
+        "limit": 15,
+        "page_no": pagenumber,
         "name": name ?? "",
         "department_id": deptid ?? 0,
         "designation_id": desigid ?? 0,

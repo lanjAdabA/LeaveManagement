@@ -64,7 +64,7 @@ class GetLeaveBalanceCubit extends Cubit<GetLeaveBalanceState> {
             deptnamelist.add(element.department);
             designnamelist.add(element.designation);
             leavetypelist.add(element.leaveType);
-            // leavetypeidlist.add(element.leaveTypeId);
+            leavetypeidlist.add(element.leaveTypeId);
           }
           var result = Map.fromIterables(leavetypelist, leavetypeidlist);
           log("Leave Balance : $result");

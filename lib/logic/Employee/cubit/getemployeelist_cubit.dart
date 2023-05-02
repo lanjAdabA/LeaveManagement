@@ -14,7 +14,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
   AuthRepository postRepository = AuthRepository();
 
   void getemployeelist(
-      {required int datalimit,
+      {required int pagenumber,
       required bool ismoredata,
       String? name,
       int? deptid,
@@ -27,7 +27,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
     try {
       if (ismoredata) {
         List<Employee>? emplist = await postRepository.getemployeeList(
-            datalimit: datalimit,
+            pagenumber: pagenumber,
             name: name,
             deptid: deptid,
             branchid: branchid,
@@ -50,8 +50,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
         var result = Map.fromIterables(allempnamelist, allemptidlist);
         log('From Cubit for Department :$result');
 
-        if (emplist.length < datalimit) {
-          log('item is lesss than $datalimit');
+        if (emplist.length < 15) {
           ismoredata = false;
 
           log(emplist.length.toString());
