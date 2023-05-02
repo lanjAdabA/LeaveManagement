@@ -424,8 +424,7 @@ class AuthRepository {
     required int roleid,
     required String dateofjoining,
     required String emptype,
-
-    // required String isactive,
+    required String isactive,
     required AuthLoginListioner authLoginListener,
   }) async {
     authLoginListener.loading();
@@ -440,7 +439,8 @@ class AuthRepository {
         "date_of_joining": dateofjoining,
         "phone": phonenumber,
         "emp_type": emptype,
-        "role": roleid
+        "role": roleid,
+        "is_active": isactive
       });
 
       if (response.statusCode == 200 || response.statusCode == 201) {
