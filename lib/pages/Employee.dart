@@ -240,6 +240,9 @@ class _EmployeePageState extends State<EmployeePage> {
                   datetime2 =
                       "${item.employeeDateOfJoining.year}-${item.employeeDateOfJoining.month}-${item.employeeDateOfJoining.day}";
 
+                  startdatefinal = DateFormat('MMM d, yyyy')
+                      .format(item.employeeDateOfJoining);
+
                   setState(() {
                     _selectedRadioTile = int.parse(item.employeeEmpStatus);
                     dropdownvalue1 =
@@ -636,9 +639,63 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   hintText:
                                                                       'Email',
                                                                 )),
-                                                            _dataofbirth(
-                                                                datetime2,
-                                                                'Date Of Joining'),
+                                                            // _dataofbirth(
+                                                            //     datetime2,
+                                                            //     'Date Of Joining'),
+
+                                                            Container(
+                                                              child:
+                                                                  TextFormField(
+                                                                showCursor:
+                                                                    false,
+                                                                onTap: () {
+                                                                  showCalendarDatePicker2Dialog(
+                                                                          config:
+                                                                              CalendarDatePicker2WithActionButtonsConfig(
+                                                                            firstDayOfWeek:
+                                                                                1,
+                                                                            calendarType:
+                                                                                CalendarDatePicker2Type.single,
+                                                                            selectedDayTextStyle:
+                                                                                const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                                            selectedDayHighlightColor:
+                                                                                Colors.purple[800],
+                                                                            centerAlignModePicker:
+                                                                                true,
+                                                                            customModePickerIcon:
+                                                                                const SizedBox(),
+                                                                          ),
+                                                                          context:
+                                                                              context,
+                                                                          dialogSize: const Size(
+                                                                              325,
+                                                                              400))
+                                                                      .then(
+                                                                          (value) {
+                                                                    setState(
+                                                                      () {
+                                                                        israngeselected =
+                                                                            true;
+                                                                        startdatefinal =
+                                                                            DateFormat('MMM d, yyyy').format(value![0]!);
+                                                                        datetime2 =
+                                                                            "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                                      },
+                                                                    );
+                                                                  });
+                                                                },
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  suffixIcon:
+                                                                      const Icon(
+                                                                          Icons
+                                                                              .calendar_month),
+                                                                  hintText:
+                                                                      startdatefinal,
+                                                                ),
+                                                              ),
+                                                            ),
+
                                                             const SizedBox(
                                                               height: 5,
                                                             ),
@@ -1194,6 +1251,7 @@ class _EmployeePageState extends State<EmployeePage> {
   String startdate = '';
   String enddate = '';
   String startdatefinal = '';
+  String addempdateview = '';
   String enddatefinal = '';
 
   String datetime2 = '';
@@ -1474,20 +1532,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                                 dropdownvalue44 == null) {
                                                                               EasyLoading.showError('All Fields Are Mandatory');
                                                                             } else {
-                                                                              context.read<CreateEmployeeCubit>().createemployee(
-                                                                                empname: _namefieldcontroller.text, 
-                                                                                empusername: usernamecontroller.text, 
-                                                                                email: emailcontroller.text, 
-                                                                                empcode: int.parse(empcode.text),
-                                                                                 phonenumber: numbercontroller.text, 
-                                                                                 deptid: dropdownvalue22!, 
-                                                                                 designid: dropdownvalue11!, 
-                                                                                 branchid: dropdownvalue44!, 
-                                                                                 roleid: dropdownvalue33!, 
-                                                                                 dateofjoining: datetime, 
-                                                                                 emptype: _selectedRadioTile.toString(),
-                                                                                 
-                                                                                  gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
+                                                                              context.read<CreateEmployeeCubit>().createemployee(empname: _namefieldcontroller.text, empusername: usernamecontroller.text, email: emailcontroller.text, empcode: int.parse(empcode.text), phonenumber: numbercontroller.text, deptid: dropdownvalue22!, designid: dropdownvalue11!, branchid: dropdownvalue44!, roleid: dropdownvalue33!, dateofjoining: datetime, emptype: _selectedRadioTile.toString(), gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
 
                                                                               EasyLoading.dismiss();
 
@@ -1754,9 +1799,41 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ),
                                                                           ],
                                                                         ),
-                                                                        _dataofbirth(
-                                                                            datetime2,
-                                                                            'Date Of Joining'),
+                                                                        Container(
+                                                                          child:
+                                                                              TextFormField(
+                                                                            showCursor:
+                                                                                false,
+                                                                            onTap:
+                                                                                () {
+                                                                              showCalendarDatePicker2Dialog(
+                                                                                      config: CalendarDatePicker2WithActionButtonsConfig(
+                                                                                        firstDayOfWeek: 1,
+                                                                                        calendarType: CalendarDatePicker2Type.single,
+                                                                                        selectedDayTextStyle: const TextStyle(color: Colors.white, fontWeight: FontWeight.w700),
+                                                                                        selectedDayHighlightColor: Colors.purple[800],
+                                                                                        centerAlignModePicker: true,
+                                                                                        customModePickerIcon: const SizedBox(),
+                                                                                      ),
+                                                                                      context: context,
+                                                                                      dialogSize: const Size(325, 400))
+                                                                                  .then((value) {
+                                                                                setState(
+                                                                                  () {
+                                                                                    israngeselected = true;
+                                                                                    addempdateview = DateFormat('MMM d, yyyy').format(value![0]!);
+                                                                                    datetime2 = "${value[0]!.year}-${value[0]!.month}-${value[0]!.day}";
+                                                                                  },
+                                                                                );
+                                                                              });
+                                                                            },
+                                                                            decoration:
+                                                                                InputDecoration(
+                                                                              suffixIcon: const Icon(Icons.calendar_month),
+                                                                              hintText: addempdateview.isEmpty ? "Date of Joining" : addempdateview,
+                                                                            ),
+                                                                          ),
+                                                                        ),
                                                                         const SizedBox(
                                                                           height:
                                                                               5,

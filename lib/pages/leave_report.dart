@@ -1090,7 +1090,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                               fixedWidth:
                                   MediaQuery.of(context).size.width / 15,
                               label: const Text(
-                                'GL',
+                                'general',
                               ),
                             ),
                             DataColumn2(
