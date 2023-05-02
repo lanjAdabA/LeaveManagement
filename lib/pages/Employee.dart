@@ -119,6 +119,7 @@ class _EmployeePageState extends State<EmployeePage> {
           setState(() {
             pagenumber = pagenumber + 1;
           });
+          displayedDataCell.clear();
 
           context.read<GetemployeelistCubit>().getemployeelist(
               pagenumber: pagenumber,

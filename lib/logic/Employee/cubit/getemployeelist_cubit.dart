@@ -12,7 +12,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
   GetemployeelistCubit() : super(PostinitialState(''));
 
   AuthRepository postRepository = AuthRepository();
-
+  List<Employee>? emplistfinal = [];
   void getemployeelist(
       {required int pagenumber,
       required bool ismoredata,
@@ -33,7 +33,9 @@ class GetemployeelistCubit extends Cubit<PostState> {
             branchid: branchid,
             desigid: desigid,
             roleid: rolename);
+
         for (var element in emplist!) {
+          emplistfinal!.add(element);
           allemptidlist.add(element.employeeId);
           allempnamelist.add(element.employeeName);
           // if (allbranchIdlist.contains(element.id)) {
@@ -57,14 +59,14 @@ class GetemployeelistCubit extends Cubit<PostState> {
           log(emplist.toString());
           if (emplist.isEmpty) {
             emit(PostLoadedState(
-                allemployeelist: emplist,
+                allemployeelist: emplistfinal!,
                 isloading: false,
                 isempty: true,
                 allempnamelist: allempnamelist,
                 emptidwithname: result));
           } else {
             emit(PostLoadedState(
-                allemployeelist: emplist,
+                allemployeelist: emplistfinal!,
                 isloading: false,
                 isempty: false,
                 allempnamelist: allempnamelist,
@@ -73,7 +75,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
         } else {
           log(emplist.length.toString());
           emit(PostLoadedState(
-              allemployeelist: emplist,
+              allemployeelist: emplistfinal!,
               isloading: ismoredata,
               isempty: false,
               allempnamelist: allempnamelist,
