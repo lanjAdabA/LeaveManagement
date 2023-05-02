@@ -98,7 +98,7 @@ class _EmployeePageState extends State<EmployeePage> {
   bool israngeselected = false;
 
   bool? ismoreloading;
-  int datalimit = 15;
+  int pagenumber = 1;
   ScrollController datatablescrollcontroller = ScrollController();
   final FocusNode empfocusnode = FocusNode();
 
@@ -117,11 +117,11 @@ class _EmployeePageState extends State<EmployeePage> {
           log('Item reach its limit');
         } else {
           setState(() {
-            datalimit = datalimit + 15;
+            pagenumber = pagenumber + 1;
           });
-          displayedDataCell.clear();
+
           context.read<GetemployeelistCubit>().getemployeelist(
-              datalimit: datalimit,
+              pagenumber: pagenumber,
               ismoredata: true,
               branchid: dropdownvalue_branchid,
               deptid: dropdownvalue_departmentid,
@@ -150,7 +150,7 @@ class _EmployeePageState extends State<EmployeePage> {
 
     context
         .read<GetemployeelistCubit>()
-        .getemployeelist(datalimit: datalimit, ismoredata: true);
+        .getemployeelist(pagenumber: pagenumber, ismoredata: true);
   }
 
   void fetchdata(
@@ -1343,7 +1343,7 @@ class _EmployeePageState extends State<EmployeePage> {
               context.read<GetAlldesignCubit>().getalldesign();
               context
                   .read<GetemployeelistCubit>()
-                  .getemployeelist(datalimit: datalimit, ismoredata: true);
+                  .getemployeelist(pagenumber: pagenumber, ismoredata: true);
             });
 
             break;
@@ -1434,7 +1434,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                     context
                                         .read<GetemployeelistCubit>()
                                         .getemployeelist(
-                                            datalimit: datalimit,
+                                            pagenumber: pagenumber,
                                             ismoredata: true);
                                   });
 
@@ -2342,8 +2342,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           name:
                                                                               value,
-                                                                          datalimit:
-                                                                              datalimit,
+                                                                          pagenumber:
+                                                                              pagenumber,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2360,8 +2360,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           name:
                                                                               value,
-                                                                          datalimit:
-                                                                              datalimit,
+                                                                          pagenumber:
+                                                                              pagenumber,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2486,8 +2486,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             null);
 
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2600,8 +2600,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2711,8 +2711,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2822,8 +2822,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
-                                                                    datalimit:
-                                                                        datalimit,
+                                                                    pagenumber:
+                                                                        pagenumber,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
