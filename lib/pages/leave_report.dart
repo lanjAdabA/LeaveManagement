@@ -109,10 +109,10 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
       );
 
       displayedDataCell.add(
-        DataCell(item.gl == "0.00"
-            ? Text(item.gl)
+        DataCell(item.general == "0.00"
+            ? Text(item.general)
             : Text(
-                item.gl,
+                item.general,
                 style: const TextStyle(color: Colors.red),
               )),
       );
@@ -1088,7 +1088,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                               fixedWidth:
                                   MediaQuery.of(context).size.width / 15,
                               label: const Text(
-                                'GL',
+                                'general',
                               ),
                             ),
                             DataColumn2(
@@ -1104,7 +1104,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                               fixedWidth:
                                   MediaQuery.of(context).size.width / 13,
                               label: const Text(
-                                'MargL',
+                                'Margeneral',
                               ),
                             ),
                             DataColumn2(

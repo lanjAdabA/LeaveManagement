@@ -17,6 +17,7 @@ import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_cubit.dar
 import 'package:leavemanagementadmin/logic/leave/cubit/getallleavetype_forleavebalance_cubit.dart';
 import 'package:leavemanagementadmin/logic/role/cubit/get_role_cubit.dart';
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
+import 'package:leavemanagementadmin/repo/auth_repository.dart';
 import 'package:leavemanagementadmin/widget/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -121,7 +122,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
   }
 
   void fetchdata({
-    required List<Employeeleaveblc> allemplist,
+    required List<LeaveBalanceModel> allemplist,
     // required Map<dynamic, dynamic> branchidwithname,
     // required Map<dynamic, dynamic> deptnamewithid,
     // required Map<dynamic, dynamic> designidwithname
@@ -152,7 +153,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
         DataCell(
           Padding(
             padding: const EdgeInsets.only(left: 15),
-            child: Text(item.employeeName),
+            child: Text(item.name),
           ),
         ),
       );
@@ -236,7 +237,7 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                         context,
                                     void Function(void Function()) setState) {
                                   return EditLeaveBalPopUp(
-                                    empName: item.employeeName,
+                                    empName: item.name,
                                     leavetype: item.leaveType,
                                     leavetypelist:
                                         allLeaveTypeState.allleavetypenamelist,
@@ -516,18 +517,22 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           .only(
                                                                       right:
                                                                           50.0),
-                                                              child: ElevatedButton.icon(
-                                                                  style: ElevatedButton.styleFrom(
-                                                                      backgroundColor:
-                                                                          Colors
+                                                              child: ElevatedButton
+                                                                  .icon(
+                                                                      style: ElevatedButton.styleFrom(
+                                                                          backgroundColor: Colors
                                                                               .grey),
-                                                                  onPressed:
-                                                                      () {},
-                                                                  icon: const Icon(
-                                                                      Icons
-                                                                          .download),
-                                                                  label: const Text(
-                                                                      "Download")),
+                                                                      onPressed:
+                                                                          () {
+                                                                        // AuthRepository().downloadFile(
+                                                                        //     url,
+                                                                        //     'Leave_Balance');
+                                                                      },
+                                                                      icon: const Icon(
+                                                                          Icons
+                                                                              .download),
+                                                                      label: const Text(
+                                                                          "Download")),
                                                             )
                                                           ],
                                                         ),
