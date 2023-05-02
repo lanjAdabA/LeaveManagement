@@ -15,7 +15,7 @@ class LeaveReportModel {
   LeaveReportModel({
     required this.id,
     required this.name,
-    required this.gl,
+    required this.general,
     required this.lwp,
     required this.matl,
     required this.margl,
@@ -26,7 +26,7 @@ class LeaveReportModel {
 
   int id;
   String name;
-  String gl;
+  String general;
   String lwp;
   String matl;
   String margl;
@@ -38,7 +38,7 @@ class LeaveReportModel {
       LeaveReportModel(
         id: json["id"],
         name: json["name"],
-        gl: json["gl"],
+        general: json["gl"],
         lwp: json["lwp"],
         matl: json["matl"],
         margl: json["margl"],
@@ -50,7 +50,7 @@ class LeaveReportModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "gl": gl,
+        "gl": general,
         "lwp": lwp,
         "matl": matl,
         "margl": margl,

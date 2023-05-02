@@ -107,10 +107,10 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
       );
 
       displayedDataCell.add(
-        DataCell(item.gl == "0.00"
-            ? Text(item.gl)
+        DataCell(item.general == "0.00"
+            ? Text(item.general)
             : Text(
-                item.gl,
+                item.general,
                 style: const TextStyle(color: Colors.red),
               )),
       );
@@ -361,7 +361,6 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                               groupValue:
                                                   selectedRadioTileforleavereason,
                                               onChanged: (val) {
-                                                print('Selected value: $val');
                                                 setState(() {
                                                   selectedRadioTileforleavereason =
                                                       val;
@@ -668,8 +667,6 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                                     groupValue:
                                                         selectedRadioTileforleave,
                                                     onChanged: (val) {
-                                                      print(
-                                                          'Selected value: $val');
                                                       log(val.toString());
                                                       setState(() {
                                                         selectedRadioTileforleave =
@@ -692,8 +689,6 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                                     groupValue:
                                                         selectedRadioTileforleave,
                                                     onChanged: (val) {
-                                                      print(
-                                                          'Selected value: $val');
                                                       setState(() {
                                                         selectedRadioTileforleave =
                                                             val;

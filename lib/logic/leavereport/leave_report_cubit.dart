@@ -21,7 +21,7 @@ class GetLeaveReportCubit extends Cubit<GetLeaveReportState> {
       log("Leave cubit ");
       final response = await api.sendRequest.get(
           "/api/admin/employee/getleaves",
-          queryParameters: {"from": startdate, "to": enddate});
+          queryParameters: {"from": startdate ?? "", "to": enddate ?? ""});
       log("Start date : $startdate");
       log("end date : $enddate");
 
