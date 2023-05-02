@@ -1474,7 +1474,20 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                                 dropdownvalue44 == null) {
                                                                               EasyLoading.showError('All Fields Are Mandatory');
                                                                             } else {
-                                                                              context.read<CreateEmployeeCubit>().createemployee(empname: _namefieldcontroller.text, empusername: usernamecontroller.text, email: emailcontroller.text, empcode: int.parse(empcode.text), phonenumber: numbercontroller.text, deptid: dropdownvalue22!, designid: dropdownvalue11!, branchid: dropdownvalue44!, roleid: dropdownvalue33!, dateofjoining: datetime, emptype: _selectedRadioTile.toString(), gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
+                                                                              context.read<CreateEmployeeCubit>().createemployee(
+                                                                                empname: _namefieldcontroller.text, 
+                                                                                empusername: usernamecontroller.text, 
+                                                                                email: emailcontroller.text, 
+                                                                                empcode: int.parse(empcode.text),
+                                                                                 phonenumber: numbercontroller.text, 
+                                                                                 deptid: dropdownvalue22!, 
+                                                                                 designid: dropdownvalue11!, 
+                                                                                 branchid: dropdownvalue44!, 
+                                                                                 roleid: dropdownvalue33!, 
+                                                                                 dateofjoining: datetime, 
+                                                                                 emptype: _selectedRadioTile.toString(),
+                                                                                 
+                                                                                  gender: selectedRadioTileforgender == 1 ? 'MALE' : 'FEMALE');
 
                                                                               EasyLoading.dismiss();
 

@@ -472,7 +472,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                       //     },
                                       //   ),
                                       // ),
-                                      SizedBox(
+                                      const SizedBox(
                                         height: 15,
                                       ),
                                       const Align(
