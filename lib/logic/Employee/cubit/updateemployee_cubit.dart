@@ -23,7 +23,7 @@ class UpdateemployeeCubit extends Cubit<UpdateEmployeeStatus>
     required int roleid,
     required String dateofjoining,
     required String emptype,
-    //required String isactive,
+    required String isactive,
   }) {
     _authRepository.updateEmployee(
         empname: empname,
@@ -37,7 +37,8 @@ class UpdateemployeeCubit extends Cubit<UpdateEmployeeStatus>
         emptype: emptype,
         authLoginListener: this,
         id: id,
-        email: email);
+        email: email,
+        isactive: isactive);
     //log("IS_Active : $isactive");
   }
 

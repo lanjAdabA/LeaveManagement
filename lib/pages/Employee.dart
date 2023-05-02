@@ -253,6 +253,7 @@ class _EmployeePageState extends State<EmployeePage> {
                     dropdownvalue3 = item.role;
                     dropdownvalue4 =
                         branchidwithname[item.employeeBranchId].toString();
+                    isactive = item.employeeIsActive == '1' ? true : false;
                   });
 
                   showDialog(
@@ -377,8 +378,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     empname:
                                                                         _namefieldcontroller
                                                                             .text,
-                                                                    empcode: int
-                                                                        .parse(empcode
+                                                                    empcode: int.parse(
+                                                                        empcode
                                                                             .text),
                                                                     phonenumber:
                                                                         numbercontroller
@@ -396,8 +397,13 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     emptype:
                                                                         _selectedRadioTile
                                                                             .toString(),
-                                                                    email: emailcontroller
-                                                                        .text);
+                                                                    email:
+                                                                        emailcontroller
+                                                                            .text,
+                                                                    isactive:
+                                                                        isactive
+                                                                            ? "1"
+                                                                            : "0");
 
                                                                 EasyLoading
                                                                     .dismiss();
@@ -449,9 +455,42 @@ class _EmployeePageState extends State<EmployeePage> {
                                                     child: Form(
                                                       child: SizedBox(
                                                         width: 350,
-                                                        height: 600,
+                                                        height: 630,
                                                         child: Column(
                                                           children: [
+                                                            Row(
+                                                              children: [
+                                                                Align(
+                                                                  alignment:
+                                                                      Alignment
+                                                                          .centerLeft,
+                                                                  child: Text(
+                                                                      'Employee Status : '),
+                                                                ),
+                                                                const Text(
+                                                                    "Active "),
+                                                                Switch(
+                                                                  value:
+                                                                      isactive,
+                                                                  activeColor:
+                                                                      const Color
+                                                                              .fromARGB(
+                                                                          255,
+                                                                          72,
+                                                                          217,
+                                                                          77),
+                                                                  onChanged: (bool
+                                                                      value) {
+                                                                    setState(
+                                                                        () {
+                                                                      isactive =
+                                                                          value;
+                                                                    });
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+
                                                             TextFormField(
                                                                 onChanged:
                                                                     (value) {
