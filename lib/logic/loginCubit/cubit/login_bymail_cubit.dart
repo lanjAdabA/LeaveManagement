@@ -89,6 +89,9 @@ class LoginBymailCubit extends Cubit<LoginBymailState> {
         data: {
           "phone": phonenumber,
         },
+
+        //data: {"phone": phonenumber, "appStatus": 1},
+
         // data: {"phone": phonenumber, "appStatus": 1},
       );
 
