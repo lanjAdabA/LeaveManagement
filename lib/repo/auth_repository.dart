@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'dart:html';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -6,6 +8,7 @@ import 'package:leavemanagementadmin/Interceptor/diointerceptor.dart';
 import 'package:leavemanagementadmin/Interceptor/storetoken.dart';
 import 'package:leavemanagementadmin/constant/apiendpoint.dart';
 import 'package:leavemanagementadmin/listener/auth_login_listener.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:leavemanagementadmin/model/emp%20_listmodel.dart';
 
@@ -536,5 +539,12 @@ class AuthRepository {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  downloadFile(url, label) {
+    var timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    AnchorElement anchorElement = AnchorElement(href: url);
+    anchorElement.download = "$label${timestamp}";
+    anchorElement.click();
   }
 }
