@@ -511,321 +511,335 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                           .bold,
                                                                   fontSize: 20),
                                                             ),
-                                                            Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          50.0),
-                                                              child: ElevatedButton
-                                                                  .icon(
-                                                                      style: ElevatedButton.styleFrom(
-                                                                          backgroundColor: Colors
-                                                                              .grey),
-                                                                      onPressed:
-                                                                          () {
-                                                                        AuthRepository().downlooadFile(
-                                                                            "https://staging.leave.globizs.com/api/excel/balance/download",
-                                                                            "leave_balance");
-                                                                      },
-                                                                      icon: const Icon(
-                                                                          Icons
-                                                                              .download),
-                                                                      label: const Text(
-                                                                          "Download")),
-                                                            )
                                                           ],
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width >
-                                                                1040
-                                                            ? const EdgeInsets
-                                                                    .only(
-                                                                left: 50,
-                                                                top: 15)
-                                                            : const EdgeInsets
-                                                                    .only(
-                                                                left: 10,
-                                                                top: 15),
-                                                        child: InkWell(
-                                                            onTap: () {
-                                                              _namefieldcontroller
-                                                                  .clear();
-                                                              usernamecontroller
-                                                                  .clear();
-                                                              emailcontroller
-                                                                  .clear();
-                                                              numbercontroller
-                                                                  .clear();
-                                                              empcode.clear();
-                                                              setState(() {
-                                                                datetime2 = '';
-                                                              });
-                                                              dropdownvalue1 =
-                                                                  null;
-                                                              dropdownvalue2 =
-                                                                  null;
-                                                              dropdownvalue3 =
-                                                                  null;
-                                                              dropdownvalue4 =
-                                                                  null;
-                                                              showDialog(
-                                                                context:
-                                                                    context,
-                                                                builder: (cnt) {
-                                                                  log('From Showdialog :${checkempState.isexist}');
-                                                                  return BlocConsumer<
-                                                                      CheckemailexistCubit,
-                                                                      CheckemailexistState>(
-                                                                    listener:
-                                                                        (context,
-                                                                            emailcheck) {
-                                                                      // TODO: implement listener
-                                                                    },
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Padding(
+                                                            padding: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width >
+                                                                    1040
+                                                                ? const EdgeInsets
+                                                                        .only(
+                                                                    left: 50,
+                                                                    top: 15)
+                                                                : const EdgeInsets
+                                                                        .only(
+                                                                    left: 10,
+                                                                    top: 15),
+                                                            child: InkWell(
+                                                                onTap: () {
+                                                                  _namefieldcontroller
+                                                                      .clear();
+                                                                  usernamecontroller
+                                                                      .clear();
+                                                                  emailcontroller
+                                                                      .clear();
+                                                                  numbercontroller
+                                                                      .clear();
+                                                                  empcode
+                                                                      .clear();
+                                                                  setState(() {
+                                                                    datetime2 =
+                                                                        '';
+                                                                  });
+                                                                  dropdownvalue1 =
+                                                                      null;
+                                                                  dropdownvalue2 =
+                                                                      null;
+                                                                  dropdownvalue3 =
+                                                                      null;
+                                                                  dropdownvalue4 =
+                                                                      null;
+                                                                  showDialog(
+                                                                    context:
+                                                                        context,
                                                                     builder:
-                                                                        (context,
-                                                                            emailcheck) {
+                                                                        (cnt) {
+                                                                      log('From Showdialog :${checkempState.isexist}');
                                                                       return BlocConsumer<
-                                                                          CheckEmpcodeCubit,
-                                                                          CheckEmpcodeState>(
+                                                                          CheckemailexistCubit,
+                                                                          CheckemailexistState>(
                                                                         listener:
                                                                             (context,
-                                                                                checkempStatefinal) {
+                                                                                emailcheck) {
                                                                           // TODO: implement listener
                                                                         },
                                                                         builder:
                                                                             (context,
-                                                                                checkempStatefinal) {
-                                                                          return StatefulBuilder(builder:
-                                                                              (BuildContext context, void Function(void Function()) setState) {
-                                                                            double
-                                                                                height =
-                                                                                MediaQuery.of(context).size.height;
-                                                                            return SizedBox(
-                                                                              height: height / 2,
-                                                                              child: AlertDialog(
-                                                                                elevation: 10,
-                                                                                actions: [
-                                                                                  Row(
-                                                                                    mainAxisSize: MainAxisSize.min,
-                                                                                    children: [
-                                                                                      OnHoverButton(
-                                                                                        child: ElevatedButton(
-                                                                                            style: ElevatedButton.styleFrom(
-                                                                                              backgroundColor: Colors.grey[300],
-                                                                                            ),
-                                                                                            onPressed: () {
-                                                                                              Navigator.pop(context);
-                                                                                              setState(() {});
-                                                                                            },
-                                                                                            child: const Text(
-                                                                                              "Cancel",
-                                                                                              style: TextStyle(color: Colors.blueGrey),
-                                                                                            )),
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: const EdgeInsets.only(left: 10),
-                                                                                        child: InkWell(
-                                                                                            onTap: () {
-                                                                                              context.read<AddLeaveBalanceCubit>().addleavebalance(leavetypeid: leavedropdownvalue!, empname: empDropDownName);
-
-                                                                                              context.router.pop();
-                                                                                            },
-                                                                                            child: Material(
-                                                                                              shape: RoundedRectangleBorder(
-                                                                                                borderRadius: BorderRadius.circular(13),
-                                                                                              ),
-                                                                                              elevation: 15,
-                                                                                              child: const OnHoverButton(
-                                                                                                child: CardWidget(
-                                                                                                    color: Colors.green,
-                                                                                                    width: 70,
-                                                                                                    height: 30,
-                                                                                                    borderRadius: 5,
-                                                                                                    child: Center(
-                                                                                                      child: Text(
-                                                                                                        'Submit',
-                                                                                                        style: TextStyle(color: Colors.white),
-                                                                                                      ),
-                                                                                                    )),
-                                                                                              ),
-                                                                                            )),
-                                                                                      )
-                                                                                    ],
-                                                                                  ),
-                                                                                ],
-                                                                                title: const Text(
-                                                                                  "Add Leave Balance",
-                                                                                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
-                                                                                ),
-                                                                                content: SizedBox(
-                                                                                  height: 200.0,
-                                                                                  width: 400.0,
-                                                                                  child: Form(
-                                                                                    child: SizedBox(
-                                                                                      width: 300,
-                                                                                      height: 725,
-                                                                                      child: Column(
+                                                                                emailcheck) {
+                                                                          return BlocConsumer<
+                                                                              CheckEmpcodeCubit,
+                                                                              CheckEmpcodeState>(
+                                                                            listener:
+                                                                                (context, checkempStatefinal) {
+                                                                              // TODO: implement listener
+                                                                            },
+                                                                            builder:
+                                                                                (context, checkempStatefinal) {
+                                                                              return StatefulBuilder(builder: (BuildContext context, void Function(void Function()) setState) {
+                                                                                double height = MediaQuery.of(context).size.height;
+                                                                                return SizedBox(
+                                                                                  height: height / 2,
+                                                                                  child: AlertDialog(
+                                                                                    elevation: 10,
+                                                                                    actions: [
+                                                                                      Row(
+                                                                                        mainAxisSize: MainAxisSize.min,
                                                                                         children: [
-                                                                                          Container(
-                                                                                            width: MediaQuery.of(context).size.width,
-                                                                                            padding: const EdgeInsets.symmetric(horizontal: 13),
-                                                                                            decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
-                                                                                            child: DropdownSearch<String>(
-                                                                                              popupProps: PopupProps.menu(
-                                                                                                searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
-                                                                                                constraints: BoxConstraints.expand(height: height / 2.5),
-                                                                                                showSearchBox: true,
-                                                                                                showSelectedItems: true,
-                                                                                              ),
-                                                                                              items: allEmp,
-                                                                                              dropdownDecoratorProps: const DropDownDecoratorProps(
-                                                                                                dropdownSearchDecoration: InputDecoration(
-                                                                                                  hintStyle: TextStyle(
-                                                                                                    fontSize: 15,
-                                                                                                  ),
-                                                                                                  border: InputBorder.none,
-                                                                                                  labelText: "Employee Name :",
-                                                                                                  hintText: "Select Employee Name",
+                                                                                          OnHoverButton(
+                                                                                            child: ElevatedButton(
+                                                                                                style: ElevatedButton.styleFrom(
+                                                                                                  backgroundColor: Colors.grey[300],
                                                                                                 ),
-                                                                                              ),
-                                                                                              onChanged: (String? newValue) {
-                                                                                                setState(() {
-                                                                                                  empDropDownName = newValue as String;
-                                                                                                });
-                                                                                              },
-                                                                                            ),
+                                                                                                onPressed: () {
+                                                                                                  Navigator.pop(context);
+                                                                                                  setState(() {});
+                                                                                                },
+                                                                                                child: const Text(
+                                                                                                  "Cancel",
+                                                                                                  style: TextStyle(color: Colors.blueGrey),
+                                                                                                )),
                                                                                           ),
-                                                                                          const SizedBox(
-                                                                                            height: 10,
-                                                                                          ),
-                                                                                          Container(
-                                                                                            padding: const EdgeInsets.symmetric(horizontal: 13),
-                                                                                            decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
-                                                                                            child: DropdownSearch<String>(
-                                                                                              popupProps: PopupProps.menu(
-                                                                                                searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
-                                                                                                constraints: BoxConstraints.expand(height: height / 3.5),
-                                                                                                showSearchBox: true,
-                                                                                                showSelectedItems: true,
-                                                                                              ),
-                                                                                              items: allLeaveTypeState.allleavetypenamelist,
-                                                                                              dropdownDecoratorProps: const DropDownDecoratorProps(
-                                                                                                dropdownSearchDecoration: InputDecoration(
-                                                                                                  hintStyle: TextStyle(
-                                                                                                    fontSize: 15,
-                                                                                                  ),
-                                                                                                  border: InputBorder.none,
-                                                                                                  labelText: "Leave Type :",
-                                                                                                  hintText: "Select Applicable Leave Type",
-                                                                                                ),
-                                                                                              ),
-                                                                                              onChanged: (String? newValue) {
-                                                                                                setState(() {
-                                                                                                  leavetypeDropDownName = newValue as String;
-                                                                                                  leavecredit = allLeaveTypeState.alleavetypenamewithcredit[leavetypeDropDownName];
-                                                                                                });
+                                                                                          Padding(
+                                                                                            padding: const EdgeInsets.only(left: 10),
+                                                                                            child: InkWell(
+                                                                                                onTap: () {
+                                                                                                  context.read<AddLeaveBalanceCubit>().addleavebalance(leavetypeid: leavedropdownvalue!, empname: empDropDownName);
 
-                                                                                                leavedropdownvalue = allLeaveTypeState.alleavetypeidwithname[leavetypeDropDownName];
-                                                                                              },
-                                                                                            ),
-                                                                                          ),
-                                                                                          const SizedBox(
-                                                                                            height: 10,
-                                                                                          ),
-                                                                                          Container(
-                                                                                              height: 52,
-                                                                                              padding: const EdgeInsets.symmetric(horizontal: 13),
-                                                                                              decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
-                                                                                              child: Row(
-                                                                                                children: [
-                                                                                                  Text(
-                                                                                                    " Balance Credit : ",
-                                                                                                    style: TextStyle(color: Colors.grey[600]),
+                                                                                                  context.router.pop();
+                                                                                                },
+                                                                                                child: Material(
+                                                                                                  shape: RoundedRectangleBorder(
+                                                                                                    borderRadius: BorderRadius.circular(13),
                                                                                                   ),
-                                                                                                  Text(leavecredit)
-                                                                                                ],
-                                                                                              ))
+                                                                                                  elevation: 15,
+                                                                                                  child: const OnHoverButton(
+                                                                                                    child: CardWidget(
+                                                                                                        color: Colors.green,
+                                                                                                        width: 70,
+                                                                                                        height: 30,
+                                                                                                        borderRadius: 5,
+                                                                                                        child: Center(
+                                                                                                          child: Text(
+                                                                                                            'Submit',
+                                                                                                            style: TextStyle(color: Colors.white),
+                                                                                                          ),
+                                                                                                        )),
+                                                                                                  ),
+                                                                                                )),
+                                                                                          )
                                                                                         ],
+                                                                                      ),
+                                                                                    ],
+                                                                                    title: const Text(
+                                                                                      "Add Leave Balance",
+                                                                                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                                                                                    ),
+                                                                                    content: SizedBox(
+                                                                                      height: 200.0,
+                                                                                      width: 400.0,
+                                                                                      child: Form(
+                                                                                        child: SizedBox(
+                                                                                          width: 300,
+                                                                                          height: 725,
+                                                                                          child: Column(
+                                                                                            children: [
+                                                                                              Container(
+                                                                                                width: MediaQuery.of(context).size.width,
+                                                                                                padding: const EdgeInsets.symmetric(horizontal: 13),
+                                                                                                decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
+                                                                                                child: DropdownSearch<String>(
+                                                                                                  popupProps: PopupProps.menu(
+                                                                                                    searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
+                                                                                                    constraints: BoxConstraints.expand(height: height / 2.5),
+                                                                                                    showSearchBox: true,
+                                                                                                    showSelectedItems: true,
+                                                                                                  ),
+                                                                                                  items: allEmp,
+                                                                                                  dropdownDecoratorProps: const DropDownDecoratorProps(
+                                                                                                    dropdownSearchDecoration: InputDecoration(
+                                                                                                      hintStyle: TextStyle(
+                                                                                                        fontSize: 15,
+                                                                                                      ),
+                                                                                                      border: InputBorder.none,
+                                                                                                      labelText: "Employee Name :",
+                                                                                                      hintText: "Select Employee Name",
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  onChanged: (String? newValue) {
+                                                                                                    setState(() {
+                                                                                                      empDropDownName = newValue as String;
+                                                                                                    });
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                              const SizedBox(
+                                                                                                height: 10,
+                                                                                              ),
+                                                                                              Container(
+                                                                                                padding: const EdgeInsets.symmetric(horizontal: 13),
+                                                                                                decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
+                                                                                                child: DropdownSearch<String>(
+                                                                                                  popupProps: PopupProps.menu(
+                                                                                                    searchFieldProps: const TextFieldProps(decoration: InputDecoration(border: OutlineInputBorder(), constraints: BoxConstraints(maxHeight: 40))),
+                                                                                                    constraints: BoxConstraints.expand(height: height / 3.5),
+                                                                                                    showSearchBox: true,
+                                                                                                    showSelectedItems: true,
+                                                                                                  ),
+                                                                                                  items: allLeaveTypeState.allleavetypenamelist,
+                                                                                                  dropdownDecoratorProps: const DropDownDecoratorProps(
+                                                                                                    dropdownSearchDecoration: InputDecoration(
+                                                                                                      hintStyle: TextStyle(
+                                                                                                        fontSize: 15,
+                                                                                                      ),
+                                                                                                      border: InputBorder.none,
+                                                                                                      labelText: "Leave Type :",
+                                                                                                      hintText: "Select Applicable Leave Type",
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  onChanged: (String? newValue) {
+                                                                                                    setState(() {
+                                                                                                      leavetypeDropDownName = newValue as String;
+                                                                                                      leavecredit = allLeaveTypeState.alleavetypenamewithcredit[leavetypeDropDownName];
+                                                                                                    });
+
+                                                                                                    leavedropdownvalue = allLeaveTypeState.alleavetypeidwithname[leavetypeDropDownName];
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                              const SizedBox(
+                                                                                                height: 10,
+                                                                                              ),
+                                                                                              Container(
+                                                                                                  height: 52,
+                                                                                                  padding: const EdgeInsets.symmetric(horizontal: 13),
+                                                                                                  decoration: BoxDecoration(color: const Color.fromARGB(255, 240, 237, 237), borderRadius: BorderRadius.circular(12), border: Border.all(color: const Color.fromARGB(255, 225, 222, 222))),
+                                                                                                  child: Row(
+                                                                                                    children: [
+                                                                                                      Text(
+                                                                                                        " Balance Credit : ",
+                                                                                                        style: TextStyle(color: Colors.grey[600]),
+                                                                                                      ),
+                                                                                                      Text(leavecredit)
+                                                                                                    ],
+                                                                                                  ))
+                                                                                            ],
+                                                                                          ),
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                ),
-                                                                              ),
-                                                                            );
+                                                                                );
 
-                                                                            // AddBalPopUp(
-                                                                            //   allEmpNameList:
-                                                                            //       allEmp,
-                                                                            //   empNameWithId:
-                                                                            //       empNameWithId,
-                                                                            //   allLeaveType:
-                                                                            //       allLeaveTypeState.allleavetypenamelist,
-                                                                            //   leaveTypeWithId:
-                                                                            //       allLeaveTypeState.alleavetypeidwithname,
-                                                                            //   leavatypenamewithcredit:
-                                                                            //       allLeaveTypeState.alleavetypenamewithcredit,
-                                                                            //   datacell:
-                                                                            //       displayedDataCell,
-                                                                            // );
-                                                                          });
+                                                                                // AddBalPopUp(
+                                                                                //   allEmpNameList:
+                                                                                //       allEmp,
+                                                                                //   empNameWithId:
+                                                                                //       empNameWithId,
+                                                                                //   allLeaveType:
+                                                                                //       allLeaveTypeState.allleavetypenamelist,
+                                                                                //   leaveTypeWithId:
+                                                                                //       allLeaveTypeState.alleavetypeidwithname,
+                                                                                //   leavatypenamewithcredit:
+                                                                                //       allLeaveTypeState.alleavetypenamewithcredit,
+                                                                                //   datacell:
+                                                                                //       displayedDataCell,
+                                                                                // );
+                                                                              });
+                                                                            },
+                                                                          );
                                                                         },
                                                                       );
                                                                     },
                                                                   );
                                                                 },
-                                                              );
-                                                            },
-                                                            child: Material(
-                                                              shape:
-                                                                  RoundedRectangleBorder(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
+                                                                child: Material(
+                                                                  shape:
+                                                                      RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
                                                                             13),
-                                                              ),
-                                                              elevation: 15,
-                                                              child:
-                                                                  const OnHoverButton(
-                                                                child:
-                                                                    CardWidget(
-                                                                        gradient: [
-                                                                      Color.fromARGB(
-                                                                          255,
-                                                                          211,
-                                                                          32,
-                                                                          39),
-                                                                      Color.fromARGB(
-                                                                          255,
-                                                                          164,
-                                                                          92,
-                                                                          95)
-                                                                    ],
-                                                                        width:
-                                                                            140,
-                                                                        height:
-                                                                            40,
-                                                                        borderRadius:
-                                                                            13,
-                                                                        child:
-                                                                            Center(
-                                                                          child:
-                                                                              Padding(
-                                                                            padding:
-                                                                                EdgeInsets.symmetric(horizontal: 8.0),
+                                                                  ),
+                                                                  elevation: 15,
+                                                                  child:
+                                                                      const OnHoverButton(
+                                                                    child:
+                                                                        CardWidget(
+                                                                            gradient: [
+                                                                          Color.fromARGB(
+                                                                              255,
+                                                                              211,
+                                                                              32,
+                                                                              39),
+                                                                          Color.fromARGB(
+                                                                              255,
+                                                                              164,
+                                                                              92,
+                                                                              95)
+                                                                        ],
+                                                                            width:
+                                                                                140,
+                                                                            height:
+                                                                                40,
+                                                                            borderRadius:
+                                                                                13,
                                                                             child:
-                                                                                Text(
-                                                                              "Add Leave Balance",
-                                                                              style: TextStyle(color: Colors.white),
-                                                                            ),
-                                                                          ),
-                                                                        )),
-                                                              ),
-                                                            )),
+                                                                                Center(
+                                                                              child: Padding(
+                                                                                padding: EdgeInsets.symmetric(horizontal: 8.0),
+                                                                                child: Text(
+                                                                                  "Add Leave Balance",
+                                                                                  style: TextStyle(color: Colors.white),
+                                                                                ),
+                                                                              ),
+                                                                            )),
+                                                                  ),
+                                                                )),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    right: 50),
+                                                            child: ElevatedButton
+                                                                .icon(
+                                                                    style: ElevatedButton.styleFrom(
+                                                                        shape: RoundedRectangleBorder(
+                                                                            borderRadius: BorderRadius.circular(
+                                                                                10.0)),
+                                                                        backgroundColor: const Color.fromARGB(
+                                                                            255,
+                                                                            43,
+                                                                            48,
+                                                                            58)),
+                                                                    onPressed:
+                                                                        () {
+                                                                      AuthRepository().downlooadFile(
+                                                                          "https://staging.leave.globizs.com/api/excel/balance/download",
+                                                                          "leave_balance");
+                                                                    },
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .download),
+                                                                    label: const Text(
+                                                                        "Download")),
+                                                            //  ElevatedButton(
+                                                            //     onPressed: () {},
+                                                            //     child: Row(
+                                                            //       children: const [
+                                                            //         Icon(Icons.download),
+                                                            //         Text("Download report"),
+                                                            //       ],
+                                                            //     )),
+                                                          )
+                                                        ],
                                                       ),
                                                       Expanded(
                                                         child: Align(
