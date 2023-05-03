@@ -43,6 +43,7 @@ class _EmployeePageState extends State<EmployeePage> {
   String fillname = "";
   bool isfocus = false;
   int? limit;
+  int lastindex = 0;
   List<String> isactivelist = ["Active", "Inactive"];
 
   final _debouncer = Debouncer(500);
@@ -100,6 +101,7 @@ class _EmployeePageState extends State<EmployeePage> {
   bool israngeselected = false;
 
   bool? ismoreloading;
+  bool? isloading;
   int pagenumber = 1;
   ScrollController datatablescrollcontroller = ScrollController();
   final FocusNode empfocusnode = FocusNode();
@@ -108,6 +110,7 @@ class _EmployeePageState extends State<EmployeePage> {
   void initState() {
     super.initState();
     readall();
+    isloading = false;
 
     _selectedRadioTile = 1;
     selectedRadioTileforleave = 1;
@@ -120,18 +123,33 @@ class _EmployeePageState extends State<EmployeePage> {
         } else {
           setState(() {
             pagenumber = pagenumber + 1;
+            isloading = true;
+            lastindex = lastindex + 15;
           });
+          // context.read<GetemployeelistCubit>().getemployeelist(
+          //     pagenumber: pagenumber,
+          //     limit: 15,
+          //     ismoredata: true,
+          //     branchid: dropdownvalue_branchid,
+          //     deptid: dropdownvalue_departmentid,
+          //     desigid: dropdownvalue_designid,
+          //     rolename: dropdownvalue_roleid);
 
-          context.read<GetemployeelistCubit>().getemployeelist(
-              pagenumber: pagenumber,
-              limit: 15,
-              ismoredata: true,
-              branchid: dropdownvalue_branchid,
-              deptid: dropdownvalue_departmentid,
-              desigid: dropdownvalue_designid,
-              rolename: dropdownvalue_roleid);
+          Future.delayed(Duration(seconds: 3)).whenComplete(() {
+            setState(() {
+              isloading = false;
+            });
+            context.read<GetemployeelistCubit>().getemployeelist(
+                pagenumber: pagenumber,
+                limit: 15,
+                ismoredata: true,
+                branchid: dropdownvalue_branchid,
+                deptid: dropdownvalue_departmentid,
+                desigid: dropdownvalue_designid,
+                rolename: dropdownvalue_roleid);
 
-          log('reach buttom');
+            log('reach buttom');
+          });
         }
       }
     });
@@ -175,9 +193,9 @@ class _EmployeePageState extends State<EmployeePage> {
             SizedBox(
               width: 20,
               child: Center(
-                child: Text(
-                  (allemplist.indexOf(item) + 1).toString(),
-                ),
+                child: lastindex == 0
+                    ? Text((allemplist.indexOf(item) + 1).toString())
+                    : Text((allemplist.indexOf(item) + lastindex).toString()),
               ),
             ),
           ),
@@ -2363,6 +2381,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     isactivename =
                                                                         newValue
                                                                             as String;
+                                                                    lastindex =
+                                                                        0;
                                                                   });
 
                                                                   // dropdownvalue_designid = alldesignstate
@@ -2376,12 +2396,13 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   //             null);
 
                                                                   context.read<GetemployeelistCubit>().getemployeelist(
-                                                                      isactive: isactivename ==
-                                                                              "Active"
+                                                                      isactive: isactivename == "Active"
                                                                           ? "1"
                                                                           : "0",
                                                                       pagenumber:
-                                                                          pagenumber,
+                                                                          1,
+                                                                      limit:
+                                                                          limit,
                                                                       ismoredata:
                                                                           true,
                                                                       desigid:
@@ -2455,6 +2476,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                           () {
                                                                         isfocus =
                                                                             true;
+                                                                        lastindex =
+                                                                            0;
                                                                       });
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           isactive: isactivename == "Active"
@@ -2465,7 +2488,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                           limit:
                                                                               limit,
                                                                           pagenumber:
-                                                                              pagenumber,
+                                                                              1,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2479,6 +2502,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     }
                                                                     if (value
                                                                         .isEmpty) {
+                                                                      setState(
+                                                                          () {
+                                                                        lastindex =
+                                                                            0;
+                                                                      });
                                                                       displayedDataCell
                                                                           .clear();
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
@@ -2490,7 +2518,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                           limit:
                                                                               15,
                                                                           pagenumber:
-                                                                              pagenumber,
+                                                                              1,
                                                                           ismoredata:
                                                                               true,
                                                                           desigid:
@@ -2602,6 +2630,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   dropdownvalue_designname =
                                                                       newValue
                                                                           as String;
+                                                                  lastindex = 0;
                                                                 });
 
                                                                 dropdownvalue_designid = alldesignstate
@@ -2620,7 +2649,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
-                                                                        pagenumber,
+                                                                        1,
                                                                     limit:
                                                                         limit,
                                                                     ismoredata:
@@ -2720,6 +2749,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   dropdownvalue_departmentname =
                                                                       newValue
                                                                           as String;
+                                                                  lastindex = 0;
                                                                 });
 
                                                                 dropdownvalue_departmentid = alldeptState
@@ -2740,7 +2770,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
-                                                                        pagenumber,
+                                                                        1,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2843,6 +2873,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   dropdownvalue_rolename =
                                                                       newValue
                                                                           as String;
+                                                                  lastindex = 0;
                                                                 });
 
                                                                 dropdownvalue_roleid =
@@ -2857,7 +2888,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
-                                                                        pagenumber,
+                                                                        1,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2955,6 +2986,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                   dropdownvalue_branchname =
                                                                       newValue
                                                                           as String;
+                                                                  lastindex = 0;
                                                                 });
                                                                 dropdownvalue_branchid = allbranchState
                                                                     .branchidwithname
@@ -2974,7 +3006,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
-                                                                        pagenumber,
+                                                                        1,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -3021,9 +3053,26 @@ class _EmployeePageState extends State<EmployeePage> {
                                           ),
                                         ),
                                       ),
-                                      const SizedBox(
-                                        height: 50,
-                                      ),
+                                      isloading!
+                                          ? Center(
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                        height: 25,
+                                                        width: 25,
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox(
+                                              height: 50,
+                                            ),
                                     ]),
                               );
                             },

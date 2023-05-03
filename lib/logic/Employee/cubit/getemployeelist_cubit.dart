@@ -63,7 +63,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
           if (emplist.employees.isEmpty) {
             emit(PostLoadedState(
                 allemployeelist: emplist.employees,
-                isloading: false,
+                isloading: ismoredata,
                 isempty: true,
                 allempnamelist: allempnamelist,
                 emptidwithname: result,
@@ -71,7 +71,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
           } else {
             emit(PostLoadedState(
                 allemployeelist: emplist.employees,
-                isloading: false,
+                isloading: ismoredata,
                 isempty: false,
                 allempnamelist: allempnamelist,
                 emptidwithname: result,
