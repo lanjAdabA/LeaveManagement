@@ -15,6 +15,7 @@ class LoginBymailCubit extends Cubit<LoginBymailState> {
   //static const baseUrl = "https://leavemngt.globizsapp.com";
 
   // static const baseUrl = "https://leavemngt.globizsapp.com";
+
   static const loginUrl = "/api/auth/login";
   static const verifyUser = "/api/auth/login/verify";
   Dio dio = Dio(BaseOptions(baseUrl: baseUrl));
