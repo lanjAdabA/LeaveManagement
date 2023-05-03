@@ -343,7 +343,8 @@ class AuthRepository {
       int? deptid,
       int? desigid,
       int? branchid,
-      int? roleid}) async {
+      int? roleid,
+      String? isactive}) async {
     try {
       final response = await dio.get("/api/admin/employees", queryParameters: {
         "limit": 15,
@@ -352,7 +353,8 @@ class AuthRepository {
         "department_id": deptid ?? 0,
         "designation_id": desigid ?? 0,
         "branch_id": branchid ?? 0,
-        "role_id": roleid ?? 0
+        "role_id": roleid ?? 0,
+        "isActive": isactive
       });
       if (response.statusCode == 200) {
         log(response.data.toString());
