@@ -999,6 +999,8 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                       padding: const EdgeInsets.only(right: 50),
                       child: ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 12, horizontal: 16),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0)),
                               backgroundColor:
