@@ -524,9 +524,9 @@ class _LeaveBalancePageState extends State<LeaveBalancePage> {
                                                                               .grey),
                                                                       onPressed:
                                                                           () {
-                                                                        // AuthRepository().downloadFile(
-                                                                        //     url,
-                                                                        //     'Leave_Balance');
+                                                                        AuthRepository().downlooadFile(
+                                                                            "https://staging.leave.globizs.com/api/excel/balance/download",
+                                                                            "leave_balance");
                                                                       },
                                                                       icon: const Icon(
                                                                           Icons

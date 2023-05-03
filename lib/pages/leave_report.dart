@@ -14,6 +14,7 @@ import 'package:leavemanagementadmin/logic/leave/cubit/get2leavetype_cubit.dart'
 
 import 'package:leavemanagementadmin/logic/leavereport/leave_report_cubit.dart';
 import 'package:leavemanagementadmin/model/leave_report.dart';
+import 'package:leavemanagementadmin/repo/auth_repository.dart';
 
 import '../logic/leave/cubit/cubit/createleave_cubit.dart';
 import 'sidebar.dart';
@@ -1002,7 +1003,11 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                   borderRadius: BorderRadius.circular(10.0)),
                               backgroundColor:
                                   const Color.fromARGB(255, 43, 48, 58)),
-                          onPressed: () {},
+                          onPressed: () {
+                            AuthRepository().downlooadFile(
+                                "https://staging.leave.globizs.com/api/excel/leave/download",
+                                "leave_report");
+                          },
                           icon: const Icon(Icons.download),
                           label: const Text("Download")),
                       //  ElevatedButton(

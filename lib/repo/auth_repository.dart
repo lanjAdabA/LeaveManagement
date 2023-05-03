@@ -544,7 +544,7 @@ class AuthRepository {
     }
   }
 
-  downloadFile(url, label) {
+  downlooadFile(url, label) {
     var timestamp = DateTime.now().millisecondsSinceEpoch.toString();
     AnchorElement anchorElement = AnchorElement(href: url);
     anchorElement.download = "$label${timestamp}";
