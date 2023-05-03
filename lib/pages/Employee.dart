@@ -42,6 +42,7 @@ class _EmployeePageState extends State<EmployeePage> {
   bool isactive = false;
   String fillname = "";
   bool isfocus = false;
+  int? limit;
   List<String> isactivelist = ["Active", "Inactive"];
 
   final _debouncer = Debouncer(500);
@@ -120,10 +121,10 @@ class _EmployeePageState extends State<EmployeePage> {
           setState(() {
             pagenumber = pagenumber + 1;
           });
-          displayedDataCell.clear();
 
           context.read<GetemployeelistCubit>().getemployeelist(
               pagenumber: pagenumber,
+              limit: 15,
               ismoredata: true,
               branchid: dropdownvalue_branchid,
               deptid: dropdownvalue_departmentid,
@@ -1389,6 +1390,7 @@ class _EmployeePageState extends State<EmployeePage> {
                             log('All Design :${alldesignstate.designidwithname}');
                             ismoreloading = getempoyeestate.isloading;
                             isempty = getempoyeestate.isempty;
+                            limit = getempoyeestate.totalemp;
                             // if (allbranchState.branchidwithname.isEmpty) {
                             //   log('Branch is empty');
                             //   context.read<GetallbranchCubit>().getallbranch();
@@ -2460,6 +2462,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                               : "0",
                                                                           name:
                                                                               value,
+                                                                          limit:
+                                                                              limit,
                                                                           pagenumber:
                                                                               pagenumber,
                                                                           ismoredata:
@@ -2475,12 +2479,16 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     }
                                                                     if (value
                                                                         .isEmpty) {
+                                                                      displayedDataCell
+                                                                          .clear();
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
                                                                           isactive: isactivename == "Active"
                                                                               ? "1"
                                                                               : "0",
                                                                           name:
                                                                               value,
+                                                                          limit:
+                                                                              15,
                                                                           pagenumber:
                                                                               pagenumber,
                                                                           ismoredata:
@@ -2608,12 +2616,13 @@ class _EmployeePageState extends State<EmployeePage> {
 
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
                                                                     isactive:
-                                                                        isactivename ==
-                                                                                "Active"
+                                                                        isactivename == "Active"
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
                                                                         pagenumber,
+                                                                    limit:
+                                                                        limit,
                                                                     ismoredata:
                                                                         true,
                                                                     desigid:
@@ -2727,8 +2736,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
                                                                     isactive:
-                                                                        isactivename ==
-                                                                                "Active"
+                                                                        isactivename == "Active"
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
@@ -2737,6 +2745,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                         true,
                                                                     desigid:
                                                                         dropdownvalue_designid,
+                                                                    limit:
+                                                                        limit,
                                                                     deptid:
                                                                         dropdownvalue_departmentid,
                                                                     rolename:
@@ -2843,8 +2853,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
                                                                     isactive:
-                                                                        isactivename ==
-                                                                                "Active"
+                                                                        isactivename == "Active"
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
@@ -2853,6 +2862,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                         true,
                                                                     desigid:
                                                                         dropdownvalue_designid,
+                                                                    limit:
+                                                                        limit,
                                                                     deptid:
                                                                         dropdownvalue_departmentid,
                                                                     rolename:
@@ -2959,8 +2970,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
                                                                     isactive:
-                                                                        isactivename ==
-                                                                                "Active"
+                                                                        isactivename == "Active"
                                                                             ? "1"
                                                                             : "0",
                                                                     pagenumber:
@@ -2969,6 +2979,8 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                         true,
                                                                     desigid:
                                                                         dropdownvalue_designid,
+                                                                    limit:
+                                                                        limit,
                                                                     deptid:
                                                                         dropdownvalue_departmentid,
                                                                     rolename:

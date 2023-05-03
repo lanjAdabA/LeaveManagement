@@ -20,9 +20,11 @@ class PostLoadedState extends PostState {
   final bool isempty;
   final List<String> allempnamelist;
   final Map<dynamic, dynamic> emptidwithname;
+  final int totalemp;
 
   PostLoadedState(
-      {required this.allempnamelist,
+      {required this.totalemp,
+      required this.allempnamelist,
       required this.emptidwithname,
       required this.isempty,
       required this.isloading,

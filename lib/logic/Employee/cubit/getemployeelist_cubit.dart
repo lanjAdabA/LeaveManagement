@@ -12,23 +12,24 @@ class GetemployeelistCubit extends Cubit<PostState> {
   GetemployeelistCubit() : super(PostinitialState(''));
 
   AuthRepository postRepository = AuthRepository();
-  List<Employee>? emplistfinal = [];
-  void getemployeelist({
-    required int pagenumber,
-    required bool ismoredata,
-    String? name,
-    int? deptid,
-    int? desigid,
-    int? branchid,
-    int? rolename,
-    String? isactive,
-  }) async {
+
+  void getemployeelist(
+      {required int pagenumber,
+      required bool ismoredata,
+      String? name,
+      int? deptid,
+      int? desigid,
+      int? branchid,
+      int? rolename,
+      String? isactive,
+      int? limit}) async {
     emit(PostLoadingState('Fetching Data..'));
     List allemptidlist = [];
     List<String> allempnamelist = [];
     try {
       if (ismoredata) {
-        List<Employee>? emplist = await postRepository.getemployeeList(
+        EmployeeListModel? emplist = await postRepository.getemployeeList(
+            limit: limit,
             pagenumber: pagenumber,
             name: name,
             deptid: deptid,
@@ -37,8 +38,7 @@ class GetemployeelistCubit extends Cubit<PostState> {
             roleid: rolename,
             isactive: isactive);
 
-        for (var element in emplist!) {
-          emplistfinal!.add(element);
+        for (var element in emplist!.employees) {
           allemptidlist.add(element.employeeId);
           allempnamelist.add(element.employeeName);
           // if (allbranchIdlist.contains(element.id)) {
@@ -55,34 +55,37 @@ class GetemployeelistCubit extends Cubit<PostState> {
         var result = Map.fromIterables(allempnamelist, allemptidlist);
         log('From Cubit for Department :$result');
 
-        if (emplist.length < 15) {
+        if (emplist.employees.length < 15) {
           ismoredata = false;
 
-          log(emplist.length.toString());
-          log(emplist.toString());
-          if (emplist.isEmpty) {
+          log(emplist.employees.length.toString());
+          log(emplist.employees.toString());
+          if (emplist.employees.isEmpty) {
             emit(PostLoadedState(
-                allemployeelist: emplistfinal!,
+                allemployeelist: emplist.employees,
                 isloading: false,
                 isempty: true,
                 allempnamelist: allempnamelist,
-                emptidwithname: result));
+                emptidwithname: result,
+                totalemp: emplist.count));
           } else {
             emit(PostLoadedState(
-                allemployeelist: emplistfinal!,
+                allemployeelist: emplist.employees,
                 isloading: false,
                 isempty: false,
                 allempnamelist: allempnamelist,
-                emptidwithname: result));
+                emptidwithname: result,
+                totalemp: emplist.count));
           }
         } else {
-          log(emplist.length.toString());
+          log(emplist.employees.length.toString());
           emit(PostLoadedState(
-              allemployeelist: emplistfinal!,
+              allemployeelist: emplist.employees,
               isloading: ismoredata,
               isempty: false,
               allempnamelist: allempnamelist,
-              emptidwithname: result));
+              emptidwithname: result,
+              totalemp: emplist.count));
         }
       }
     } on DioError catch (ex) {
