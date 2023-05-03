@@ -10,11 +10,13 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 
 import 'package:leavemanagementadmin/constant.dart';
+import 'package:leavemanagementadmin/constant/debouncer.dart';
 import 'package:leavemanagementadmin/logic/leave/cubit/get2leavetype_cubit.dart';
 
 import 'package:leavemanagementadmin/logic/leavereport/leave_report_cubit.dart';
 import 'package:leavemanagementadmin/model/leave_report.dart';
 import 'package:leavemanagementadmin/repo/auth_repository.dart';
+import 'package:leavemanagementadmin/widget/filter.dart';
 
 import '../logic/leave/cubit/cubit/createleave_cubit.dart';
 import 'sidebar.dart';
@@ -32,6 +34,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
 
   TextEditingController leaveappliedforcontroller = TextEditingController();
   TextEditingController leavereasoncontroller = TextEditingController();
+  TextEditingController reportempsearchcontroller = TextEditingController();
 
   String datetime = '';
   String startdate = '';
@@ -41,6 +44,11 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
   String enddatefinal2 = '';
   bool israngeselected = false;
   bool israngeselected2 = false;
+  // SEARCH FILTER
+  final _debouncer = Debouncer(500);
+  bool isfocus = false;
+  String reportempsearchname = '';
+
   List<LeaveReportModel> leavereportdatalist = [];
   List<DataCell> displayedDataCell = [];
   final TextEditingController empcode = TextEditingController();
@@ -1039,6 +1047,7 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                           ),
                           fixedTopRows: 1,
                           showBottomBorder: true,
+                          headingRowHeight: 80,
                           dataRowHeight: 43,
                           dividerThickness: 2,
                           headingTextStyle:
@@ -1084,10 +1093,74 @@ class _LeaveReportPageState extends State<LeaveReportPage> {
                                 'Sl.no',
                               ),
                             ),
-                            const DataColumn2(
-                              label: Text(
-                                overflow: TextOverflow.ellipsis,
-                                'Employee',
+                            DataColumn2(
+                              label: Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Column(
+                                  children: [
+                                    const Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      'Employee',
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8),
+                                      child: OnHoverButton(
+                                        child: Container(
+                                          height: 32,
+                                          width: 250,
+                                          padding: const EdgeInsets.all(6),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: Colors.grey)),
+                                          child: TextField(
+                                            autofocus: isfocus,
+                                            controller:
+                                                reportempsearchcontroller,
+                                            onChanged: (value) {
+                                              _debouncer.run(() {
+                                                if (value.length >= 3) {
+                                                  displayedDataCell.clear();
+                                                  setState(() {
+                                                    isfocus = true;
+                                                    // reportempsearchname = value;
+                                                  });
+                                                  log("Leave report : $value");
+                                                  context
+                                                      .read<
+                                                          GetLeaveReportCubit>()
+                                                      .getleavereport(
+                                                          empname: value,
+                                                          enddate: enddate,
+                                                          startdate: startdate);
+                                                }
+                                                if (value.isEmpty) {
+                                                  displayedDataCell.clear();
+                                                  log("Leave report empty : $value");
+
+                                                  context
+                                                      .read<
+                                                          GetLeaveReportCubit>()
+                                                      .getleavereport(
+                                                          empname: value,
+                                                          enddate: enddate,
+                                                          startdate: startdate);
+                                                }
+                                              });
+                                            },
+                                            decoration: const InputDecoration(
+                                              hintText:
+                                                  " Search \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t🔍",
+                                              border: InputBorder.none,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             DataColumn2(

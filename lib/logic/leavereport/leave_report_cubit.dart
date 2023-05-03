@@ -16,12 +16,17 @@ class GetLeaveReportCubit extends Cubit<GetLeaveReportState> {
   void getleavereport({
     String? startdate,
     String? enddate,
+    String? empname,
   }) async {
     try {
       log("Leave cubit ");
-      final response = await api.sendRequest.get(
-          "/api/admin/employee/getleaves",
-          queryParameters: {"from": startdate ?? '', "to": enddate ?? ''});
+      log("Leave report cubit  : $empname");
+      final response = await api.sendRequest
+          .get("/api/admin/employee/getleaves", queryParameters: {
+        "from": startdate ?? '',
+        "to": enddate ?? '',
+        "name": empname ?? "",
+      });
 
       log("Start date : $startdate");
       log("end date : $enddate");
