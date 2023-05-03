@@ -42,6 +42,7 @@ class _EmployeePageState extends State<EmployeePage> {
   bool isactive = false;
   String fillname = "";
   bool isfocus = false;
+  List<String> isactivelist = ["Active", "Inactive"];
 
   final _debouncer = Debouncer(500);
   TextEditingController leaveappliedforcontroller = TextEditingController();
@@ -467,7 +468,7 @@ class _EmployeePageState extends State<EmployeePage> {
                                                           children: [
                                                             Row(
                                                               children: [
-                                                                Align(
+                                                                const Align(
                                                                   alignment:
                                                                       Alignment
                                                                           .centerLeft,
@@ -1265,6 +1266,8 @@ class _EmployeePageState extends State<EmployeePage> {
       }
     }
   }
+
+  String? isactivename;
 
   String? dropdownvalue_designname;
   int? dropdownvalue_designid;
@@ -2274,13 +2277,124 @@ class _EmployeePageState extends State<EmployeePage> {
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .start,
-                                                      children: const [
-                                                        Padding(
+                                                      children: [
+                                                        const Padding(
                                                           padding:
                                                               EdgeInsets.only(
                                                                   top: 14.0),
                                                           child: Text(
                                                             'Employee Status',
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                            top: 7,
+                                                          ),
+                                                          child: OnHoverButton(
+                                                            child: Container(
+                                                              height: 38,
+                                                              width:
+                                                                  MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width,
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      13),
+                                                              decoration: BoxDecoration(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              12),
+                                                                  border: Border.all(
+                                                                      color: Colors
+                                                                          .grey)),
+                                                              child:
+                                                                  DropdownSearch<
+                                                                      String>(
+                                                                selectedItem:
+                                                                    isactivename,
+                                                                popupProps:
+                                                                    PopupProps
+                                                                        .menu(
+                                                                  searchFieldProps: const TextFieldProps(
+                                                                      decoration: InputDecoration(
+                                                                          border:
+                                                                              OutlineInputBorder(),
+                                                                          constraints:
+                                                                              BoxConstraints(maxHeight: 40))),
+                                                                  constraints: BoxConstraints.tight(
+                                                                      const Size(
+                                                                          250,
+                                                                          180)),
+                                                                  showSearchBox:
+                                                                      true,
+                                                                  showSelectedItems:
+                                                                      true,
+                                                                ),
+                                                                items:
+                                                                    isactivelist,
+                                                                dropdownDecoratorProps:
+                                                                    const DropDownDecoratorProps(
+                                                                  dropdownSearchDecoration:
+                                                                      InputDecoration(
+                                                                    hintStyle:
+                                                                        TextStyle(
+                                                                      fontSize:
+                                                                          15,
+                                                                    ),
+                                                                    border:
+                                                                        InputBorder
+                                                                            .none,
+                                                                    hintText:
+                                                                        "Choose ",
+                                                                  ),
+                                                                ),
+                                                                onChanged: (String?
+                                                                    newValue) {
+                                                                  setState(() {
+                                                                    isactivename =
+                                                                        newValue
+                                                                            as String;
+                                                                  });
+
+                                                                  // dropdownvalue_designid = alldesignstate
+                                                                  //     .designidwithname
+                                                                  //     .keys
+                                                                  //     .firstWhere(
+                                                                  //         (k) =>
+                                                                  //             alldesignstate.designidwithname[k] ==
+                                                                  //             dropdownvalue_designname,
+                                                                  //         orElse: () =>
+                                                                  //             null);
+
+                                                                  context.read<GetemployeelistCubit>().getemployeelist(
+                                                                      isactive: isactivename ==
+                                                                              "Active"
+                                                                          ? "1"
+                                                                          : "0",
+                                                                      pagenumber:
+                                                                          pagenumber,
+                                                                      ismoredata:
+                                                                          true,
+                                                                      desigid:
+                                                                          dropdownvalue_designid,
+                                                                      deptid:
+                                                                          dropdownvalue_departmentid,
+                                                                      rolename:
+                                                                          dropdownvalue_roleid,
+                                                                      branchid:
+                                                                          dropdownvalue_branchid);
+                                                                  displayedDataCell
+                                                                      .clear();
+                                                                },
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
@@ -2341,6 +2455,9 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             true;
                                                                       });
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
+                                                                          isactive: isactivename == "Active"
+                                                                              ? "1"
+                                                                              : "0",
                                                                           name:
                                                                               value,
                                                                           pagenumber:
@@ -2359,6 +2476,9 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                     if (value
                                                                         .isEmpty) {
                                                                       context.read<GetemployeelistCubit>().getemployeelist(
+                                                                          isactive: isactivename == "Active"
+                                                                              ? "1"
+                                                                              : "0",
                                                                           name:
                                                                               value,
                                                                           pagenumber:
@@ -2487,6 +2607,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                             null);
 
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
+                                                                    isactive:
+                                                                        isactivename ==
+                                                                                "Active"
+                                                                            ? "1"
+                                                                            : "0",
                                                                     pagenumber:
                                                                         pagenumber,
                                                                     ismoredata:
@@ -2601,6 +2726,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
+                                                                    isactive:
+                                                                        isactivename ==
+                                                                                "Active"
+                                                                            ? "1"
+                                                                            : "0",
                                                                     pagenumber:
                                                                         pagenumber,
                                                                     ismoredata:
@@ -2712,6 +2842,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
+                                                                    isactive:
+                                                                        isactivename ==
+                                                                                "Active"
+                                                                            ? "1"
+                                                                            : "0",
                                                                     pagenumber:
                                                                         pagenumber,
                                                                     ismoredata:
@@ -2823,6 +2958,11 @@ class _EmployeePageState extends State<EmployeePage> {
                                                                 displayedDataCell
                                                                     .clear();
                                                                 context.read<GetemployeelistCubit>().getemployeelist(
+                                                                    isactive:
+                                                                        isactivename ==
+                                                                                "Active"
+                                                                            ? "1"
+                                                                            : "0",
                                                                     pagenumber:
                                                                         pagenumber,
                                                                     ismoredata:

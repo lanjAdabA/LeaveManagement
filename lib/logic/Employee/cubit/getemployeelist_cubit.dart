@@ -13,14 +13,16 @@ class GetemployeelistCubit extends Cubit<PostState> {
 
   AuthRepository postRepository = AuthRepository();
   List<Employee>? emplistfinal = [];
-  void getemployeelist(
-      {required int pagenumber,
-      required bool ismoredata,
-      String? name,
-      int? deptid,
-      int? desigid,
-      int? branchid,
-      int? rolename}) async {
+  void getemployeelist({
+    required int pagenumber,
+    required bool ismoredata,
+    String? name,
+    int? deptid,
+    int? desigid,
+    int? branchid,
+    int? rolename,
+    String? isactive,
+  }) async {
     emit(PostLoadingState('Fetching Data..'));
     List allemptidlist = [];
     List<String> allempnamelist = [];
@@ -32,7 +34,8 @@ class GetemployeelistCubit extends Cubit<PostState> {
             deptid: deptid,
             branchid: branchid,
             desigid: desigid,
-            roleid: rolename);
+            roleid: rolename,
+            isactive: isactive);
 
         for (var element in emplist!) {
           emplistfinal!.add(element);
